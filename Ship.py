@@ -10,6 +10,7 @@ class Ship(Object):
         ship_ratio = 5
         Object.__init__(self, position, file_name, ship_ratio)
 
+    @staticmethod
     def shoot(self, location):
         # bullet = Object("")
         # return bullet
