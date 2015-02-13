@@ -12,6 +12,8 @@ class Ship(Object):
 
     @staticmethod
     def shoot(self, location):
+        assert False
+        # Asserts false because this method has not been implemented yet.
         # bullet = Object("")
         # return bullet
         # TODO: Shoot at location
