@@ -1,0 +1,16 @@
+Put up Mast:1
+Put up Left Sail:2
+Put up Right Sail:2
+Throw Water Overboard:3
+Talk to Captain:1
+Steer the Ship:1
+Set up Cannons:1
+Go talk to Crew:2
+Clean the Ship:1
+Steal some Coins:2
+Put up the Flag:2
+Look through the Telescope:4
+Move to the Bow:3
+Move to the Stern:3
+Move to Port Side of Boat:4
+Move to Starboard Side of Boat:4
