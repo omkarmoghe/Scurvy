@@ -1,2 +1,1 @@
-someInt = 1
-someDouble = 2
+# Include everything here.
