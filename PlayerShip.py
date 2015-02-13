@@ -10,7 +10,14 @@ class PlayerShip:
         self.health = 100
 
     # Overrides the Object's move so that rotating the ship is possible.
-    def move(self):
+    def move(self, instruction_completed, move_to_y):
+        max_y_speed = 10
+        if instruction_completed:
+            if move_to_y > self.rect.y:
+                self.velocity.y += max_y_speed
+            elif move_to_y < self.rect.y:
+                self.velocity.y -= max_y_speed
+
         super.move(self)
         # TODO: Calculate rotation and choose correct image
 

@@ -1,4 +1,3 @@
-import pygame
 import Object
 
 
@@ -10,10 +9,12 @@ class Ship(Object):
         ship_ratio = 5
         Object.__init__(self, position, file_name, ship_ratio)
 
-    @staticmethod
-    def shoot(self, location):
-        assert False
-        # Asserts false because this method has not been implemented yet.
-        # bullet = Object("")
-        # return bullet
-        # TODO: Shoot at location
+    # This function determines how to move the ship based on the location of the player and
+    # whether the instruction is completed
+    def use_AI_to_move(self, location_of_player, instruction_completed):
+        if (instruction_completed):
+            assert False
+            # TODO: IMPLEMENT ME TO MOVE AWAY FROM PLAYER
+        else:
+            assert False
+            # TODO: IMPLEMENT ME TO MOVE TOWARD PLAYER
