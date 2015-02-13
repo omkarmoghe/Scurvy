@@ -1,9 +1,15 @@
 import Object 
+import pygame
+import random
 
-class Obstacle(Object):
-    def __init__(self,damageGiven,position):
-        Object.init()
-        self.damageGiven  = damageGiven
+class Obstacle():
+    def __init__(self, xPosition, file_name, damageGiven):
+        self.obstacleObjects = []
+        self.yGapValue = random.uniform(0, 800)
+        # TODO: Add obstacles. Number of obstacles =  SCREEN_HEIGHT / SIZE_OF_OBJECT - 1 for all y locations
+        # except for at y gap value.
+        self.damageGiven = damageGiven
 
-    def drawObjects(self):
-       
+    def move(self):
+        for obstacle in self.obstacleObjects:
+            obstacle.move(self)
