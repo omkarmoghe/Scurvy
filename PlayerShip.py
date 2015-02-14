@@ -9,7 +9,8 @@ class PlayerShip(Ship):
         self.health = 100
         self.angle = 0
         self.folder_name = folder_name
-        Ship.init(self, position, str(folder_name) + "/PlayerShip" + str(self.angle) + ".png")
+        player_folder = str(folder_name) + "/PlayerShip" + str(self.angle) + ".png"
+        Ship.Ship.init(self, position, player_folder)
 
     # Overrides the Object's move so that rotating the ship is possible.
     def move(self, instruction_completed, move_to_y):

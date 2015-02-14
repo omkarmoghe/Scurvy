@@ -2,21 +2,22 @@ import pygame
 import PlayerShip
 import Point
 
+
 # This class creates the game play for the actual game.
 class Gameplay():
 
-    def __init__(self,difficulty, player1Name, player2Name, folder_name, screen_size):
+    def __init__(self, difficulty, player_1_name, player_2_name, folder_name, screen_size):
         self.difficulty = difficulty
-        self.player1Name = player1Name
-        self.player2Name = player2Name
-        self.visualScreen = Point(screen_size.x, screen_size.y / 2)
-        player_position = Point(self.visualScreen.x * 0.25, self.visualScreen.y / 2)
-        self.playerShip = PlayerShip(player_position, folder_name)
+        self.player1Name = player_1_name
+        self.player2Name = player_2_name
+        self.visual_screen = Point.Point(screen_size.x, screen_size.y / 2)
+        player_position = Point.Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
+        self.playerShip = PlayerShip.PlayerShip(player_position, folder_name)
         self.score = 0
         pygame.init()
         global WIDTH, HEIGHT, screen
         self.background = pygame.image.load("Resources/Background.png")
-        self.backgroundRect = background.get_rect()
+        self.backgroundRect = self.background.get_rect()
         WIDTH = screen_size.x
         HEIGHT = screen_size.y
         pygame.display.set_caption("Scurvy")
@@ -28,4 +29,4 @@ class Gameplay():
 
     def update(self):
         # TODO: Add stuff inside loop for game.
-        screen.blit(background, backgroundRect)  # Always draw the background.
+        screen.blit(self.background, self.backgroundRect)  # Always draw the background.

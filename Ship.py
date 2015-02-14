@@ -7,7 +7,7 @@ class Ship(Object):
 
     def __init__(self, position, file_name):
         ship_ratio = 5
-        Object.__init__(self, position, file_name, ship_ratio)
+        Object.Object.__init__(self, position, file_name, ship_ratio)
 
     # This function determines how to move the ship based on the location of the player and
     # whether the instruction is completed

@@ -1,10 +1,11 @@
 import pygame
-
+import Point
 
 
 # This is a generic object in the Game World. It has a nice initializer to create the Sprite.
 # It inherits from the pygame.sprite.Sprite class thus allowing all objects to be Sprites.
 class Object(pygame.sprite.Sprite):
+
     def __init__(self, position, file_name, velocity_ratio):
         # Initialize the Sprite
         pygame.sprite.Sprite.__init__(self)
@@ -17,7 +18,7 @@ class Object(pygame.sprite.Sprite):
         # position the image using the value passed.
         self.rect.center = (position.x, position.y)
         # Create a velocity variable for all objects.
-        self.velocity = Point(0, 0)
+        self.velocity = Point.Point(0, 0)
         # This is the velocity ratio that enables parallax motion.
         self.ratio = velocity_ratio
 
