@@ -1,4 +1,4 @@
-import Ship
+from Ship import *
 
 
 # This is the player ship object in the Game World. It has a nice initializer to create the Ship.
@@ -10,7 +10,7 @@ class PlayerShip(Ship):
         self.angle = 0
         self.folder_name = folder_name
         player_folder = str(folder_name) + "/PlayerShip" + str(self.angle) + ".png"
-        Ship.Ship.init(self, position, player_folder)
+        Ship.__init__(self, position, player_folder)
 
     # Overrides the Object's move so that rotating the ship is possible.
     def move(self, instruction_completed, move_to_y):
