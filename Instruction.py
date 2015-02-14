@@ -32,12 +32,12 @@ def get_instructions(file_name):
     for line in infile:
         pair = line.split(':')
         message = pair[0]
-        complexity = pair[1]
+        complexity = int(pair[1])
 
         if randint(0, 1):  # left_keys are 0, right_keys are 1
-            instr = Instruction(message, complexity, right_keys[randint(0, 20)])
+            instr = Instruction(message, complexity, right_keys[randint(0, 19)])
         else:
-            instr = Instruction(message, complexity, right_keys[randint(0, 20)])
+            instr = Instruction(message, complexity, right_keys[randint(0, 19)])
 
         instructions_2d[complexity].append(instr)
 
@@ -49,4 +49,14 @@ def get_instructions(file_name):
 # returns a random instruction of the specified complexity level
 def get_instruction(file_name, complexity):
     instructions_2d = get_instructions(file_name)
-    return instructions_2d[complexity][randint(0, len(instructions_2d[complexity]))]
+    return instructions_2d[complexity][randint(0, len(instructions_2d[complexity]) - 1)]
+
+# FOR TESTING
+# task = get_instructions("instructions.txt")
+# for t in task:
+#     for i in t:
+#         print i.message
+#         print i.complexity
+# task = get_instruction("instructions.txt", 0)
+# print task.message
+# print task.complexity
