@@ -1,12 +1,6 @@
 import pygame
 
 
-# This is like a mutable tuple to allow users to create a Point or Vector with labelled x and y components.
-class Point:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
 
 # This is a generic object in the Game World. It has a nice initializer to create the Sprite.
 # It inherits from the pygame.sprite.Sprite class thus allowing all objects to be Sprites.

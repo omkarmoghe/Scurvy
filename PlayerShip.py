@@ -3,11 +3,13 @@ import Ship
 
 # This is the player ship object in the Game World. It has a nice initializer to create the Ship.
 # It inherits from the Ship class.
-class PlayerShip:
+class PlayerShip(Ship):
 
-    def __init__(self, position):
-        Ship.init(self, position, "PlayerShip0.png")
+    def __init__(self, position, folder_name):
         self.health = 100
+        self.angle = 0
+        self.folder_name = folder_name
+        Ship.init(self, position, str(folder_name) + "/PlayerShip" + str(self.angle) + ".png")
 
     # Overrides the Object's move so that rotating the ship is possible.
     def move(self, instruction_completed, move_to_y):
@@ -17,9 +19,10 @@ class PlayerShip:
                 self.velocity.y += max_y_speed
             elif move_to_y < self.rect.y:
                 self.velocity.y -= max_y_speed
-
         super.move(self)
         # TODO: Calculate rotation and choose correct image
+        # angle = something other than what it was before.
+        # new image = folder name + PlayerShip + angle.png"
 
     # Use this method to update the health. It returns true if the player ship is alive and
     # false if the player ship has no health left.
