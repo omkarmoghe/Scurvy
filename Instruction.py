@@ -14,13 +14,23 @@ right_keys = [pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_0, pygame
 
 
 class Instruction ():
-    def __init__(self, message, complexity, ):
+    def __init__(self, message, complexity):
         self.message = message
         self.complexity = complexity
         self.key_stroke = pygame.K_0
+        self.player_number = 1
 
     def set_key(self, key_stroke):
         self.key_stroke = key_stroke
+        if left_keys.__contains__(key_stroke):
+            self.set_player(0)
+        elif right_keys.__contains__(key_stroke):
+            self.set_player(1)
+        else:
+            assert False
+    
+    def set_player(self, player_number):
+        self.player_number = player_number
 
     def check_key(self, key):
         return self.key_stroke == key
