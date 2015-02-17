@@ -20,6 +20,12 @@ class Instruction ():
         self.key_stroke = pygame.K_0
         self.player_number = 1
 
+    def __init__(self, instruction):
+        self.message = instruction.message
+        self.complexity = instruction.complexity
+        self.key_stroke = instruction.key_stroke
+        self.player_number = instruction.player_number
+
     def set_key(self, key_stroke):
         self.key_stroke = key_stroke
         if left_keys.__contains__(key_stroke):
@@ -27,13 +33,16 @@ class Instruction ():
         elif right_keys.__contains__(key_stroke):
             self.set_player(1)
         else:
-            assert False
-    
+            assert False  # Cause we should never reach here.
+
     def set_player(self, player_number):
         self.player_number = player_number
 
     def check_key(self, key):
         return self.key_stroke == key
+
+    def message(self):
+        return "Press " + self.key_stroke.string + " to " + self.message
 
 
 # returns a 2D list of Instructions from a text file
@@ -63,10 +72,21 @@ def get_instructions(file_name):
 
     return instructions_2d  # return the 2d array
 
+class DisplayInstruction(Instruction):
+    def __init__(self, instruction, player_displayed):
+        Instruction.__init__(instruction)
+        self.player_displayed = player_displayed
+
+    def draw(self, screen, screen_size):
+        xCoord = screen_size.x / 4
+        if self.player_number == 1:
+            xCoord = 3 * screen_size.x / 4
+        yCoord = screen_size.top
+
+
 
 # returns a random instruction of the specified complexity level
-def get_instruction(file_name, complexity):
-    instructions_2d = get_instructions(file_name)  # gets the 2d array from get_instructions()
+def get_instruction(instructions_2d, complexity):
     # get a random instruction from the given complexity (row)
     return instructions_2d[complexity][randint(0, len(instructions_2d[complexity]) - 1)]
 

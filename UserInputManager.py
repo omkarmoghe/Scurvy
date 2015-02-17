@@ -3,9 +3,13 @@ from Instruction import *
 
 class UserInputManager:
     def __init__(self):
-        self.instructions = []
-        self.current_instructions = []
         self.instructions_2d = get_instructions("instructions.txt")  # Save the 2D array of instructions
+        self.instructions = []
+
+
+        self.current_instructions = []
+        # TODO: Add a random instruction
+
 
     def append_instruction(self, instruction):
         self.instructions.append(instruction)
