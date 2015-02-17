@@ -91,4 +91,17 @@ class Gameplay():
         screen.blit(player1Label, player1LabelRect)
         screen.blit(player2Label, player2LabelRect)
 
-        # TODO: Draw score and health here.
+        scoreLabel = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format("SCORE: " + str(self.score)), True, (255, 255,
+                                                                                                              255))
+        scoreLabelRect = scoreLabel.get_rect()
+        scoreLabelRect.centerx = WIDTH / 4
+        scoreLabelRect.top = HEIGHT - 20
+        screen.blit(scoreLabel, scoreLabelRect)
+        
+        healthbar = pygame.image.load("Resources/healthbar.png")
+        health = pygame.image.load("Resources/health.png")
+        healthvalue=150
+        
+        screen.blit(healthbar, (WIDTH*5/8,HEIGHT-20))
+        for health1 in range(healthvalue):
+            screen.blit(health, (health1+WIDTH*5/8,HEIGHT-17))
