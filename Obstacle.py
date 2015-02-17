@@ -4,7 +4,7 @@ from Object import *
 from Point import *
 
 
-velocity_ratio = .5  # speed of obstacle relative to other objects
+velocity_ratio = 1.0  # speed of obstacle relative to other objects
 
 
 class Obstacle():
@@ -16,7 +16,8 @@ class Obstacle():
         self.x_pos = x_pos  # x position of obstacle
 
         # get height of object
-        obj = Object(Point(0, 0), file_name, velocity_ratio)
+        objectImage = pygame.image.load(file_name)
+        self.objectRect = objectImage.get_rect()
         self.object_height = obj.rect.height
 
         num_objects = self.screen_height / self.object_height - 2  # number of objects
@@ -37,6 +38,11 @@ class Obstacle():
     # returns the list of objects
     def get_obstacles(self):
         return self.obstacle_objects
+
+    def set_velocity(self, velocity):
+        for object in self.obstacle_objects:
+            object.velocity.x = velocity.x
+            object.velocity.y = velocity.y
 
     def check_collision(self, ship):
         for object in self.obstacle_objects:
