@@ -38,6 +38,9 @@ class Gameplay():
 
     def run_game(self):
         running = True
+        background_music = pygame.mixer.music
+        background_music.load('Resources/background_music1.wav')
+        background_music.play(-1, 0.0)
         while running:
             self.update()
             for event in pygame.event.get():
