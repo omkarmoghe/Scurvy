@@ -37,3 +37,9 @@ class Obstacle():
     # returns the list of objects
     def get_obstacles(self):
         return self.obstacle_objects
+
+    def check_collision(self, ship):
+        for object in self.obstacle_objects:
+            if pygame.sprite.collide_rect(self, ship):
+                return True  # HEALTH LOST HERE
+            return False
