@@ -5,6 +5,9 @@ from UserInputManager import *
 from Obstacle import *
 from Point import *
 
+standard_velocity = -2
+background_image = "Resources/Background.png"
+rock_damage = 40
 
 # This class creates the game play for the actual game.
 class Gameplay():
@@ -13,7 +16,7 @@ class Gameplay():
         pygame.init()
         global WIDTH, HEIGHT, screen
         pygame.display.set_caption("Scurvy")
-        self.background = pygame.image.load("Resources/Background.png")
+        self.background = pygame.image.load(background_image)
         self.backgroundRect = self.background.get_rect()
         WIDTH = self.backgroundRect.width
         HEIGHT = 3 * self.backgroundRect.height / 2
@@ -23,13 +26,13 @@ class Gameplay():
         self.player2Name = player_2_name
         self.visual_screen = Point(self.backgroundRect.width, self.backgroundRect.height)
         self.moving_background = Object(Point(self.visual_screen.x / 2, self.visual_screen.y / 2),
-                                        "Resources/Background.png", 0.5, Point(0, 0))
+                                        background_image, 0.5, Point(0, 0))
         self.moving_background_2 = Object(Point(self.visual_screen.x * 3 / 2, self.visual_screen.y / 2),
-                                            "Resources/Background.png", 0.5, Point(0, 0))
+                                            background_image, 0.5, Point(0, 0))
         player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
-        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", 20, self.visual_screen.y)
-        standard_velocity = -2
+        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen.y)
+
         self.obstacles.set_velocity(Point(standard_velocity, 0))
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
         self.score = 0
@@ -53,7 +56,6 @@ class Gameplay():
         screen.blit(self.moving_background.image, self.moving_background.rect)
         screen.blit(self.moving_background_2.image, self.moving_background_2.rect)
         self.obstacles.draw(screen)
-        # screen.blit(self.rock.image, self.rock.rect)
         screen.blit(self.playerShip.image, self.playerShip.rect)
         if self.moving_background.rect.right <= 0:
             self.moving_background.rect.left = WIDTH
@@ -64,9 +66,11 @@ class Gameplay():
         self.moving_background_2.move()
         pygame.draw.line(screen, (255, 255, 255, 1.0), (WIDTH / 2, self.visual_screen.y + 1), (WIDTH / 2, HEIGHT), 5)
         self.draw_score_and_health()
-        if self.obstacles.check_collision(self.playerShip) and self.collision_ended:
-            print "Collision Detected YAY"
-            self.collision_ended = False
+        damage = self.obstacles.check_collision(self.playerShip)
+        if damage:
+            if self.collision_ended:
+                self.playerShip.damage(damage)
+                self.collision_ended = False
         else:
             self.collision_ended = True
         # TODO: Add stuff inside loop for game.
@@ -79,6 +83,14 @@ class Gameplay():
         elif playerNumber == 1:
             assert False
             # TODO: Something else
+
+    def draw_instruction_panel(self, playerNumber, instructions):
+        if playerNumber == 0:
+            assert False
+            # TODO: Draw panel inputs for first player
+        elif playerNumber == 1:
+            assert False
+            # TODO: Draw panel inputs for second player
 
     def draw_score_and_health(self):
         player1Label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(self.player1Name),
