@@ -101,10 +101,10 @@ class Gameplay():
         scoreLabelRect.top = HEIGHT - 20
         screen.blit(scoreLabel, scoreLabelRect)
         
-        healthbar = pygame.image.load("Resources/healthbar.png")
-        health = pygame.image.load("Resources/health.png")
-        healthvalue=150
+        red_bar = pygame.image.load("Resources/healthbar.png")
+        green_bar = pygame.image.load("Resources/health.png")
+        health_value = self.playerShip.health
         
-        screen.blit(healthbar, (WIDTH*5/8,HEIGHT-20))
-        for health1 in range(healthvalue):
-            screen.blit(health, (health1+WIDTH*5/8,HEIGHT-17))
+        screen.blit(red_bar, (WIDTH * 5 / 8, HEIGHT - 20))
+        for thisHealth in range(health_value):
+            screen.blit(green_bar, (thisHealth + WIDTH * 5 / 8, HEIGHT - 17))

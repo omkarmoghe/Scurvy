@@ -6,7 +6,7 @@ from Point import *
 class PlayerShip(Ship):
 
     def __init__(self, position, folder_name):
-        self.health = 100
+        self.health = 200
         self.angle = 0
         self.folder_name = folder_name
         player_folder = str(folder_name) + "/PlayerShip" + str(self.angle) + ".png"
