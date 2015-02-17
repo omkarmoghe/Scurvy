@@ -4,7 +4,7 @@ from Object import *
 from Point import *
 
 
-velocity_ratio = .5  # speed of obstacle relative to other objects
+velocity_ratio = 1.0  # speed of obstacle relative to other objects
 
 
 class Obstacle():
@@ -38,6 +38,7 @@ class Obstacle():
     def get_obstacles(self):
         return self.obstacle_objects
 
+    # checks collision against rocks
     def check_collision(self, ship):
         for object in self.obstacle_objects:
             if pygame.sprite.collide_rect(object, ship):
