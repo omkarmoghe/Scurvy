@@ -10,11 +10,11 @@ class Object(pygame.sprite.Sprite):
         # Initialize the Sprite
         pygame.sprite.Sprite.__init__(self)
         # load the image, converting the pixel format for optimization
-        self.image = pygame.image.load(file_name).convert()
+        self.image = pygame.image.load(file_name)
         if image_size.x != 0 and image_size.y != 0:
             self.image = pygame.transform.scale(self.image, (image_size.x, image_size.y))
         # make 'color' transparent on the image
-        self.image.set_colorkey((0, 0, 0))
+        self.image.set_colorkey((0, 0, 0, 0))
         # set the rectangle defined for this image for collision detection
         self.rect = self.image.get_rect()
         # position the image using the value passed.
