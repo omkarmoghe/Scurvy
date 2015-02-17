@@ -20,11 +20,6 @@ class Instruction ():
         self.key_stroke = pygame.K_0
         self.player_number = 1
 
-    def __init__(self, instruction):
-        self.message = instruction.message
-        self.complexity = instruction.complexity
-        self.key_stroke = instruction.key_stroke
-        self.player_number = instruction.player_number
 
     def set_key(self, key_stroke):
         self.key_stroke = key_stroke
@@ -74,7 +69,10 @@ def get_instructions(file_name):
 
 class DisplayInstruction(Instruction):
     def __init__(self, instruction, player_displayed):
-        Instruction.__init__(instruction)
+        self.message = instruction.message
+        self.complexity = instruction.complexity
+        self.key_stroke = instruction.key_stroke
+        self.player_number = instruction.player_number
         self.player_displayed = player_displayed
 
     def draw(self, screen, screen_size):
