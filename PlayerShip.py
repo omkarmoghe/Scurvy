@@ -11,6 +11,9 @@ class PlayerShip(Ship):
         self.folder_name = folder_name
         player_folder = str(folder_name) + "/PlayerShip" + str(self.angle) + ".png"
         Ship.__init__(self, position, player_folder)
+        self.image = pygame.transform.scale(self.image, (150, 150))
+        self.rect = self.image.get_rect()
+        self.rect.center = (position.x, position.y)
 
     # Overrides the Object's move so that rotating the ship is possible.
     def move(self, instruction_completed, move_to_y):
