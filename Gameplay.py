@@ -37,9 +37,6 @@ class Gameplay():
         self.collision_ended = True
 
     def run_game(self):
-        background_music = pygame.mixer.music
-        background_music.load('Resources/background_music1.mp3')
-        background_music.play(-1, 0.0)
         running = True
         while running:
             self.update()
