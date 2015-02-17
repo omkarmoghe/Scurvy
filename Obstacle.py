@@ -17,26 +17,19 @@ class Obstacle():
         # get height of object
         objectImage = pygame.image.load(file_name)
         self.objectRect = objectImage.get_rect()
-<<<<<<< HEAD
-        self.x_pos = x_pos + self.objectRect.width / 2 # x position of obstacle
         num_objects = self.screen_height / self.objectRect.height  # number of objects
-=======
-        self.object_height = obj.rect.height
-
-        num_objects = self.screen_height / self.object_height - 2  # number of objects
->>>>>>> ObstacleInsteadOfRock
 
         # add object to the obstacle_objects list
         point = Point(x_pos, self.objectRect.width / 2)
         for i in range(0, num_objects):
-            obst = Object(point, file_name, velocity_ratio, Point(0,0))
-            self.obstacle_objects.append(obst)
+            obstacle = Object(point, file_name, velocity_ratio, Point(0, 0))
+            self.obstacle_objects.append(obstacle)
             point.y += self.objectRect.height
             # TODO create gap
 
     def draw(self, screen):
-        for object in self.obstacle_objects:
-            screen.blit(object.image, object.rect)
+        for obstacle in self.obstacle_objects:
+            screen.blit(obstacle.image, obstacle.rect)
 
     # moves the objects in this obstacle
     def move(self, screen_width):
@@ -50,18 +43,10 @@ class Obstacle():
         return self.obstacle_objects
 
     def set_velocity(self, velocity):
-<<<<<<< HEAD
-        for obstacle in self.obstacle_objects:
-            obstacle.velocity.x = velocity.x
-            obstacle.velocity.y = velocity.y
-
-    # checks collision against rocks
-=======
         for object in self.obstacle_objects:
             object.velocity.x = velocity.x
             object.velocity.y = velocity.y
 
->>>>>>> ObstacleInsteadOfRock
     def check_collision(self, ship):
         for object in self.obstacle_objects:
             if pygame.sprite.collide_rect(object, ship):

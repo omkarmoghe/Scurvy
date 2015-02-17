@@ -3,10 +3,7 @@ from pygame.locals import *
 from PlayerShip import *
 from UserInputManager import *
 from Obstacle import *
-<<<<<<< HEAD
-=======
 from Point import *
->>>>>>> ObstacleInsteadOfRock
 
 
 # This class creates the game play for the actual game.
@@ -31,16 +28,9 @@ class Gameplay():
                                             "Resources/Background.png", 0.5, Point(0, 0))
         player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
-<<<<<<< HEAD
         self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", 20, self.visual_screen.y)
         standard_velocity = -2
         self.obstacles.set_velocity(Point(standard_velocity, 0))
-=======
-        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", 20, HEIGHT)
-        # self.rock = Rock(Point(WIDTH, 0))
-        standard_velocity = -2
-        self.obstacles.set_velocity(standard_velocity)
->>>>>>> ObstacleInsteadOfRock
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
         self.score = 0
         self.user_manager = UserInputManager()
@@ -48,7 +38,7 @@ class Gameplay():
 
     def run_game(self):
         background_music = pygame.mixer.music
-        background_music.load("Resources/background_music1.mp3")
+        background_music.load('Resources/background_music1.mp3')
         background_music.play(-1, 0.0)
         running = True
         while running:
@@ -91,13 +81,13 @@ class Gameplay():
             # TODO: Something else
 
     def draw_score_and_health(self):
-        player1Label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(self.player1Name), True, (255, 255,
-                                                                                                              255))
+        player1Label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(self.player1Name),
+                                                                                        True, (255, 255, 255))
         player1LabelRect = player1Label.get_rect()
         player1LabelRect.centerx = WIDTH / 4
         player1LabelRect.top = self.visual_screen.y + 5
-        player2Label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(self.player2Name), True, (255, 255,
-                                                                                                              255))
+        player2Label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(self.player2Name),
+                                                                                        True, (255, 255, 255))
         player2LabelRect = player2Label.get_rect()
         player2LabelRect.centerx = 3 * WIDTH / 4
         player2LabelRect.top = self.visual_screen.y + 5
