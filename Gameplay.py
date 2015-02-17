@@ -53,6 +53,7 @@ class Gameplay():
                     self.user_manager.check_inputs(event.key)
 
     def update(self):
+        crash_sound = pygame.mixer.Sound('Resources/crash.wav')
         screen.blit(self.moving_background.image, self.moving_background.rect)
         screen.blit(self.moving_background_2.image, self.moving_background_2.rect)
         self.obstacles.draw(screen)
@@ -70,6 +71,7 @@ class Gameplay():
         if damage:
             if self.collision_ended:
                 self.playerShip.damage(damage)
+                crash_sound.play()
                 self.collision_ended = False
         else:
             self.collision_ended = True
