@@ -39,9 +39,9 @@ def get_instructions(file_name):
         complexity = int(pair[1])
 
         if randint(0, 1):  # left_keys are 0, right_keys are 1
-            instr = Instruction(message, complexity, right_keys[randint(0, 19)])
+            instr = Instruction(message, complexity)  # right_keys[randint(0, 19)]
         else:
-            instr = Instruction(message, complexity, left_keys[randint(0, 19)])
+            instr = Instruction(message, complexity)  # left_keys[randint(0, 19)]
 
         instructions_2d[complexity].append(instr)
 
