@@ -14,9 +14,12 @@ right_keys = [pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_0, pygame
 
 
 class Instruction ():
-    def __init__(self, message, complexity, key_stroke):
+    def __init__(self, message, complexity, ):
         self.message = message
         self.complexity = complexity
+        self.key_stroke = pygame.K_0
+
+    def set_key(self, key_stroke):
         self.key_stroke = key_stroke
 
     def check_key(self, key):
@@ -40,9 +43,9 @@ def get_instructions(file_name):
 
         # pick between either left player or right player to assign the instruction to
         if randint(0, 1):  # left_keys are 0, right_keys are 1
-            instr = Instruction(message, complexity, right_keys[randint(0, 19)])
+            instr = Instruction(message, complexity)
         else:
-            instr = Instruction(message, complexity, right_keys[randint(0, 19)])
+            instr = Instruction(message, complexity)  # right_keys[randint(0, 19)]
 
         instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right row (complexity)
 
