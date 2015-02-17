@@ -15,14 +15,6 @@ class Obstacle():
         self.damageGiven = damage_given
         self.x_pos = x_pos
 
-=======
-
-
-class Obstacle():
-    def __init__(self, xPosition, file_name, damageGiven):
-        self.obstacleObjects = []
-        # self.yGapValue = random.uniform(0, 800)
->>>>>>> Gameplay-Branch
         # TODO: Add obstacles. Number of obstacles =  SCREEN_HEIGHT / SIZE_OF_OBJECT - 1 for all y locations
         rock = Object(Point(0, 0), file_name, velocity_ratio)
         num_objects = self.screen_height / 
