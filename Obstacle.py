@@ -1,24 +1,39 @@
-import Object
-import Point
-import pygame
 import random
-from pygame import *
+
+from Object import *
+from Point import *
+
 
 velocity_ratio = .5  # speed of obstacle relative to other objects
 
 
 class Obstacle():
-    def __init__(self, x_pos, file_name, damage_given):
-        self.obstacle_objects = self.create_objects(file_name)
-        self.gap = random.uniform(0, 800)
-        self.screen_height = pygame.display.Info().current_h / 2
-        self.damageGiven = damage_given
-        self.x_pos = x_pos
+    def __init__(self, x_pos, file_name, damage_given, screen_height):
+        self.obstacle_objects = []  # list of obstacle objects
+        self.gap = random.uniform(0, screen_height)  # location of gap (not used as of alpha release)
+        self.screen_height = screen_height  # height of graphics screen
+        self.damageGiven = damage_given  # damage given by this obstacle type
+        self.x_pos = x_pos  # x position of obstacle
 
-        # TODO: Add obstacles. Number of obstacles =  SCREEN_HEIGHT / SIZE_OF_OBJECT - 1 for all y locations
-        rock = Object(Point(0, 0), file_name, velocity_ratio)
-        num_objects = self.screen_height / 
+        # get height of object
+        obj = Object(Point(0, 0), file_name, velocity_ratio)
+        self.object_height = obj.rect.height
 
+        num_objects = self.screen_height / self.object_height - 2  # number of objects
+
+        # add object to the obstacle_objects list
+        point = Point(x_pos, 0)
+        for i in range(0, num_objects):
+            obst = Object(point, file_name, velocity_ratio)
+            self.obstacle_objects.append(obst)
+            point.y += self.object_height
+            # TODO create gap
+
+    # moves the objects in this obstacle
     def move(self):
         for obstacle in self.obstacle_objects:
             obstacle.move(self)
+
+    # returns the list of objects
+    def get_obstacles(self):
+        return self.obstacle_objects
