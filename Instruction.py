@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 from random import randint
 
 max_difficulty = 3  # starts at 0
@@ -14,9 +15,12 @@ right_keys = [pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_0, pygame
 
 
 class Instruction ():
-    def __init__(self, message, complexity, key_stroke):
+    def __init__(self, message, complexity):
         self.message = message
         self.complexity = complexity
+        self.key_stroke = K_a
+
+    def set_key_stroke(self, key_stroke):
         self.key_stroke = key_stroke
 
     def check_key(self, key):
@@ -40,9 +44,9 @@ def get_instructions(file_name):
 
         # pick between either left player or right player to assign the instruction to
         if randint(0, 1):  # left_keys are 0, right_keys are 1
-            instr = Instruction(message, complexity, right_keys[randint(0, 19)])
+            instr = Instruction(message, complexity)  # right_keys[randint(0, 19)]
         else:
-            instr = Instruction(message, complexity, right_keys[randint(0, 19)])
+            instr = Instruction(message, complexity)  # left_keys[randint(0, 19)]
 
         instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right row (complexity)
 
@@ -52,9 +56,13 @@ def get_instructions(file_name):
 
 
 # returns a random instruction of the specified complexity level
+<<<<<<< HEAD
 def get_instruction(file_name, complexity):
     instructions_2d = get_instructions(file_name)  # gets the 2d array from get_instructions()
     # get a random instruction from the given complexity (row)
+=======
+def get_instruction(instructions_2d, complexity):
+>>>>>>> Gameplay-Branch
     return instructions_2d[complexity][randint(0, len(instructions_2d[complexity]) - 1)]
 
 # FOR TESTING
