@@ -29,6 +29,3 @@ class PlayerShip(Ship):
     # false if the player ship has no health left.
     def damage(self, damage_done):
         self.health -= damage_done
-        if (self.health <= 0):
-            return False
-        return True

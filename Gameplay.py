@@ -4,6 +4,8 @@ from PlayerShip import *
 from UserInputManager import *
 from Obstacle import *
 from Point import *
+from Tkinter import *
+from tkMessageBox import *
 
 standard_velocity = -2
 background_image = "Resources/Background.png"
@@ -57,6 +59,8 @@ class Gameplay():
         self.user_manager.set_player_instructions()
         while running:
             self.update()
+            if self.playerShip.health <= 0:
+                running = False
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                     running = False
@@ -67,7 +71,12 @@ class Gameplay():
                         self.playerShip.damage(10)
                     elif score_value:
                         self.instructions_completed(score_value)
+        Button(text="Restart Game", command=self.run_game().pack(fill=X))
+        Button(text="Quit Game", command=self.quit_game().pack(fill=X))
+        mainloop()
 
+    def quit_game(self):
+        pygame.quit()
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()
