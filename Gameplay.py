@@ -62,8 +62,12 @@ class Gameplay():
                     running = False
                 if event.type == KEYDOWN and self.obstacles.obstacle_objects[0].rect.left > self.playerShip.rect.right:
                     score_value = self.user_manager.check_inputs(event.key)
-                    if score_value:
+                    if score_value == -1:
+                        self.incorrect_sound.play()
+                        self.playerShip.damage(10)
+                    elif score_value:
                         self.instructions_completed(score_value)
+
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()

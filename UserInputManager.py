@@ -53,3 +53,4 @@ class UserInputManager:
                     self.total_score = 0
                     return this_total
                 return 0
+        return -1
