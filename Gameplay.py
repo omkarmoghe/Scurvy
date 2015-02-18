@@ -8,6 +8,8 @@ from Point import *
 standard_velocity = -2
 background_image = "Resources/Background.png"
 rock_damage = 40
+global font_file
+font_file = "Resources/font.otf"
 
 # This class creates the game play for the actual game.
 class Gameplay():
@@ -91,31 +93,32 @@ class Gameplay():
     def draw_instruction_panel(self):
         for display_instruction in self.user_manager.current_instructions:
             display_instruction.draw(screen, self.visual_screen)
+
+        offset = 80 + self.visual_screen.y
+
         for (i, instruction) in enumerate(self.user_manager.instructions):
-            instruction_label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(instruction.get_message()),
+            instruction_label = pygame.font.Font(font_file, 15).render('{0}'.format(instruction.get_message()),
                                                                                         True, (255, 255, 255))
             instruction_label_rect = instruction_label.get_rect()
-
+            instruction_label_rect.centery = offset + i * 30
+            if i >= len(self.user_manager.instructions) / 2:
+                instruction_label_rect.centery = offset + (i - (len(self.user_manager.instructions) / 2)) * 30
             if instruction.player_number == 0:
                 instruction_label_rect.centerx = WIDTH * 1 / 4
-                instruction_label_rect
             elif instruction.player_number == 1:
                 instruction_label_rect.centerx = WIDTH * 3 / 4
-
             else:
                 assert False
-
             screen.blit(instruction_label, instruction_label_rect)
-                # TODO: Draw panel inputs for second player
 
 
     def draw_score_and_health(self):
-        player1Label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(self.player1Name),
+        player1Label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player1Name),
                                                                                         True, (255, 255, 255))
         player1LabelRect = player1Label.get_rect()
         player1LabelRect.centerx = WIDTH / 4
         player1LabelRect.top = self.visual_screen.y + 5
-        player2Label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(self.player2Name),
+        player2Label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player2Name),
                                                                                         True, (255, 255, 255))
         player2LabelRect = player2Label.get_rect()
         player2LabelRect.centerx = 3 * WIDTH / 4
@@ -123,7 +126,7 @@ class Gameplay():
         screen.blit(player1Label, player1LabelRect)
         screen.blit(player2Label, player2LabelRect)
 
-        scoreLabel = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format("SCORE: " + str(self.score)), True, (255, 255,
+        scoreLabel = pygame.font.Font(font_file, 15).render('{0}'.format("SCORE: " + str(self.score)), True, (255, 255,
                                                                                                               255))
         scoreLabelRect = scoreLabel.get_rect()
         scoreLabelRect.centerx = WIDTH / 4

@@ -1,6 +1,7 @@
 import pygame
 from random import randint
 
+
 max_difficulty = 3  # starts at 0
 
 # list of left player keys
@@ -20,8 +21,8 @@ class Instruction ():
         self.key_stroke = pygame.K_0
         self.player_number = 1
 
-
     def set_player(self, player_number):
+        self.player_number = player_number
         if player_number == 0:
             self.key_stroke = left_keys[randint(0, len(left_keys) - 1)]
         elif player_number == 1:
@@ -54,7 +55,7 @@ class DisplayInstruction(Instruction):
         if self.player_displayed == 1:
             x_coord = 3 * screen_size.x / 4
         y_coord = screen_size.y + 50
-        instruction_label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(self.message),
+        instruction_label = pygame.font.Font("Resources/font.otf", 15).render('{0}'.format(self.message),
                                                                                         True, (255, 255, 255))
         instruction_label_rect = instruction_label.get_rect()
         instruction_label_rect.centerx = x_coord
