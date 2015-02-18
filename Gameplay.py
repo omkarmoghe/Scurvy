@@ -41,12 +41,17 @@ class Gameplay():
         self.score = 0
         self.user_manager = UserInputManager()
         self.collision_ended = True
+        self.correct_sound = pygame.mixer.Sound('Resources/correct_press.wav')
+        self.incorrect_sound = pygame.mixer.Sound('Resources/incorrect_press.wav')
+        self.crash_sound = pygame.mixer.Sound('Resources/crash.wav')
+
 
     def run_game(self):
         running = True
         background_music = pygame.mixer.music
         background_music.load('Resources/background_music1.wav')
         background_music.play(-1, 0.0)
+
         # THESE ARE HARD CODED COMPLEXITIES THAT WE NEED TO CHANGE IN BETA
         self.user_manager.populate_random_panel_instructions(4, 1)
         self.user_manager.set_player_instructions()
@@ -61,7 +66,7 @@ class Gameplay():
                         self.instructions_completed(score_value)
 
     def instructions_completed(self, add_score):
-        # TODO: Play cool sound from ed
+        self.correct_sound.play()
         self.obstacles.reset_position(WIDTH)
         self.score += add_score
         self.user_manager.instructions = []
@@ -69,7 +74,7 @@ class Gameplay():
         self.user_manager.set_player_instructions()
 
     def update(self):
-        crash_sound = pygame.mixer.Sound('Resources/crash.wav')
+
         screen.fill((0, 0, 0))
         screen.blit(self.moving_background.image, self.moving_background.rect)
         screen.blit(self.moving_background_2.image, self.moving_background_2.rect)
@@ -89,7 +94,7 @@ class Gameplay():
         if damage:
             if self.collision_ended:
                 self.playerShip.damage(damage)
-                crash_sound.play()
+                self.crash_sound.play()
                 self.collision_ended = False
         else:
             self.collision_ended = True
