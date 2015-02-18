@@ -1,6 +1,7 @@
 import pygame
 from random import randint
 
+
 max_difficulty = 3  # starts at 0
 
 # list of left player keys
@@ -14,16 +15,52 @@ right_keys = [pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9, pygame.K_0, pygame
 
 
 class Instruction ():
-    def __init__(self, message, complexity, ):
+    def __init__(self, message, complexity):
         self.message = message
         self.complexity = complexity
         self.key_stroke = pygame.K_0
+        self.player_number = 1
 
-    def set_key(self, key_stroke):
-        self.key_stroke = key_stroke
+    def set_player(self, player_number):
+        self.player_number = player_number
+        if player_number == 0:
+            self.key_stroke = left_keys[randint(0, len(left_keys) - 1)]
+        elif player_number == 1:
+            self.key_stroke = right_keys[randint(0, len(right_keys) - 1)]
+        else:
+            assert False
+        self.player_number = player_number
 
     def check_key(self, key):
         return self.key_stroke == key
+
+    def get_message(self):
+        return "Press " + pygame.key.name(self.key_stroke) + " to " + self.message
+
+
+class DisplayInstruction(Instruction):
+    def __init__(self, instruction, player_displayed):
+        self.message = instruction.message
+        self.complexity = instruction.complexity
+        self.key_stroke = instruction.key_stroke
+        self.player_number = instruction.player_number
+        self.player_displayed = player_displayed
+
+    def calculate_score(self):
+        return self.complexity + 1
+        # TODO: Some awesome algorithm to calculate the score
+
+    def draw(self, screen, screen_size):
+        x_coord = screen_size.x / 4
+        if self.player_displayed == 1:
+            x_coord = 3 * screen_size.x / 4
+        y_coord = screen_size.y + 50
+        instruction_label = pygame.font.Font("Resources/font.otf", 15).render('{0}'.format(self.message),
+                                                                                        True, (255, 255, 255))
+        instruction_label_rect = instruction_label.get_rect()
+        instruction_label_rect.centerx = x_coord
+        instruction_label_rect.top = y_coord
+        screen.blit(instruction_label, instruction_label_rect)
 
 
 # returns a 2D list of Instructions from a text file
@@ -55,8 +92,7 @@ def get_instructions(file_name):
 
 
 # returns a random instruction of the specified complexity level
-def get_instruction(file_name, complexity):
-    instructions_2d = get_instructions(file_name)  # gets the 2d array from get_instructions()
+def get_instruction(instructions_2d, complexity):
     # get a random instruction from the given complexity (row)
     return instructions_2d[complexity][randint(0, len(instructions_2d[complexity]) - 1)]
 
