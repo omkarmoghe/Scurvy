@@ -21,15 +21,18 @@ class Instruction ():
         self.key_stroke = pygame.K_0
         self.player_number = 1
 
-    def set_player(self, player_number):
+    def set_player(self, player_number, used_keys):
         self.player_number = player_number
         if player_number == 0:
             self.key_stroke = left_keys[randint(0, len(left_keys) - 1)]
+            while used_keys.__contains__(self.key_stroke):
+                self.key_stroke = left_keys[randint(0, len(left_keys) - 1)]
         elif player_number == 1:
             self.key_stroke = right_keys[randint(0, len(right_keys) - 1)]
+            while used_keys.__contains__(self.key_stroke):
+                self.key_stroke = right_keys[randint(0, len(right_keys) - 1)]
         else:
             assert False
-        self.player_number = player_number
 
     def check_key(self, key):
         return self.key_stroke == key
@@ -54,9 +57,9 @@ class DisplayInstruction(Instruction):
         x_coord = screen_size.x / 4
         if self.player_displayed == 1:
             x_coord = 3 * screen_size.x / 4
-        y_coord = screen_size.y + 50
+        y_coord = screen_size.y + 35
         instruction_label = pygame.font.Font("Resources/font.otf", 15).render('{0}'.format(self.message),
-                                                                                        True, (255, 255, 255))
+                                                                              True, (255, 255, 255))
         instruction_label_rect = instruction_label.get_rect()
         instruction_label_rect.centerx = x_coord
         instruction_label_rect.top = y_coord

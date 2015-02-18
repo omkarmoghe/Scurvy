@@ -11,6 +11,7 @@ rock_damage = 40
 global font_file
 font_file = "Resources/font.otf"
 
+
 # This class creates the game play for the actual game.
 class Gameplay():
 
@@ -63,10 +64,13 @@ class Gameplay():
         # TODO: Play cool sound from ed
         self.obstacles.reset_position(WIDTH)
         self.score += add_score
+        self.user_manager.instructions = []
+        self.user_manager.populate_random_panel_instructions(4, 1)
         self.user_manager.set_player_instructions()
 
     def update(self):
         crash_sound = pygame.mixer.Sound('Resources/crash.wav')
+        screen.fill((0, 0, 0))
         screen.blit(self.moving_background.image, self.moving_background.rect)
         screen.blit(self.moving_background_2.image, self.moving_background_2.rect)
         self.obstacles.draw(screen)

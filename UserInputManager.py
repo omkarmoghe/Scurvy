@@ -14,11 +14,21 @@ class UserInputManager:
         for i in range(number_of_instructions):
             # TODO : Calculate complexity based on a normal distribution or something fancy
             complexity = mean_complexity
-            this_instruction = get_instruction(self.instructions_2d, complexity)
+            unique = False
+            while not unique:
+                this_instruction = get_instruction(self.instructions_2d, complexity)
+                unique = True
+                for instruction in self.instructions:
+                    if instruction.message == this_instruction.message:
+                        unique = False
+                        break
             if i >= number_of_instructions / 2:
-                player_to_assign_to = 1
-            print player_to_assign_to
-            this_instruction.set_player(player_to_assign_to)
+                    player_to_assign_to = 1
+            usedKeys = []
+            for instruction in self.instructions:
+                usedKeys.append(instruction.key_stroke)
+            this_instruction.set_player(player_to_assign_to, usedKeys)
+            print this_instruction.get_message()
             self.instructions.append(this_instruction)
 
     def set_player_instructions(self):
@@ -37,8 +47,8 @@ class UserInputManager:
         for (i, instruction) in enumerate(self.current_instructions):
             if instruction.check_key(key_pressed):
                 self.total_score += self.current_instructions[i].calculate_score()
-                self.current_instructions.remove(i)
-                if ~len(self.current_instructions):
+                self.current_instructions.remove(instruction)
+                if not len(self.current_instructions):
                     this_total = self.total_score
                     self.total_score = 0
                     return this_total
