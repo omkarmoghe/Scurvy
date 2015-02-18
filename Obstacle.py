@@ -36,7 +36,12 @@ class Obstacle():
         for obstacle in self.obstacle_objects:
             obstacle.move()
             if obstacle.rect.right <= 0:
-                obstacle.rect.left = screen_width
+                self.reset_position(screen_width)
+                break
+
+    def reset_position(self, screen_width):
+        for obstacle in self.obstacle_objects:
+            obstacle.rect.left = screen_width
 
     # returns the list of objects
     def get_obstacles(self):

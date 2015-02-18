@@ -44,18 +44,30 @@ class Gameplay():
         background_music = pygame.mixer.music
         background_music.load('Resources/background_music1.wav')
         background_music.play(-1, 0.0)
+        # THESE ARE HARD CODED COMPLEXITIES THAT WE NEED TO CHANGE IN BETA
+        self.user_manager.populate_random_panel_instructions(4, 1)
+        self.user_manager.set_player_instructions()
         while running:
             self.update()
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                     running = False
-                if event.type == KEYDOWN:
-                    self.user_manager.check_inputs(event.key)
+                if event.type == KEYDOWN and self.obstacles.obstacle_objects[0].rect.left > self.playerShip.rect.right:
+                    score_value = self.user_manager.check_inputs(event.key)
+                    if score_value:
+                        self.instructions_completed(score_value)
+
+    def instructions_completed(self, add_score):
+        # TODO: Play cool sound from ed
+        self.obstacles.reset_position(WIDTH)
+        self.score += add_score
+        self.user_manager.set_player_instructions()
 
     def update(self):
         screen.blit(self.moving_background.image, self.moving_background.rect)
         screen.blit(self.moving_background_2.image, self.moving_background_2.rect)
         self.obstacles.draw(screen)
+        self.draw_instruction_panel()
         screen.blit(self.playerShip.image, self.playerShip.rect)
         if self.moving_background.rect.right <= 0:
             self.moving_background.rect.left = WIDTH
@@ -76,21 +88,26 @@ class Gameplay():
         # TODO: Add stuff inside loop for game.
         pygame.display.update()
 
-    def draw_instruction(self, playerNumber, stringForInstruction):
-        if playerNumber == 0:
-            assert False
-            # TODO: Something
-        elif playerNumber == 1:
-            assert False
-            # TODO: Something else
+    def draw_instruction_panel(self):
+        for display_instruction in self.user_manager.current_instructions:
+            display_instruction.draw(screen, self.visual_screen)
+        for (i, instruction) in enumerate(self.user_manager.instructions):
+            instruction_label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(instruction.get_message()),
+                                                                                        True, (255, 255, 255))
+            instruction_label_rect = instruction_label.get_rect()
 
-    def draw_instruction_panel(self, playerNumber, instructions):
-        if playerNumber == 0:
-            assert False
-            # TODO: Draw panel inputs for first player
-        elif playerNumber == 1:
-            assert False
-            # TODO: Draw panel inputs for second player
+            if instruction.player_number == 0:
+                instruction_label_rect.centerx = WIDTH * 1 / 4
+                instruction_label_rect
+            elif instruction.player_number == 1:
+                instruction_label_rect.centerx = WIDTH * 3 / 4
+
+            else:
+                assert False
+
+            screen.blit(instruction_label, instruction_label_rect)
+                # TODO: Draw panel inputs for second player
+
 
     def draw_score_and_health(self):
         player1Label = pygame.font.Font('Resources/SourceCodePro-Light.otf', 15).render('{0}'.format(self.player1Name),
