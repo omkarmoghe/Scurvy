@@ -160,3 +160,12 @@ class Gameplay():
         screen.blit(red_bar, (WIDTH * 5 / 8, HEIGHT - 20))
         for thisHealth in range(health_value):
             screen.blit(green_bar, (thisHealth + WIDTH * 5 / 8, HEIGHT - 17))
+
+
+
+
+
+
+
+
+
