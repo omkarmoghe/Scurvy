@@ -5,8 +5,8 @@ from UserInputManager import *
 from Obstacle import *
 from Point import *
 
-standard_velocity = -2
 background_image = "Resources/Background.png"
+standard_velocity = -1
 rock_damage = 40
 global font_file
 font_file = "Resources/font.otf"
@@ -53,8 +53,9 @@ class Gameplay():
         background_music.play(-1, 0.0)
 
         # THESE ARE HARD CODED COMPLEXITIES THAT WE NEED TO CHANGE IN BETA
-        self.user_manager.populate_random_panel_instructions(4, 1)
+        self.user_manager.populate_random_panel_instructions(4, self.difficulty)
         self.user_manager.set_player_instructions()
+        speed = -1
         while running:
             self.update()
             if self.playerShip.health <= 0:
@@ -69,6 +70,10 @@ class Gameplay():
                         self.playerShip.damage(10)
                     elif score_value:
                         self.instructions_completed(score_value)
+                        if speed < 5.1:
+                            speed -= .1
+                        self.obstacles.set_velocity(Point(speed, 0))
+
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()
@@ -79,7 +84,6 @@ class Gameplay():
         self.user_manager.set_player_instructions()
 
     def update(self):
-
         screen.fill((0, 0, 0))
         screen.blit(self.moving_background.image, self.moving_background.rect)
         screen.blit(self.moving_background_2.image, self.moving_background_2.rect)
@@ -148,11 +152,11 @@ class Gameplay():
         scoreLabelRect.centerx = WIDTH / 4
         scoreLabelRect.top = HEIGHT - 20
         screen.blit(scoreLabel, scoreLabelRect)
-        
+
         red_bar = pygame.image.load("Resources/healthbar.png")
         green_bar = pygame.image.load("Resources/health.png")
         health_value = self.playerShip.health
-        
+
         screen.blit(red_bar, (WIDTH * 5 / 8, HEIGHT - 20))
         for thisHealth in range(health_value):
             screen.blit(green_bar, (thisHealth + WIDTH * 5 / 8, HEIGHT - 17))

@@ -14,3 +14,5 @@ Move to the Bow:2
 Move to the Stern:2
 Move to Port Side of Boat:3
 Move to Starboard Side of Boat:3
+Listen to the Captain: 3
+Make a Peg Leg: 2

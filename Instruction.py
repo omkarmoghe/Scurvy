@@ -38,7 +38,7 @@ class Instruction ():
         return self.key_stroke == key
 
     def get_message(self):
-        return "Press " + pygame.key.name(self.key_stroke) + " to " + self.message
+        return "Press " + pygame.key.name(self.key_stroke) + " - " + self.message
 
 
 class DisplayInstruction(Instruction):
@@ -97,7 +97,7 @@ def get_instructions(file_name):
 # returns a random instruction of the specified complexity level
 def get_instruction(instructions_2d, complexity):
     # get a random instruction from the given complexity (row)
-    return instructions_2d[complexity][randint(0, len(instructions_2d[complexity]) - 1)]
+    return instructions_2d[randint(0,complexity)][randint(0, len(instructions_2d[complexity]) - 1)]
 
 # FOR TESTING
 # task = get_instructions("instructions.txt")
