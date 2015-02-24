@@ -1,18 +1,19 @@
 Put up Mast:0
-Put up Left Sail:1
-Put up Right Sail:1
-Throw Water Overboard:2
 Talk to Captain:0
 Steer the Ship:0
 Set up Cannons:0
-Go talk to Crew:1
 Clean the Ship:0
+Put up Left Sail:1
+Put up Right Sail:1
+Go talk to Crew:1
 Steal some Coins:1
 Put up the Flag:1
-Look through the Telescope:3
 Move to the Bow:2
 Move to the Stern:2
+Throw Water Overboard:2
+Make a Peg Leg: 2
+Look through the Telescope:3
 Move to Port Side of Boat:3
 Move to Starboard Side of Boat:3
 Listen to the Captain: 3
-Make a Peg Leg: 2
+
