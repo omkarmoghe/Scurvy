@@ -11,9 +11,9 @@ Put up the Flag:1
 Move to the Bow:2
 Move to the Stern:2
 Throw Water Overboard:2
-Make a Peg Leg: 2
+Make a Peg Leg:2
 Look through the Telescope:3
 Move to Port Side of Boat:3
 Move to Starboard Side of Boat:3
-Listen to the Captain: 3
+Listen to the Captain:3
 
