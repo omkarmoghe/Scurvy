@@ -38,7 +38,7 @@ class Instruction ():
         return self.key_stroke == key
 
     def get_message(self):
-        return "Press " + pygame.key.name(self.key_stroke) + " - " + self.message
+        return pygame.key.name(self.key_stroke) + " - " + self.message
 
 
 class DisplayInstruction(Instruction):
