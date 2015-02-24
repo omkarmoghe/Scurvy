@@ -16,4 +16,3 @@ Look through the Telescope:3
 Move to Port Side of Boat:3
 Move to Starboard Side of Boat:3
 Listen to the Captain: 3
-
