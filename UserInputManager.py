@@ -52,4 +52,6 @@ class UserInputManager:
                     self.total_score = 0
                     return this_total
                 return 0
-        return -1
+        if left_keys.__contains__(key_pressed) or right_keys.__contains__(key_pressed):
+            return -1
+        return 0
