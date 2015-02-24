@@ -28,7 +28,6 @@ class UserInputManager:
             for instruction in self.instructions:
                 usedKeys.append(instruction.key_stroke)
             this_instruction.set_player(player_to_assign_to, usedKeys)
-            print this_instruction.get_message()
             self.instructions.append(this_instruction)
 
     def set_player_instructions(self):
