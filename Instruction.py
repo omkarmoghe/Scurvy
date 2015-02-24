@@ -2,7 +2,7 @@ import pygame
 from random import randint
 
 
-max_difficulty = 3  # starts at 0
+max_difficulty = 2.5  # starts at 0
 
 # list of left player keys
 left_keys = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_q, pygame.K_w, pygame.K_e, pygame.K_r,
