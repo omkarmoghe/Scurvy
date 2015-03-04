@@ -2,7 +2,7 @@ import pygame
 from random import randint
 
 
-max_difficulty = 3  # starts at 0
+max_difficulty = 0  # starts at 0, defaults to 0
 
 # list of left player keys
 left_keys = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_q, pygame.K_w, pygame.K_e, pygame.K_r,
@@ -68,26 +68,30 @@ class DisplayInstruction(Instruction):
 
 # returns a 2D list of Instructions from a text file
 def get_instructions(file_name):
-    # creates an empty 2d array
-    instructions_2d = []
-    for i in range(0, 4):
-        instructions_2d.append([])
+    global max_difficulty
 
     infile = open(file_name, 'r')  # open the text file for reading
+    max_difficulty = int(infile.readline())
+
+    # creates an empty 2d array
+    instructions_2d = []
+    for i in range(0, (max_difficulty + 1)):
+        instructions_2d.append([])
 
     # get each line in the text file of instructions
     for line in infile:
-        pair = line.split(':')  # split the line at the colon
-        message = pair[0]  # the first part is the message
-        complexity = int(pair[1])  # the second part is the complexity
+        if ':' in line:  # additional check to make sure there is a : divided string instruction
+            pair = line.split(':')  # split the line at the colon
+            message = pair[0]  # the first part is the message
+            complexity = int(pair[1])  # the second part is the complexity
 
-        # pick between either left player or right player to assign the instruction to
-        if randint(0, 1):  # left_keys are 0, right_keys are 1
-            instr = Instruction(message, complexity)
-        else:
-            instr = Instruction(message, complexity)  # right_keys[randint(0, 19)]
+            # pick between either left player or right player to assign the instruction to
+            if randint(0, 1):  # left_keys are 0, right_keys are 1
+                instr = Instruction(message, complexity)
+            else:
+                instr = Instruction(message, complexity)  # right_keys[randint(0, 19)]
 
-        instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right row (complexity)
+            instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right row (complexity)
 
     infile.close()  # close file
 
