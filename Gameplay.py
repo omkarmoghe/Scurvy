@@ -49,7 +49,7 @@ class Gameplay():
     def run_game(self):
         running = True
         background_music = pygame.mixer.music
-        background_music.load('Resources/background_music1.wav')
+        background_music.load('Resources/pirate_music.wav')
         background_music.play(-1, 0.0)
 
         # THESE ARE HARD CODED COMPLEXITIES THAT WE NEED TO CHANGE IN BETA

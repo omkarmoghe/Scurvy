@@ -15,13 +15,14 @@ class Obstacle():
         self.damageGiven = damage_given  # damage given by this obstacle type
 
         # get height of object
-        objectImage = pygame.image.load(file_name)
-        self.objectRect = objectImage.get_rect()
+        object_image = pygame.image.load(file_name)
+        self.objectRect = object_image.get_rect()
         num_objects = self.screen_height / self.objectRect.height  # number of objects
 
         # add object to the obstacle_objects list
         point = Point(x_pos, self.objectRect.width / 2)
         for i in range(0, num_objects):
+            point.x = random.randint(0, x_pos)
             obstacle = Object(point, file_name, velocity_ratio, Point(0, 0))
             self.obstacle_objects.append(obstacle)
             point.y += self.objectRect.height
@@ -36,12 +37,12 @@ class Obstacle():
         for obstacle in self.obstacle_objects:
             obstacle.move()
             if obstacle.rect.right <= 0:
-                self.reset_position(screen_width)
+                # self.reset_position(screen_width)
                 break
 
     def reset_position(self, screen_width):
         for obstacle in self.obstacle_objects:
-            obstacle.rect.left = screen_width
+            obstacle.rect.left = random.randint(0, screen_width)
 
     # returns the list of objects
     def get_obstacles(self):
