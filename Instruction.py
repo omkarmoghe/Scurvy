@@ -68,15 +68,11 @@ class DisplayInstruction(Instruction):
 
 # returns a 2D list of Instructions from a text file
 def get_instructions(file_name):
-    global max_difficulty
 
     infile = open(file_name, 'r')  # open the text file for reading
-    max_difficulty = int(infile.readline())
 
     # creates an empty 2d array
     instructions_2d = []
-    for i in range(0, (max_difficulty + 1)):
-        instructions_2d.append([])
 
     # get each line in the text file of instructions
     for line in infile:
@@ -90,9 +86,10 @@ def get_instructions(file_name):
                 instr = Instruction(message, complexity)
             else:
                 instr = Instruction(message, complexity)  # right_keys[randint(0, 19)]
-
+            while len(instructions_2d) <= complexity:
+                instructions_2d.append([])
             instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right row (complexity)
-
+    print(len(instructions_2d))
     infile.close()  # close file
 
     return instructions_2d  # return the 2d array
