@@ -1,4 +1,3 @@
-3
 Put up Mast:0
 Talk to Captain:0
 Steer the Ship:0
