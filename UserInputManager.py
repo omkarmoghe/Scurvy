@@ -1,5 +1,6 @@
 from Instruction import *
-
+import random
+import math
 
 class UserInputManager:
     def __init__(self):
@@ -12,10 +13,17 @@ class UserInputManager:
     def populate_random_panel_instructions(self, number_of_instructions, mean_complexity):
         player_to_assign_to = 0
         for i in range(number_of_instructions):
+            max_complexity = len(self.instructions_2d) - 1
+            min_complexity = 0
             # TODO : Calculate complexity based on a normal distribution or something fancy
-            complexity = mean_complexity
             unique = False
             while not unique:
+                complexity = random.gauss(mean_complexity, 0.3 * (1 + mean_complexity))
+                complexity = min(max(complexity, min_complexity), max_complexity)
+                if complexity - math.floor(complexity) >= 0.5:
+                    complexity = math.ceil(complexity)
+                else:
+                    complexity = math.floor(complexity)
                 this_instruction = get_instruction(self.instructions_2d, complexity)
                 unique = True
                 for instruction in self.instructions:

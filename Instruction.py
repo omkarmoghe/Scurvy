@@ -50,7 +50,10 @@ class DisplayInstruction(Instruction):
         self.player_displayed = player_displayed
 
     def calculate_score(self):
-        return self.complexity + 1
+        score = self.complexity + 1
+        if self.player_displayed != self.player_number:
+            score += 1
+        return score
         # TODO: Some awesome algorithm to calculate the score
 
     def draw(self, screen, screen_size):
@@ -97,7 +100,8 @@ def get_instructions(file_name):
 # returns a random instruction of the specified complexity level
 def get_instruction(instructions_2d, complexity):
     # get a random instruction from the given complexity (row)
-    return instructions_2d[randint(0,complexity)][randint(0, len(instructions_2d[complexity]) - 1)]
+    print complexity
+    return instructions_2d[int(complexity)][randint(0, len(instructions_2d[int(complexity)]) - 1)]
 
 # FOR TESTING
 # task = get_instructions("instructions.txt")
