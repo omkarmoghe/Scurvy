@@ -7,6 +7,8 @@ from Point import *
 
 background_image = "Resources/Background.png"
 standard_velocity = -1
+max_velocity = -5.1
+acceleration = -0.1
 rock_damage = 40
 global font_file
 font_file = "Resources/font.otf"
@@ -15,7 +17,7 @@ font_file = "Resources/font.otf"
 # This class creates the game play for the actual game.
 class Gameplay():
 
-    def __init__(self, difficulty, player_1_name, player_2_name, folder_name):
+    def __init__(self, player_1_name, player_2_name, folder_name):
         pygame.init()
         global WIDTH, HEIGHT, screen
         pygame.display.set_caption("Scurvy")
@@ -24,7 +26,6 @@ class Gameplay():
         WIDTH = self.backgroundRect.width
         HEIGHT = 3 * self.backgroundRect.height / 2
         screen = pygame.display.set_mode([WIDTH, HEIGHT])
-        self.difficulty = difficulty
         self.player1Name = player_1_name
         self.player2Name = player_2_name
         self.visual_screen = Point(self.backgroundRect.width, self.backgroundRect.height)
@@ -51,11 +52,9 @@ class Gameplay():
         background_music = pygame.mixer.music
         background_music.load('Resources/background_music1.wav')
         background_music.play(-1, 0.0)
-
-        # THESE ARE HARD CODED COMPLEXITIES THAT WE NEED TO CHANGE IN BETA
-        self.user_manager.populate_random_panel_instructions(4, self.difficulty)
+        self.user_manager.populate_random_panel_instructions(4, 0) # Zero is default mean
         self.user_manager.set_player_instructions()
-        speed = -1
+        speed = standard_velocity
         while running:
             self.update()
             if self.playerShip.health <= 0:
@@ -63,15 +62,15 @@ class Gameplay():
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                     running = False
-                if event.type == KEYDOWN and self.obstacles.obstacle_objects[0].rect.left > self.playerShip.rect.right:
+                if event.type == KEYDOWN:
                     score_value = self.user_manager.check_inputs(event.key)
                     if score_value == -1:
                         self.incorrect_sound.play()
                         self.playerShip.damage(10)
                     elif score_value:
                         self.instructions_completed(score_value)
-                        if speed < 5.1:
-                            speed -= .1
+                        if speed > max_velocity:
+                            speed += acceleration
                         self.obstacles.set_velocity(Point(speed, 0))
 
 
@@ -80,7 +79,9 @@ class Gameplay():
         self.obstacles.reset_position(WIDTH)
         self.score += add_score
         self.user_manager.instructions = []
-        self.user_manager.populate_random_panel_instructions(4, 1)
+        # TODO: Calculate a new mean here based on the current score
+        mean = 0
+        self.user_manager.populate_random_panel_instructions(4, mean)
         self.user_manager.set_player_instructions()
 
     def update(self):
