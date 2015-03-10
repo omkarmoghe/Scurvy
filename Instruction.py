@@ -89,7 +89,6 @@ def get_instructions(file_name):
             while len(instructions_2d) <= complexity:
                 instructions_2d.append([])
             instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right row (complexity)
-    print(len(instructions_2d))
     infile.close()  # close file
 
     return instructions_2d  # return the 2d array
