@@ -79,9 +79,7 @@ class Gameplay():
         self.obstacles.reset_position(WIDTH)
         self.score += add_score
         self.user_manager.instructions = []
-        # TODO: Calculate a new mean here based on the current score
-        mean = 0
-        self.user_manager.populate_random_panel_instructions(4, mean)
+        self.user_manager.populate_random_panel_instructions(4, self.score)
         self.user_manager.set_player_instructions()
 
     def update(self):

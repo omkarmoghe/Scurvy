@@ -2,6 +2,7 @@ from Instruction import *
 import random
 import math
 
+
 class UserInputManager:
     def __init__(self):
         self.instructions_2d = get_instructions("instructions.txt")  # Save the 2D array of instructions
@@ -10,11 +11,12 @@ class UserInputManager:
         self.total_score = 0
         # TODO: Add a random instruction
 
-    def populate_random_panel_instructions(self, number_of_instructions, mean_complexity):
+    def populate_random_panel_instructions(self, number_of_instructions, score):
         player_to_assign_to = 0
+        max_complexity = len(self.instructions_2d) - 1
+        min_complexity = 0
+        mean_complexity = (max_complexity / 3) * math.log10(score)
         for i in range(number_of_instructions):
-            max_complexity = len(self.instructions_2d) - 1
-            min_complexity = 0
             # TODO : Calculate complexity based on a normal distribution or something fancy
             unique = False
             while not unique:
