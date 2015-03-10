@@ -1,19 +1,77 @@
-3
-Put up Mast:0
-Talk to Captain:0
-Steer the Ship:0
-Set up Cannons:0
-Clean the Ship:0
-Put up Left Sail:1
-Put up Right Sail:1
-Go talk to Crew:1
-Steal some Coins:1
-Put up the Flag:1
+Cook Food:0
+Go Fishing:0
+Go to Sleep:0
+Fix the Mast:0
+Row the Boat:0
+Read the Map:0
+Tell a Story:0
+Use a Sextant:0
+Eat an Orange:0
+Use a Compass:1
+Eat Some Jerky:1
+Make a Peg Leg:1
+Raise the Flag:1
+Steer the Ship:1
+Set up Cannons:1
+Clean the Ship:1
+Scrub the Deck:1
+Lower the Flag:1
+Shift the Sails:2
+Fire the Cannon:2
 Move to the Bow:2
-Move to the Stern:2
-Throw Water Overboard:2
-Make a Peg Leg:2
-Look through the Telescope:3
-Move to Port Side of Boat:3
-Move to Starboard Side of Boat:3
-Listen to the Captain:3
+Put up the Mast:2
+Fix up the Ship:2
+Drink Some Water:2
+Avoid the Kraken:2
+Steal Some Coins:2
+Put up Left Sail:3
+Enjoy the Sunset:3
+Polish the Canons:3
+Put up Right Sail:3
+Move to the Stern:3
+Adjust the Rudder:3
+Trade with Natives:3
+Craft an Eye Patch:3
+Pull up the Anchor:4
+Increase the Speed:4
+Go Talk to the Crew:4
+Put Down the Anchor:4
+Talk to the Captain:4
+Play a Game of Cards:4
+Look for Enemy Boats:4
+Check the Life Boats:4
+Play a Game of Darts:5
+Say "Aye Aye Captain":5
+Throw Water Overboard:5
+Climb the Watch Tower:5
+Listen to the Captain:5
+Mark an "X" on the Map:5
+Climb the Pirate's Nest:5
+Turn the Ship Starboard:5
+Belay Captains Commands:6
+Move to Port Side of Boat:6
+Yell "Shiver Me Timbers!":6
+Locate the Treasure Chest:6
+Find the Fountain of Youth:6
+Look through the Telescope:6
+Calculate Canon Trajectory:6
+Plunder the Treasure Chest:6
+Check the Gunpowder Storage:7
+Sail Through the Carribbean:7
+Dock the Ship in the Harbor:7
+Adjust the Flag to Half Mast:7
+Scan the Ocean for Obstacles:7
+Throw some Barrels Overboard:7
+Move to Starboard Side of Ship:7
+Determine Direction of Sailing:7
+
+
+
+
+
+
+
+
+
+
+
