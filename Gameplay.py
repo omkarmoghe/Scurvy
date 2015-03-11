@@ -10,7 +10,8 @@ max_velocity = -5.1
 acceleration = -0.1
 rock_damage = 40
 font_file = "Resources/font.otf"
-
+control_time = 300
+reduce_control_time = 1
 
 # This class creates the game play for the actual game.
 class Gameplay():
@@ -34,7 +35,7 @@ class Gameplay():
         player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
         self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen.y)
-
+        self.give_control = 0  # Useful for moving the ship around
         self.obstacles.set_velocity(Point(standard_velocity, 0))
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
         self.score = 0
@@ -72,6 +73,7 @@ class Gameplay():
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()
+        self.give_control += control_time
         self.obstacles.reset_position(WIDTH)
         self.score += add_score
         self.user_manager.instructions = []
@@ -94,6 +96,10 @@ class Gameplay():
         self.moving_background_2.move()
         pygame.draw.line(screen, (255, 255, 255, 1.0), (WIDTH / 2, self.visual_screen.y + 1), (WIDTH / 2, HEIGHT), 5)
         self.draw_score_and_health()
+        if self.give_control:
+            keys = pygame.key.get_pressed()
+            self.playerShip.input(keys)
+            self.give_control -= reduce_control_time
         damage = self.obstacles.check_collision(self.playerShip)
         if damage:
             if self.collision_ended:
