@@ -1,17 +1,17 @@
-from pygame.locals import *
 from PlayerShip import *
 from UserInputManager import *
 from Obstacle import *
 from Point import *
 
-background_image = "Resources/Background.png"
-standard_velocity = -1
-max_velocity = -5.1
-acceleration = -0.1
-rock_damage = 40
+background_image = "Resources/Background.png"  # Adjust this to change the background image.
+standard_velocity = -1  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
+max_velocity = -5.1  # Adjust to change the upper bound of the velocity. WARNING: Must be less than standard_velocity
+acceleration = -0.1  # Adjust this to change how much the velocity changes per instruction got correct.
+rock_damage = 40  # Adjust this to change the amount of damage a Rock does.
 font_file = "Resources/font.otf"
-control_time = 300
-reduce_control_time = 1
+control_time = 50  # Adjust this to change how much time to give to the player after correctly performing an instruction
+reduce_control_time = 1  # Adjust this to change amount control time changes per round. Usually just change control_time
+
 
 # This class creates the game play for the actual game.
 class Gameplay():
@@ -44,6 +44,7 @@ class Gameplay():
         self.correct_sound = pygame.mixer.Sound('Resources/correct_press.wav')
         self.incorrect_sound = pygame.mixer.Sound('Resources/incorrect_press.wav')
         self.crash_sound = pygame.mixer.Sound('Resources/crash.wav')
+        self.speed = standard_velocity
 
     def run_game(self):
         running = True
@@ -52,7 +53,6 @@ class Gameplay():
         background_music.play(-1, 0.0)
         self.user_manager.populate_random_panel_instructions(4, 0)  # Zero is default mean
         self.user_manager.set_player_instructions()
-        speed = standard_velocity
         while running:
             self.update()
             if self.playerShip.health <= 0:
@@ -67,9 +67,9 @@ class Gameplay():
                         self.playerShip.damage(10)
                     elif score_value:
                         self.instructions_completed(score_value)
-                        if speed > max_velocity:
-                            speed += acceleration
-                        self.obstacles.set_velocity(Point(speed, 0))
+                        if self.speed > max_velocity:
+                            self.speed += acceleration
+                        self.obstacles.set_velocity(Point(self.speed, 0))
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()
@@ -98,8 +98,10 @@ class Gameplay():
         self.draw_score_and_health()
         if self.give_control:
             keys = pygame.key.get_pressed()
+            print "Giving control"
             self.playerShip.input(keys)
             self.give_control -= reduce_control_time
+        self.playerShip.move(self.speed, self.visual_screen.y)
         damage = self.obstacles.check_collision(self.playerShip)
         if damage:
             if self.collision_ended:
