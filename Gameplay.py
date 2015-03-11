@@ -50,7 +50,7 @@ class Gameplay():
     def run_game(self):
         running = True
         background_music = pygame.mixer.music
-        background_music.load('Resources/background_music1.wav')
+        background_music.load('Resources/pirate_music.wav')
         background_music.play(-1, 0.0)
         self.user_manager.populate_random_panel_instructions(4, 0) # Zero is default mean
         self.user_manager.set_player_instructions()

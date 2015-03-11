@@ -15,7 +15,7 @@ class UserInputManager:
         player_to_assign_to = 0
         max_complexity = len(self.instructions_2d) - 1
         min_complexity = 0
-        mean_complexity = (max_complexity / 3) * math.log10(score)
+        mean_complexity = (max_complexity / 3) * math.log10(score + 1)
         for i in range(number_of_instructions):
             # TODO : Calculate complexity based on a normal distribution or something fancy
             unique = False
@@ -49,10 +49,12 @@ class UserInputManager:
         self.current_instructions.append(player_1_instruction)
 
     def check_inputs(self, key_pressed):
+        # If there are no more instructions left return the total score accumulated for this round.
         if len(self.current_instructions) == 0:
             this_total = self.total_score
             self.total_score = 0
             return this_total
+        # If there are instructions left loop through them and check to see for correct input.
         for (i, instruction) in enumerate(self.current_instructions):
             if instruction.check_key(key_pressed):
                 self.total_score += self.current_instructions[i].calculate_score()
@@ -61,7 +63,6 @@ class UserInputManager:
                     this_total = self.total_score
                     self.total_score = 0
                     return this_total
-                return 0
         if left_keys.__contains__(key_pressed) or right_keys.__contains__(key_pressed):
             return -1
         return 0
