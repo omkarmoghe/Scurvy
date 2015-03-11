@@ -1,6 +1,7 @@
 from Ship import *
 from Point import *
 
+
 # This is the player ship object in the Game World. It has a nice initializer to create the Ship.
 # It inherits from the Ship class.
 class PlayerShip(Ship):

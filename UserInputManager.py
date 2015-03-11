@@ -34,10 +34,10 @@ class UserInputManager:
                         break
             if i >= number_of_instructions / 2:
                     player_to_assign_to = 1
-            usedKeys = []
+            used_keys = []
             for instruction in self.instructions:
-                usedKeys.append(instruction.key_stroke)
-            this_instruction.set_player(player_to_assign_to, usedKeys)
+                used_keys.append(instruction.key_stroke)
+            this_instruction.set_player(player_to_assign_to, used_keys)
             self.instructions.append(this_instruction)
 
     def set_player_instructions(self):
@@ -55,7 +55,7 @@ class UserInputManager:
             self.total_score = 0
             return this_total
         # input_found = False  # To make sure that when an input is entered we do not incorrectly return -1
-        instructions_to_remove = [] # Store the instructions we should remove.
+        instructions_to_remove = []  # Store the instructions we should remove.
         # If there are instructions left loop through them and check to see for correct input.
         for instruction in self.current_instructions:
             if instruction.check_key(key_pressed):

@@ -1,7 +1,5 @@
 # Include everything here.
 from Gameplay import *
-from Point import *
-
 
 
 def play_game():

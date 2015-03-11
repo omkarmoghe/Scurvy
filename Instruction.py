@@ -1,9 +1,6 @@
 import pygame
 from random import randint
 
-
-max_difficulty = 0  # starts at 0, defaults to 0
-
 # list of left player keys
 left_keys = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_q, pygame.K_w, pygame.K_e, pygame.K_r,
              pygame.K_t, pygame.K_a, pygame.K_s, pygame.K_d, pygame.K_f, pygame.K_g, pygame.K_z, pygame.K_x, pygame.K_c,
@@ -100,7 +97,6 @@ def get_instructions(file_name):
 # returns a random instruction of the specified complexity level
 def get_instruction(instructions_2d, complexity):
     # get a random instruction from the given complexity (row)
-    print complexity
     return instructions_2d[int(complexity)][randint(0, len(instructions_2d[int(complexity)]) - 1)]
 
 # FOR TESTING

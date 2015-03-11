@@ -1,5 +1,4 @@
 import random
-import pygame
 from Object import *
 from Point import *
 
@@ -15,8 +14,8 @@ class Obstacle():
         self.damageGiven = damage_given  # damage given by this obstacle type
 
         # get height of object
-        objectImage = pygame.image.load(file_name)
-        self.objectRect = objectImage.get_rect()
+        object_image = pygame.image.load(file_name)
+        self.objectRect = object_image.get_rect()
         num_objects = self.screen_height / self.objectRect.height  # number of objects
 
         # add object to the obstacle_objects list
@@ -48,12 +47,12 @@ class Obstacle():
         return self.obstacle_objects
 
     def set_velocity(self, velocity):
-        for object in self.obstacle_objects:
-            object.velocity.x = velocity.x
-            object.velocity.y = velocity.y
+        for obj in self.obstacle_objects:
+            obj.velocity.x = velocity.x
+            obj.velocity.y = velocity.y
 
     def check_collision(self, ship):
-        for object in self.obstacle_objects:
-            if pygame.sprite.collide_rect(object, ship):
+        for obj in self.obstacle_objects:
+            if pygame.sprite.collide_rect(obj, ship):
                 return self.damageGiven  # HEALTH LOST HERE
         return 0

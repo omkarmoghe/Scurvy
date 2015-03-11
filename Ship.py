@@ -10,10 +10,10 @@ class Ship(Object):
 
     # This function determines how to move the ship based on the location of the player and
     # whether the instruction is completed
-    def use_AI_to_move(self, location_of_player, instruction_completed):
+    '''def use_AI_to_move(self, location_of_player, instruction_completed):
         if (instruction_completed):
             assert False
             # TODO: IMPLEMENT ME TO MOVE AWAY FROM PLAYER
         else:
             assert False
-            # TODO: IMPLEMENT ME TO MOVE TOWARD PLAYER
+            # TODO: IMPLEMENT ME TO MOVE TOWARD PLAYER '''

@@ -1,4 +1,3 @@
-import pygame
 from pygame.locals import *
 from PlayerShip import *
 from UserInputManager import *
@@ -10,7 +9,6 @@ standard_velocity = -1
 max_velocity = -5.1
 acceleration = -0.1
 rock_damage = 40
-global font_file
 font_file = "Resources/font.otf"
 
 
@@ -32,7 +30,7 @@ class Gameplay():
         self.moving_background = Object(Point(self.visual_screen.x / 2, self.visual_screen.y / 2),
                                         background_image, 0.5, Point(0, 0))
         self.moving_background_2 = Object(Point(self.visual_screen.x * 3 / 2, self.visual_screen.y / 2),
-                                            background_image, 0.5, Point(0, 0))
+                                          background_image, 0.5, Point(0, 0))
         player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
         self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen.y)
@@ -46,13 +44,12 @@ class Gameplay():
         self.incorrect_sound = pygame.mixer.Sound('Resources/incorrect_press.wav')
         self.crash_sound = pygame.mixer.Sound('Resources/crash.wav')
 
-
     def run_game(self):
         running = True
         background_music = pygame.mixer.music
         background_music.load('Resources/pirate_music.wav')
         background_music.play(-1, 0.0)
-        self.user_manager.populate_random_panel_instructions(4, 0) # Zero is default mean
+        self.user_manager.populate_random_panel_instructions(4, 0)  # Zero is default mean
         self.user_manager.set_player_instructions()
         speed = standard_velocity
         while running:
@@ -72,7 +69,6 @@ class Gameplay():
                         if speed > max_velocity:
                             speed += acceleration
                         self.obstacles.set_velocity(Point(speed, 0))
-
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()
@@ -117,7 +113,7 @@ class Gameplay():
 
         for (i, instruction) in enumerate(self.user_manager.instructions):
             instruction_label = pygame.font.Font(font_file, 15).render('{0}'.format(instruction.get_message()),
-                                                                                        True, (255, 255, 255))
+                                                                       True, (255, 255, 255))
             instruction_label_rect = instruction_label.get_rect()
             instruction_label_rect.centery = offset + i * 30
             if i >= len(self.user_manager.instructions) / 2:
@@ -130,27 +126,26 @@ class Gameplay():
                 assert False
             screen.blit(instruction_label, instruction_label_rect)
 
-
     def draw_score_and_health(self):
-        player1Label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player1Name),
-                                                                                        True, (255, 255, 255))
-        player1LabelRect = player1Label.get_rect()
-        player1LabelRect.centerx = WIDTH / 4
-        player1LabelRect.top = self.visual_screen.y + 5
-        player2Label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player2Name),
-                                                                                        True, (255, 255, 255))
-        player2LabelRect = player2Label.get_rect()
-        player2LabelRect.centerx = 3 * WIDTH / 4
-        player2LabelRect.top = self.visual_screen.y + 5
-        screen.blit(player1Label, player1LabelRect)
-        screen.blit(player2Label, player2LabelRect)
+        player_1_label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player1Name),
+                                                                True, (255, 255, 255))
+        player_1_label_rect = player_1_label.get_rect()
+        player_1_label_rect.centerx = WIDTH / 4
+        player_1_label_rect.top = self.visual_screen.y + 5
+        player_2_label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player2Name),
+                                                                True, (255, 255, 255))
+        player_2_label_rect = player_2_label.get_rect()
+        player_2_label_rect.centerx = 3 * WIDTH / 4
+        player_2_label_rect.top = self.visual_screen.y + 5
+        screen.blit(player_1_label, player_1_label_rect)
+        screen.blit(player_2_label, player_2_label_rect)
 
-        scoreLabel = pygame.font.Font(font_file, 15).render('{0}'.format("SCORE: " + str(self.score)), True, (255, 255,
-                                                                                                              255))
-        scoreLabelRect = scoreLabel.get_rect()
-        scoreLabelRect.centerx = WIDTH / 4
-        scoreLabelRect.top = HEIGHT - 20
-        screen.blit(scoreLabel, scoreLabelRect)
+        score_label = pygame.font.Font(font_file, 15).render('{0}'.format("SCORE: " + str(self.score)), True, (255, 255,
+                                                                                                               255))
+        score_label_rect = score_label.get_rect()
+        score_label_rect.centerx = WIDTH / 4
+        score_label_rect.top = HEIGHT - 20
+        screen.blit(score_label, score_label_rect)
 
         red_bar = pygame.image.load("Resources/healthbar.png")
         green_bar = pygame.image.load("Resources/health.png")
