@@ -5,7 +5,7 @@ from Object import *
 # It inherits from the Object class.
 class Ship(Object):
     def __init__(self, position, file_name, image_ratio):
-        ship_ratio = 5
+        ship_ratio = 5.0
         Object.__init__(self, position, file_name, ship_ratio, image_ratio)
 
     # This function determines how to move the ship based on the location of the player and

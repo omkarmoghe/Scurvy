@@ -98,7 +98,6 @@ class Gameplay():
         self.draw_score_and_health()
         if self.give_control:
             keys = pygame.key.get_pressed()
-            print "Giving control"
             self.playerShip.input(keys)
             self.give_control -= reduce_control_time
         self.playerShip.move(self.speed, self.visual_screen.y)
