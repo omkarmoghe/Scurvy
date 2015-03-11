@@ -50,19 +50,28 @@ class UserInputManager:
 
     def check_inputs(self, key_pressed):
         # If there are no more instructions left return the total score accumulated for this round.
-        if len(self.current_instructions) == 0:
+        if not len(self.current_instructions):
             this_total = self.total_score
             self.total_score = 0
             return this_total
+        # input_found = False  # To make sure that when an input is entered we do not incorrectly return -1
+        instructions_to_remove = [] # Store the instructions we should remove.
         # If there are instructions left loop through them and check to see for correct input.
-        for (i, instruction) in enumerate(self.current_instructions):
+        for instruction in self.current_instructions:
             if instruction.check_key(key_pressed):
-                self.total_score += self.current_instructions[i].calculate_score()
-                self.current_instructions.remove(instruction)
-                if not len(self.current_instructions):
-                    this_total = self.total_score
-                    self.total_score = 0
-                    return this_total
-        if left_keys.__contains__(key_pressed) or right_keys.__contains__(key_pressed):
-            return -1
-        return 0
+                instructions_to_remove.append(instruction)
+        # If there are no instructions to remove decide whether to return 0 or -1 depending on whether or not the key is
+        # a valid command.
+        if not len(instructions_to_remove):
+            if left_keys.__contains__(key_pressed) or right_keys.__contains__(key_pressed):
+                return -1
+            return 0
+        # Go through all instructions to remove and add the scores. Also remove them from the array.
+        for instruction in instructions_to_remove:
+            self.total_score += instruction.calculate_score()  # Add the score of the instruction
+            self.current_instructions.remove(instruction)  # Remove the instruction
+        if not len(self.current_instructions):  # If no more instructions remain, return total score.
+            this_total = self.total_score
+            self.total_score = 0
+            return this_total
+        return 0  # If we reached all this way without returning anything we must have entered only one correct input
