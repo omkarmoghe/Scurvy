@@ -9,7 +9,8 @@ max_velocity = -5.1  # Adjust to change the upper bound of the velocity. WARNING
 acceleration = -0.1  # Adjust this to change how much the velocity changes per instruction got correct.
 rock_damage = 40  # Adjust this to change the amount of damage a Rock does.
 font_file = "Resources/font.otf"
-control_time = 50  # Adjust this to change how much time to give to the player after correctly performing an instruction
+control_time = -1  # Adjust this to change how much time to give to the player after correctly performing an instruction
+# We are using -1 here so that we can test moving the boat. TODO: Change this value to 50 or there about.
 reduce_control_time = 1  # Adjust this to change amount control time changes per round. Usually just change control_time
 
 
