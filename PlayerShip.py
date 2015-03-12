@@ -1,5 +1,11 @@
 from Ship import *
 from Point import *
+from pygame.locals import *
+import math
+
+ship_scale = 150  # Adjust this to change the size of the ship.
+angle_deviations = 22.5  # Adjust this value if we get more images.
+friction_ratio = 0.25  # Adjust this value to change the dynamic friction proportion
 
 # This is the player ship object in the Game World. It has a nice initializer to create the Ship.
 # It inherits from the Ship class.
@@ -7,25 +13,77 @@ class PlayerShip(Ship):
 
     def __init__(self, position, folder_name):
         self.health = 200
-        self.angle = 0
+        self.angle = 0.0
         self.folder_name = folder_name
         player_folder = str(folder_name) + "/PlayerShip" + str(self.angle) + ".png"
-        Ship.__init__(self, position, player_folder, Point(150, 150))
+        Ship.__init__(self, position, player_folder, Point(ship_scale, ship_scale))
 
     # Overrides the Object's move so that rotating the ship is possible.
-    def move(self, instruction_completed, move_to_y):
-        max_y_speed = 10
-        if instruction_completed:
-            if move_to_y > self.rect.y:
-                self.velocity.y += max_y_speed
-            elif move_to_y < self.rect.y:
-                self.velocity.y -= max_y_speed
-        super.move(self)
-        # TODO: Calculate rotation and choose correct image
-        # angle = something other than what it was before.
-        # new image = folder name + PlayerShip + angle.png"
+    def move(self, x_vel, screen_height):
+        # Water Friction! - Idk what else to call it!
+        friction = -self.velocity.y * friction_ratio
+        self.velocity.y += friction
+        if abs(self.velocity.y) < 0.01:
+            self.velocity.y = 0
+        if self.rect.top <= 0:
+            self.rect.top = 0
+            self.velocity.y = max(0, self.velocity.y)
+        if self.rect.bottom >= screen_height:
+            self.rect.bottom = screen_height
+            self.velocity.y = min(0, self.velocity.y)
+        # Calculate angle using some good ol' Pythagorean Theorem
+        # print "Velocity : (" + str(x_vel / self.ratio) + ", " + str(-self.velocity.y) + ")"
+        actual_angle = normalize_angle(math.tan(-self.velocity.y / (x_vel / self.ratio)))
+        # self.image = pygame.transform.rotate(self.image, actual_angle)
+        # self.rect = self.image.get_rect()
+        # self.rect.center = center_point
+        # FIXME: This needs to be fixed to fix the random spasms of the boat.
+        new_angle = actual_angle / angle_deviations
+        # Find closest value to angle_deviations so that everything works
+        # print "Raw new angle is " + str(new_angle)
+        if new_angle - math.floor(new_angle) >= 0.5:
+            new_angle = math.ceil(new_angle)
+        else:
+            new_angle = math.floor(new_angle)
+        new_angle *= angle_deviations
+        if new_angle == -0.0:
+            new_angle = 0.0
+        # print "New angle is " + str(new_angle) + " and the old angle is " + str(self.angle)
+        if self.velocity.y > 0 and new_angle != 0:
+            new_angle = 360 - new_angle
+        # if angle has changed than what it was before switch out the image and set some properties
+        if self.angle != new_angle:
+            self.angle = new_angle
+            center_point = self.rect.center
+            self.image = pygame.image.load(str(self.folder_name) + "/PlayerShip" + str(self.angle) + ".png")
+            self.image = pygame.transform.scale(self.image, (ship_scale, ship_scale))  # Scale image
+            self.image.set_colorkey((0, 0, 0, 0))
+            # set the rectangle defined for this image for collision detection
+            self.rect = self.image.get_rect()
+            self.rect.center = center_point  # Reset the position
+        Object.move(self)
 
     # Use this method to update the health. It returns true if the player ship is alive and
     # false if the player ship has no health left.
     def damage(self, damage_done):
         self.health -= damage_done
+
+    def input(self, keys):
+        max_y_vel = 2.5
+        min_y_vel = -max_y_vel
+        move_amount = 0.3
+        if keys[K_UP]:
+            self.velocity.y -= move_amount
+        if keys[K_DOWN]:
+            self.velocity.y += move_amount
+        self.velocity.y = min(max(min_y_vel, self.velocity.y), max_y_vel)
+
+
+def normalize_angle(x):
+    new_angle = math.degrees(x)
+    while new_angle < 0 or new_angle > 90:
+        if new_angle < 0:
+            new_angle += 90
+        else:
+            new_angle -= 90
+    return new_angle
