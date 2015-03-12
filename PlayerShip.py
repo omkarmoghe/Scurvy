@@ -6,6 +6,10 @@ import math
 ship_scale = 150  # Adjust this to change the size of the ship.
 angle_deviations = 22.5  # Adjust this value if we get more images.
 friction_ratio = 0.25  # Adjust this value to change the dynamic friction proportion
+max_y_vel = 2.5  # Adjust this value to change the fastest a boat can move.
+min_y_vel = -max_y_vel  # DO NOT adjust this value. It is determined dynamically based on the max velocity
+move_amount = 0.3  # Adjust this value to change the acceleration of the boat.
+
 
 # This is the player ship object in the Game World. It has a nice initializer to create the Ship.
 # It inherits from the Ship class.
@@ -33,11 +37,11 @@ class PlayerShip(Ship):
             self.velocity.y = min(0, self.velocity.y)
         # Calculate angle using some good ol' Pythagorean Theorem
         # print "Velocity : (" + str(x_vel / self.ratio) + ", " + str(-self.velocity.y) + ")"
-        actual_angle = normalize_angle(math.tan(-self.velocity.y / (x_vel / self.ratio)))
         # self.image = pygame.transform.rotate(self.image, actual_angle)
         # self.rect = self.image.get_rect()
         # self.rect.center = center_point
         # FIXME: This needs to be fixed to fix the random spasms of the boat.
+        '''actual_angle = normalize_angle(math.tan(-self.velocity.y / (x_vel / self.ratio)))
         new_angle = actual_angle / angle_deviations
         # Find closest value to angle_deviations so that everything works
         # print "Raw new angle is " + str(new_angle)
@@ -47,7 +51,14 @@ class PlayerShip(Ship):
             new_angle = math.floor(new_angle)
         new_angle *= angle_deviations
         if new_angle == -0.0:
+            new_angle = 0.0 '''
+        new_angle = 0.0
+        if self.velocity.y == 0:
             new_angle = 0.0
+        else:
+            number_of_images_used = (90 / angle_deviations) - 1  # This is calculated based on how many images we use.
+            angle_proportion = math.ceil(abs(self.velocity.y) / max_y_vel * number_of_images_used)
+            new_angle = angle_proportion * angle_deviations
         # print "New angle is " + str(new_angle) + " and the old angle is " + str(self.angle)
         if self.velocity.y > 0 and new_angle != 0:
             new_angle = 360 - new_angle
@@ -69,9 +80,6 @@ class PlayerShip(Ship):
         self.health -= damage_done
 
     def input(self, keys):
-        max_y_vel = 2.5
-        min_y_vel = -max_y_vel
-        move_amount = 0.3
         if keys[K_UP]:
             self.velocity.y -= move_amount
         if keys[K_DOWN]:
