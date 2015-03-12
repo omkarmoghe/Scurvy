@@ -88,7 +88,7 @@ def get_instructions(file_name):
                 instr = Instruction(message, complexity)  # right_keys[randint(0, 19)]
             while len(instructions_2d) <= complexity:
                 instructions_2d.append([])
-            instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right row (complexity)
+            instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right complexity
     infile.close()  # close file
 
     return instructions_2d  # return the 2d array
@@ -108,5 +108,3 @@ def get_instruction(instructions_2d, complexity):
 # task = get_instruction("instructions.txt", 0)
 # print task.message
 # print task.complexity
-
-
