@@ -104,6 +104,7 @@ class Gameplay():
         self.playerShip.move(self.speed, self.visual_screen.y)
         damage = self.obstacles.check_collision(self.playerShip)
         if damage:
+            self.explosion.updateAnimation(self.timer)
             if self.collision_ended:
                 self.playerShip.damage(damage)
                 self.crash_sound.play()
