@@ -53,14 +53,12 @@ class PlayerShip(Ship):
         if new_angle == -0.0:
             new_angle = 0.0 '''
         new_angle = 0.0
-        if self.velocity.y == 0:
-            new_angle = 0.0
-        else:
+        if self.velocity.y != 0:
             number_of_images_used = (90 / angle_deviations) - 1  # This is calculated based on how many images we use.
             angle_proportion = math.ceil(abs(self.velocity.y) / max_y_vel * number_of_images_used)
-            new_angle = angle_proportion * angle_deviations
+            new_angle = angle_proportion * angle_deviations  # Calculate the right angle based on image names
         # print "New angle is " + str(new_angle) + " and the old angle is " + str(self.angle)
-        if self.velocity.y > 0 and new_angle != 0:
+        if self.velocity.y > 0 and new_angle != 0:  # Since we only checked for angles in the range [0, 90]
             new_angle = 360 - new_angle
         # if angle has changed than what it was before switch out the image and set some properties
         if self.angle != new_angle:
@@ -72,7 +70,7 @@ class PlayerShip(Ship):
             # set the rectangle defined for this image for collision detection
             self.rect = self.image.get_rect()
             self.rect.center = center_point  # Reset the position
-        Object.move(self)
+        Object.move(self)  # Call super.move so that everything gets updated like usual.
 
     # Use this method to update the health. It returns true if the player ship is alive and
     # false if the player ship has no health left.
