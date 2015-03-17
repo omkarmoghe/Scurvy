@@ -1,5 +1,4 @@
 import random
-import pygame
 from Object import *
 from Point import *
 
@@ -49,12 +48,12 @@ class Obstacle():
         return self.obstacle_objects
 
     def set_velocity(self, velocity):
-        for object in self.obstacle_objects:
-            object.velocity.x = velocity.x
-            object.velocity.y = velocity.y
+        for obj in self.obstacle_objects:
+            obj.velocity.x = velocity.x
+            obj.velocity.y = velocity.y
 
     def check_collision(self, ship):
-        for object in self.obstacle_objects:
-            if pygame.sprite.collide_rect(object, ship):
+        for obj in self.obstacle_objects:
+            if pygame.sprite.collide_rect(obj, ship):
                 return self.damageGiven  # HEALTH LOST HERE
         return 0

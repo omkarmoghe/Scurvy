@@ -29,4 +29,3 @@ class Object(pygame.sprite.Sprite):
     def move(self):
         self.rect.x += round(self.velocity.x * self.ratio)
         self.rect.y += round(self.velocity.y * self.ratio)
-

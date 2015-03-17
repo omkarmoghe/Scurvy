@@ -1,9 +1,6 @@
 import pygame
 from random import randint
 
-
-max_difficulty = 0  # starts at 0, defaults to 0
-
 # list of left player keys
 left_keys = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_q, pygame.K_w, pygame.K_e, pygame.K_r,
              pygame.K_t, pygame.K_a, pygame.K_s, pygame.K_d, pygame.K_f, pygame.K_g, pygame.K_z, pygame.K_x, pygame.K_c,
@@ -50,7 +47,10 @@ class DisplayInstruction(Instruction):
         self.player_displayed = player_displayed
 
     def calculate_score(self):
-        return self.complexity + 1
+        score = self.complexity + 1
+        if self.player_displayed != self.player_number:
+            score += 1
+        return score
         # TODO: Some awesome algorithm to calculate the score
 
     def draw(self, screen, screen_size):
@@ -88,7 +88,7 @@ def get_instructions(file_name):
                 instr = Instruction(message, complexity)  # right_keys[randint(0, 19)]
             while len(instructions_2d) <= complexity:
                 instructions_2d.append([])
-            instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right row (complexity)
+            instructions_2d[complexity].append(instr)  # add the instruction to the 2d list at the right complexity
     infile.close()  # close file
 
     return instructions_2d  # return the 2d array
@@ -97,7 +97,7 @@ def get_instructions(file_name):
 # returns a random instruction of the specified complexity level
 def get_instruction(instructions_2d, complexity):
     # get a random instruction from the given complexity (row)
-    return instructions_2d[randint(0,complexity)][randint(0, len(instructions_2d[complexity]) - 1)]
+    return instructions_2d[int(complexity)][randint(0, len(instructions_2d[int(complexity)]) - 1)]
 
 # FOR TESTING
 # task = get_instructions("instructions.txt")
@@ -108,5 +108,3 @@ def get_instruction(instructions_2d, complexity):
 # task = get_instruction("instructions.txt", 0)
 # print task.message
 # print task.complexity
-
-
