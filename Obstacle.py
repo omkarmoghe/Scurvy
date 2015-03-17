@@ -21,7 +21,7 @@ class Obstacle():
         # add object to the obstacle_objects list
         point = Point(x_pos, self.objectRect.width / 2)
         for i in range(0, num_objects):
-            point.x = random.randint(0, x_pos)
+            point.x = random.randint(50, x_pos)
             obstacle = Object(point, file_name, velocity_ratio, Point(0, 0))
             self.obstacle_objects.append(obstacle)
             point.y += self.objectRect.height
@@ -33,10 +33,13 @@ class Obstacle():
 
     # moves the objects in this obstacle
     def move(self, screen_width):
+        max_right = 0
         for obstacle in self.obstacle_objects:
             obstacle.move()
-            if obstacle.rect.right <= 0:
-                # self.reset_position(screen_width)
+            if obstacle.rect.right > max_right:
+                max_right = obstacle.rect.right
+            if max_right <= 0:
+                self.reset_position(screen_width)
                 break
 
     def reset_position(self, screen_width):
