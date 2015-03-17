@@ -36,6 +36,7 @@ class Gameplay():
         player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
         self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen.y)
+        self.explosion = Animations(128, 128, "Resources/explosion.png", (300,200))
         self.give_control = 0  # Useful for moving the ship around
         self.obstacles.set_velocity(Point(standard_velocity, 0))
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
