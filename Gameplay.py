@@ -2,9 +2,10 @@ from PlayerShip import *
 from UserInputManager import *
 from Obstacle import *
 from Point import *
+from Animations import *
 
 background_image = "Resources/Background.png"  # Adjust this to change the background image.
-standard_velocity = -1  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
+standard_velocity = -5  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
 max_velocity = -5.1  # Adjust to change the upper bound of the velocity. WARNING: Must be less than standard_velocity
 acceleration = -0.1  # Adjust this to change how much the velocity changes per instruction got correct.
 rock_damage = 40  # Adjust this to change the amount of damage a Rock does.
