@@ -1,0 +1,4 @@
+Edward:30
+Manav:40
+Omkar:10
+Evan:3000
