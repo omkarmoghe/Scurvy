@@ -2,6 +2,7 @@ from PlayerShip import *
 from UserInputManager import *
 from Obstacle import *
 from Point import *
+from Animations import *
 
 background_image = "Resources/Background.png"  # Adjust this to change the background image.
 standard_velocity = -1  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
@@ -35,9 +36,10 @@ class Gameplay():
                                           background_image, 0.5, Point(0, 0))
         player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
-        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen.y)
+        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen)
         self.give_control = 0  # Useful for moving the ship around
         self.obstacles.set_velocity(Point(standard_velocity, 0))
+        self.explosion = Animations(128, 128, "Resources/explosion.png", (self.playerShip.rect.x+20, self.playerShip.rect.y-20))
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
         self.score = 0
         self.user_manager = UserInputManager()
@@ -55,6 +57,7 @@ class Gameplay():
         self.user_manager.populate_random_panel_instructions(4, 0)  # Zero is default mean
         self.user_manager.set_player_instructions()
         while running:
+            self.timer = pygame.time.get_ticks()
             self.update()
             if self.playerShip.health <= 0:
                 running = False
@@ -75,7 +78,6 @@ class Gameplay():
     def instructions_completed(self, add_score):
         self.correct_sound.play()
         self.give_control += control_time
-        self.obstacles.reset_position(WIDTH)
         self.score += add_score
         self.user_manager.instructions = []
         self.user_manager.populate_random_panel_instructions(4, self.score)
@@ -104,10 +106,13 @@ class Gameplay():
         self.playerShip.move(self.speed, self.visual_screen.y)
         damage = self.obstacles.check_collision(self.playerShip)
         if damage:
+            self.explosion.updateAnimation(self.timer)
             if self.collision_ended:
+                self.explosion = Animations(128, 128, "Resources/explosion.png", (self.playerShip.rect.x+20, self.playerShip.rect.y-20))
                 self.playerShip.damage(damage)
                 self.crash_sound.play()
                 self.collision_ended = False
+                self.give_control = 0
         else:
             self.collision_ended = True
         # TODO: Add stuff inside loop for game.
