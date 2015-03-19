@@ -46,9 +46,21 @@ class Obstacle():
 
     def check_collision(self, ship):
         for obj in self.obstacle_objects:
-            if pygame.sprite.collide_mask(obj, ship):
-                return self.damageGiven  # HEALTH LOST HERE
-        return 0
+            point = pygame.sprite.collide_mask(obj, ship)
+            if point:
+                left = ship.rect
+                right = obj.rect
+                left_pos = max(left.left, right.left);
+                right_pos = min(left.right, right.right);
+                top = max(left.top, right.top);
+                bottom = max(left.bottom, right.bottom);
+                point_of_intersection = (left_pos + right_pos) / 2, (top + bottom) / 2
+                print left
+                print right
+                print point_of_intersection
+                # new_point = (point[0] + obj.rect.left, point[1] + obj.rect.top)
+                return self.damageGiven, point_of_intersection  # HEALTH LOST HERE
+        return 0, point
 
 
 def reset_position(screen_width, this_obstacle):

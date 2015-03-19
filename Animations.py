@@ -17,9 +17,12 @@ def AnimationImages(width, height, filename):
     for i in xrange(int(fullWidth/width)):
         images.append(fullImage.subsurface((i*width, 0, width ,height)))
     return images
+
+
 class Animations(pygame.sprite.Sprite):
-    def __init__(self, width, height, filename, location):
-        self.screen = pygame.display.set_mode([800, 600])
+
+    def __init__(self, width, height, filename, location, screen):
+        self.screen = screen
         pygame.sprite.Sprite.__init__(self)
         self.all_images = AnimationImages(width, height, filename)
  
@@ -53,11 +56,11 @@ class Animations(pygame.sprite.Sprite):
             # changes the last update time
             self.last_update = totalTime
 
-        #draws animation changes to the screen
+        # draws animation changes to the screen
         self.screen.blit(self.image, self.location)
-    def update(self):
 
+    def update(self):
         self.rect = self.image.get_rect()
         self.rect.x = self.location[0]
         self.rect.y = self.location[1]
-        screen.blit(self.image, self)
+        self.screen.blit(self.image, self)
