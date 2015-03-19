@@ -53,9 +53,7 @@ class PlayerShip(Ship):
         if new_angle == -0.0:
             new_angle = 0.0 '''
         new_angle = 0.0
-        if self.velocity.y == 0:
-            new_angle = 0.0
-        else:
+        if self.velocity.y != 0:
             number_of_images_used = (90 / angle_deviations) - 1  # This is calculated based on how many images we use.
             angle_proportion = math.ceil(abs(self.velocity.y) / max_y_vel * number_of_images_used)
             new_angle = angle_proportion * angle_deviations
