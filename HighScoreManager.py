@@ -55,8 +55,8 @@ class HighScoreManager():
         else:
             assert False  # should never be the case
 
-
-hsm = HighScoreManager("highscores.txt")
-print hsm.highscores
-hsm.save_high_scores()
-hsm.add_high_score(("Harold", "Kumar", 420))
+# FOR TESTING ONLY
+# hsm = HighScoreManager("highscores.txt")
+# print hsm.highscores
+# hsm.save_high_scores()
+# hsm.add_high_score(("Harold", "Kumar", 420))
