@@ -1,5 +1,5 @@
 from PlayerShip import *
-from HighScoreManager impot *
+from HighScoreManager import *
 from UserInputManager import *
 from Obstacle import *
 from Point import *
