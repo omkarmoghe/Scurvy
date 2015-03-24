@@ -2,8 +2,6 @@
 from Gameplay import *
 
 
-def play_game():
-    game = Gameplay("Chesney", "Chesney 2.O", "Resources/Classic")
+def play_game(player1name,player2name):
+    game = Gameplay(player1name, player2name, "Resources/Classic")
     game.run_game()
-
-play_game()
