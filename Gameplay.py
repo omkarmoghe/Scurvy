@@ -2,6 +2,7 @@ from PlayerShip import *
 from UserInputManager import *
 from Obstacle import *
 from Point import *
+import sys
 from Animations import *
 
 background_image = "Resources/Background.png"  # Adjust this to change the background image.
