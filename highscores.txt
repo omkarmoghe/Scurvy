@@ -1,0 +1,10 @@
+Chesney:Chesney2.0:10000000
+Evan:Edward:3000
+Mario:Luigi:984
+Cheech:Chong:560
+Noah:Will:500
+Harold:Kumar:420
+Bart:Lisa:300
+Bob:Joe:90
+Manav:Omkar:40
+Edward:Manav:30
