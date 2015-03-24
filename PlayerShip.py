@@ -9,6 +9,8 @@ friction_ratio = 0.25  # Adjust this value to change the dynamic friction propor
 max_y_vel = 2.5  # Adjust this value to change the fastest a boat can move.
 min_y_vel = -max_y_vel  # DO NOT adjust this value. It is determined dynamically based on the max velocity
 move_amount = 0.3  # Adjust this value to change the acceleration of the boat.
+reduce_fuel = 1  # Adjust this to change amount control time changes per round. Usually just change control_time
+max_fuel = 500  # Adjust this to change the maximum storage of fuel.
 
 
 # This is the player ship object in the Game World. It has a nice initializer to create the Ship.
@@ -19,11 +21,13 @@ class PlayerShip(Ship):
         self.health = 200
         self.angle = 0.0
         self.folder_name = folder_name
+        self.fuel = 0
         player_folder = str(folder_name) + "/PlayerShip" + str(self.angle) + ".png"
         Ship.__init__(self, position, player_folder, Point(ship_scale, ship_scale))
 
     # Overrides the Object's move so that rotating the ship is possible.
     def move(self, x_vel, screen_height):
+        self.fuel = min(max_fuel, self.fuel)
         # Water Friction! - Idk what else to call it!
         friction = -self.velocity.y * friction_ratio
         self.velocity.y += friction
@@ -79,8 +83,10 @@ class PlayerShip(Ship):
 
     def input(self, keys):
         if keys[K_UP]:
+            self.fuel -= reduce_fuel
             self.velocity.y -= move_amount
         if keys[K_DOWN]:
+            self.fuel -= reduce_fuel
             self.velocity.y += move_amount
         self.velocity.y = min(max(min_y_vel, self.velocity.y), max_y_vel)
 

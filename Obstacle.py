@@ -20,7 +20,7 @@ class Obstacle():
         point = Point(x_pos, object_rect.width / 2)
         for i in range(0, num_objects):
             point.x = random.randint(screen_size.x, screen_size.x * 2.0)
-            point.y += object_rect.height + 10
+            point.y += object_rect.height + 15
             obstacle = Object(point, file_name, velocity_ratio, Point(0, 0))
             self.obstacle_objects.append(obstacle)
 
@@ -55,9 +55,6 @@ class Obstacle():
                 top = max(left.top, right.top);
                 bottom = max(left.bottom, right.bottom);
                 point_of_intersection = (left_pos + right_pos) / 2, (top + bottom) / 2
-                print left
-                print right
-                print point_of_intersection
                 # new_point = (point[0] + obj.rect.left, point[1] + obj.rect.top)
                 return self.damageGiven, point_of_intersection  # HEALTH LOST HERE
         return 0, point

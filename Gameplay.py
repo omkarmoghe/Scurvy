@@ -6,15 +6,14 @@ import sys
 from Animations import *
 
 background_image = "Resources/Background.png"  # Adjust this to change the background image.
-standard_velocity = -5.1  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
+standard_velocity = -1.0  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
 max_velocity = -5.1  # Adjust to change the upper bound of the velocity. WARNING: Must be less than standard_velocity
 acceleration = -0.1  # Adjust this to change how much the velocity changes per instruction got correct.
-rock_damage = 1  # Adjust this to change the amount of damage a Rock does.
+rock_damage = 40  # Adjust this to change the amount of damage a Rock does.
 font_file = "Resources/font.otf"
-control_time = -1  # Adjust this to change how much time to give to the player after correctly performing an instruction
+fuel_amount = 100  # Adjust this to change how much time to give to the player after correctly performing an instruction
 # We are using -1 here so that we can test moving the boat. TODO: Change this value to 50 or there about.
-reduce_control_time = 1  # Adjust this to change amount control time changes per round. Usually just change control_time
-
+collision_fuel_punishment = 20
 size_of_explosion = 128  # Adjust this to change the size of the explosion animation thingy.
 back_overlap = 5  # Adjust this to change how much the two backgrounds overlap so that there are no creases.
 
@@ -40,7 +39,7 @@ class Gameplay():
         player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
         self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen)
-        self.give_control = 0  # Useful for moving the ship around
+        # self.give_control = 0  # Useful for moving the ship around
         self.obstacles.set_velocity(Point(standard_velocity, 0))
         self.explosion = 0
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
@@ -80,7 +79,7 @@ class Gameplay():
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()
-        self.give_control += control_time
+        self.playerShip.fuel += fuel_amount
         self.score += add_score
         self.user_manager.instructions = []
         self.user_manager.populate_random_panel_instructions(4, self.score)
@@ -102,10 +101,9 @@ class Gameplay():
         self.moving_background.move()
         pygame.draw.line(screen, (255, 255, 255, 1.0), (WIDTH / 2, self.visual_screen.y + 1), (WIDTH / 2, HEIGHT), 5)
         self.draw_score_and_health()
-        if self.give_control:
+        if self.playerShip.fuel > 0:
             keys = pygame.key.get_pressed()
             self.playerShip.input(keys)
-            self.give_control -= reduce_control_time
         self.playerShip.move(self.speed, self.visual_screen.y)
         damage_and_point = self.obstacles.check_collision(self.playerShip)
         if damage_and_point[0]:
@@ -117,6 +115,7 @@ class Gameplay():
                 self.playerShip.damage(damage_and_point[0])
                 self.crash_sound.play()
                 self.collision_ended = False
+                self.playerShip.fuel -= collision_fuel_punishment
                 # self.give_control = 0
             if self.explosion != 0:
                 self.explosion.updateAnimation(self.timer)
@@ -160,8 +159,9 @@ class Gameplay():
         screen.blit(player_1_label, player_1_label_rect)
         screen.blit(player_2_label, player_2_label_rect)
 
-        score_label = pygame.font.Font(font_file, 15).render('{0}'.format("SCORE: " + str(self.score)), True, (255, 255,
-                                                                                                               255))
+        score_label = pygame.font.Font(font_file, 15).render('{0}'.format("SCORE: " + str(self.score)) + "             "
+                                                                                                         "FUEL: "
+                                                             + str(self.playerShip.fuel), True, (255, 255, 255))
         score_label_rect = score_label.get_rect()
         score_label_rect.centerx = WIDTH / 4
         score_label_rect.top = HEIGHT - 20
