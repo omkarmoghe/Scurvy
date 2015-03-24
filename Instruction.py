@@ -58,7 +58,7 @@ class DisplayInstruction(Instruction):
         if self.player_displayed == 1:
             x_coord = 3 * screen_size.x / 4
         y_coord = screen_size.y + 35
-        instruction_label = pygame.font.Font("Resources/font.otf", 15).render('{0}'.format(self.message),
+        instruction_label = pygame.font.Font("Resources/font.otf", 20).render('{0}'.format(self.message),
                                                                               True, (255, 255, 255))
         instruction_label_rect = instruction_label.get_rect()
         instruction_label_rect.centerx = x_coord
