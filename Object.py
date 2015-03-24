@@ -15,6 +15,8 @@ class Object(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(self.image, (image_size.x, image_size.y))
         # make 'color' transparent on the image
         self.image.set_colorkey((0, 0, 0, 0))
+        # make a mask based on the image.
+        self.mask = pygame.mask.from_surface(self.image)
         # set the rectangle defined for this image for collision detection
         self.rect = self.image.get_rect()
         # position the image using the value passed.

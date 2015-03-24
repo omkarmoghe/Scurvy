@@ -2,18 +2,24 @@ from PlayerShip import *
 from UserInputManager import *
 from Obstacle import *
 from Point import *
+<<<<<<< HEAD
 import sys
+=======
+from Animations import *
+>>>>>>> origin/master
 
 background_image = "Resources/Background.png"  # Adjust this to change the background image.
-standard_velocity = -1  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
+standard_velocity = -5.1  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
 max_velocity = -5.1  # Adjust to change the upper bound of the velocity. WARNING: Must be less than standard_velocity
 acceleration = -0.1  # Adjust this to change how much the velocity changes per instruction got correct.
-rock_damage = 40  # Adjust this to change the amount of damage a Rock does.
+rock_damage = 1  # Adjust this to change the amount of damage a Rock does.
 font_file = "Resources/font.otf"
 control_time = -1  # Adjust this to change how much time to give to the player after correctly performing an instruction
 # We are using -1 here so that we can test moving the boat. TODO: Change this value to 50 or there about.
 reduce_control_time = 1  # Adjust this to change amount control time changes per round. Usually just change control_time
 
+size_of_explosion = 128  # Adjust this to change the size of the explosion animation thingy.
+back_overlap = 5  # Adjust this to change how much the two backgrounds overlap so that there are no creases.
 
 # This class creates the game play for the actual game.
 class Gameplay():
@@ -36,9 +42,10 @@ class Gameplay():
                                           background_image, 0.5, Point(0, 0))
         player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
-        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen.y)
+        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen)
         self.give_control = 0  # Useful for moving the ship around
         self.obstacles.set_velocity(Point(standard_velocity, 0))
+        self.explosion = 0
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
         self.score = 0
         self.user_manager = UserInputManager()
@@ -56,6 +63,7 @@ class Gameplay():
         self.user_manager.populate_random_panel_instructions(4, 0)  # Zero is default mean
         self.user_manager.set_player_instructions()
         while running:
+            self.timer = pygame.time.get_ticks()
             self.update()
             if self.playerShip.health <= 0:
                 running = False
@@ -76,7 +84,6 @@ class Gameplay():
     def instructions_completed(self, add_score):
         self.correct_sound.play()
         self.give_control += control_time
-        self.obstacles.reset_position(WIDTH)
         self.score += add_score
         self.user_manager.instructions = []
         self.user_manager.populate_random_panel_instructions(4, self.score)
@@ -90,12 +97,12 @@ class Gameplay():
         self.draw_instruction_panel()
         screen.blit(self.playerShip.image, self.playerShip.rect)
         if self.moving_background.rect.right <= 0:
-            self.moving_background.rect.left = WIDTH
+            self.moving_background.rect.left = self.moving_background_2.rect.right - back_overlap
         if self.moving_background_2.rect.right <= 0:
-            self.moving_background_2.rect.left = WIDTH
+            self.moving_background_2.rect.left = self.moving_background.rect.right - back_overlap
         self.obstacles.move(WIDTH)
-        self.moving_background.move()
         self.moving_background_2.move()
+        self.moving_background.move()
         pygame.draw.line(screen, (255, 255, 255, 1.0), (WIDTH / 2, self.visual_screen.y + 1), (WIDTH / 2, HEIGHT), 5)
         self.draw_score_and_health()
         if self.give_control:
@@ -103,12 +110,19 @@ class Gameplay():
             self.playerShip.input(keys)
             self.give_control -= reduce_control_time
         self.playerShip.move(self.speed, self.visual_screen.y)
-        damage = self.obstacles.check_collision(self.playerShip)
-        if damage:
+        damage_and_point = self.obstacles.check_collision(self.playerShip)
+        if damage_and_point[0]:
             if self.collision_ended:
-                self.playerShip.damage(damage)
+                point = damage_and_point[1][0] - size_of_explosion + 28, damage_and_point[1][1] - size_of_explosion
+                # 28 is the only hard coded variable we have x_x but we have no choice.
+                self.explosion = Animations(size_of_explosion, size_of_explosion, "Resources/explosion.png",
+                                            point, screen)
+                self.playerShip.damage(damage_and_point[0])
                 self.crash_sound.play()
                 self.collision_ended = False
+                # self.give_control = 0
+            if self.explosion != 0:
+                self.explosion.updateAnimation(self.timer)
         else:
             self.collision_ended = True
         # TODO: Add stuff inside loop for game.
