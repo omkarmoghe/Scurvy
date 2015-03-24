@@ -14,13 +14,13 @@ class Obstacle():
         # get height of object
         object_image = pygame.image.load(file_name)
         object_rect = object_image.get_rect()
-        num_objects = screen_size.y / object_rect.height  # number of objects
-
+        num_objects = (screen_size.y - 50) / object_rect.height  # number of objects
+        num_objects -= 4
         # add object to the obstacle_objects list
         point = Point(x_pos, object_rect.width / 2)
         for i in range(0, num_objects):
             point.x = random.randint(screen_size.x, screen_size.x * 2.0)
-            point.y += object_rect.height
+            point.y += object_rect.height + 10
             obstacle = Object(point, file_name, velocity_ratio, Point(0, 0))
             self.obstacle_objects.append(obstacle)
 
