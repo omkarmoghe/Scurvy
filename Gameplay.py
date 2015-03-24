@@ -2,11 +2,8 @@ from PlayerShip import *
 from UserInputManager import *
 from Obstacle import *
 from Point import *
-<<<<<<< HEAD
 import sys
-=======
 from Animations import *
->>>>>>> origin/master
 
 background_image = "Resources/Background.png"  # Adjust this to change the background image.
 standard_velocity = -5.1  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
