@@ -134,11 +134,23 @@ class Gameplay():
         for display_instruction in self.user_manager.current_instructions:
             display_instruction.draw(screen, self.visual_screen)
 
-        offset = 80 + self.visual_screen.y
+        offset2 = 80 + self.visual_screen.y
+        control_label = pygame.font.Font(font_file, 20).render('Controls', True, (255, 255, 0))
+        control_label2 = pygame.font.Font(font_file, 20).render('Controls', True, (255, 255, 0))
+        control_label_rect = control_label.get_rect()
+        control_label_rect2 = control_label2.get_rect()
+        control_label_rect.centery = offset2
+        control_label_rect2.centery = offset2
+        control_label_rect.centerx = WIDTH * 1 / 4
+        control_label_rect2.centerx = WIDTH * 3 / 4
+        screen.blit(control_label, control_label_rect)
+        screen.blit(control_label2, control_label_rect2)
+
+        offset = 112 + self.visual_screen.y
 
         for (i, instruction) in enumerate(self.user_manager.instructions):
             instruction_label = pygame.font.Font(font_file, 15).render('{0}'.format(instruction.get_message()),
-                                                                       True, (255, 255, 255))
+                                                                       True, (102, 178, 255))
             instruction_label_rect = instruction_label.get_rect()
             instruction_label_rect.centery = offset + i * 30
             if i >= len(self.user_manager.instructions) / 2:
@@ -153,12 +165,12 @@ class Gameplay():
 
     def draw_score_and_health(self):
         player_1_label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player1Name),
-                                                                True, (255, 255, 255))
+                                                                True, (0, 255, 0))
         player_1_label_rect = player_1_label.get_rect()
         player_1_label_rect.centerx = WIDTH / 4
         player_1_label_rect.top = self.visual_screen.y + 5
         player_2_label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player2Name),
-                                                                True, (255, 255, 255))
+                                                                True, (0, 255, 0))
         player_2_label_rect = player_2_label.get_rect()
         player_2_label_rect.centerx = 3 * WIDTH / 4
         player_2_label_rect.top = self.visual_screen.y + 5
