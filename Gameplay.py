@@ -1,4 +1,5 @@
 from PlayerShip import *
+from HighScoreManager impot *
 from UserInputManager import *
 from Obstacle import *
 from Point import *
@@ -16,6 +17,7 @@ fuel_amount = 100  # Adjust this to change how much time to give to the player a
 collision_fuel_punishment = 20
 size_of_explosion = 128  # Adjust this to change the size of the explosion animation thingy.
 back_overlap = 5  # Adjust this to change how much the two backgrounds overlap so that there are no creases.
+
 
 # This class creates the game play for the actual game.
 class Gameplay():
@@ -63,9 +65,10 @@ class Gameplay():
             self.update()
             if self.playerShip.health <= 0:
                 running = False
+                self.game_over()
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-                    running = False
+                    self.playerShip.health = 0
                 if event.type == KEYDOWN:
                     score_value = self.user_manager.check_inputs(event.key)
                     if score_value == -1:
@@ -76,6 +79,9 @@ class Gameplay():
                         if self.speed > max_velocity:
                             self.speed += acceleration
                         self.obstacles.set_velocity(Point(self.speed, 0))
+
+    def game_over(self):
+        highscore = HighScoreManager()
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()
