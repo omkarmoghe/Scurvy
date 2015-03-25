@@ -17,7 +17,7 @@ fuel_amount = 100  # Adjust this to change how much time to give to the player a
 collision_fuel_punishment = 20
 size_of_explosion = 128  # Adjust this to change the size of the explosion animation thingy.
 back_overlap = 5  # Adjust this to change how much the two backgrounds overlap so that there are no creases.
-
+high_score_file = "highscores.txt"
 
 # This class creates the game play for the actual game.
 class Gameplay():
@@ -81,7 +81,9 @@ class Gameplay():
                         self.obstacles.set_velocity(Point(self.speed, 0))
 
     def game_over(self):
-        highscore = HighScoreManager()
+        highscore_manager = HighScoreManager(high_score_file)
+        highscore_manager.add_high_score((self.player1Name, self.player2Name, self.score))
+        highscore_manager.draw(screen)
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()
@@ -164,12 +166,12 @@ class Gameplay():
             screen.blit(instruction_label, instruction_label_rect)
 
     def draw_score_and_health(self):
-        player_1_label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player1Name),
+        player_1_label = pygame.font.Font(font_file, 18).render('{0}'.format(self.player1Name),
                                                                 True, (0, 255, 0))
         player_1_label_rect = player_1_label.get_rect()
         player_1_label_rect.centerx = WIDTH / 4
         player_1_label_rect.top = self.visual_screen.y + 5
-        player_2_label = pygame.font.Font(font_file, 15).render('{0}'.format(self.player2Name),
+        player_2_label = pygame.font.Font(font_file, 18).render('{0}'.format(self.player2Name),
                                                                 True, (0, 255, 0))
         player_2_label_rect = player_2_label.get_rect()
         player_2_label_rect.centerx = 3 * WIDTH / 4

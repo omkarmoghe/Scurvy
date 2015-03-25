@@ -194,7 +194,7 @@ if __name__ == "__main__":
     WIDTH = backgroundRect.width
     HEIGHT = 3 * backgroundRect.height / 2
     screen = pygame.display.set_mode([WIDTH, HEIGHT])
-    menu_items = ('Start','Settings', 'Quit','Credits')
+    menu_items = ('Start', 'Settings', 'Quit', 'Credits')
     funcs = {'Start': show_Customization,
              'Quit': sys.exit,
              'Settings': show_Settings,

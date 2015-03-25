@@ -1,5 +1,9 @@
 import os.path
+from pygame import *
+import pygame
 
+
+font_file = "Resources/font.otf"
 
 # HIGH SCORES FORMAT IS AS FOLLOWS:
 #     Player1:Player2:score
@@ -47,6 +51,7 @@ class HighScoreManager():
             self.sort_high_scores()
             self.highscores.append(set)
             self.sort_high_scores()
+            self.save_high_scores()
         elif len(self.highscores) == 10:
             self.highscores.append(set)
             self.sort_high_scores()
@@ -55,8 +60,36 @@ class HighScoreManager():
         else:
             assert False  # should never be the case
 
+    def draw(self, screen):
+        background = pygame.image.load("Resources/MenuBackground.png")
+        backgroundRect = background.get_rect()
+        running = True
+        position_label = pygame.font.Font(font_file, 22).render('High Scores Table', True, (255, 255, 0))
+        position_label_rect = position_label.get_rect()
+        position_label_rect.centerx = screen.get_surface().get_width() / 2
+        ratio = screen.height / 12
+        position_label_rect.centery = int(ratio * 1.5)
+        score_labels = []
+        for (i, score) in enumerate(self.highscores):
+            print ""
+
+        while running:
+            screen.fill((0, 0, 0))
+            screen.blit(background, backgroundRect)
+            screen.blit(position_label, position_label_rect)
+            # screen.blit(score_labels)
+            for event in pygame.event.get():
+                if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+                    running = False
+            pygame.display.update()
+
 # FOR TESTING ONLY
-# hsm = HighScoreManager("highscores.txt")
-# print hsm.highscores
-# hsm.save_high_scores()
-# hsm.add_high_score(("Harold", "Kumar", 420))
+hsm = HighScoreManager("highscores.txt")
+pygame.init()
+background_image = "Resources/Background.png"
+background = pygame.image.load(background_image)
+backgroundRect = background.get_rect()
+WIDTH = backgroundRect.width
+HEIGHT = 3 * backgroundRect.height / 2
+screen = pygame.display.set_mode([WIDTH, HEIGHT])
+hsm.draw(screen)
