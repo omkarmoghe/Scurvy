@@ -22,7 +22,7 @@ high_score_file = "highscores.txt"
 # This class creates the game play for the actual game.
 class Gameplay():
 
-    def __init__(self, player_1_name, player_2_name, folder_name,difficulty_easy,sound_on,cheat_code):
+    def __init__(self, player_1_name, player_2_name, folder_name, difficulty_easy, sound_on, cheat_code):
         pygame.init()
         global WIDTH, HEIGHT, screen
         pygame.display.set_caption("Scurvy")
@@ -42,6 +42,8 @@ class Gameplay():
         self.playerShip = PlayerShip(player_position, folder_name)
         self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen)
         # self.give_control = 0  # Useful for moving the ship around
+        self.difficulty_easy_select = difficulty_easy
+        self.sound_on = sound_on
         self.obstacles.set_velocity(Point(standard_velocity, 0))
         self.explosion = 0
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
@@ -57,7 +59,8 @@ class Gameplay():
         running = True
         background_music = pygame.mixer.music
         background_music.load('Resources/pirate_music.wav')
-        background_music.play(-1, 0.0)
+        if self.sound_on:
+            background_music.play(-1, 0.0)
         self.user_manager.populate_random_panel_instructions(4, 0)  # Zero is default mean
         self.user_manager.set_player_instructions()
         while running:
@@ -65,14 +68,15 @@ class Gameplay():
             self.update()
             if self.playerShip.health <= 0:
                 running = False
-                #self.game_over()
+                self.game_over()
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                     self.playerShip.health = 0
                 if event.type == KEYDOWN:
                     score_value = self.user_manager.check_inputs(event.key)
                     if score_value == -1:
-                        self.incorrect_sound.play()
+                        if self.sound_on:
+                            self.incorrect_sound.play()
                         self.playerShip.damage(10)
                     elif score_value:
                         self.instructions_completed(score_value)
@@ -80,18 +84,14 @@ class Gameplay():
                             self.speed += acceleration
                         self.obstacles.set_velocity(Point(self.speed, 0))
 
-<<<<<<< HEAD
-    #def game_over(self):
-        #highscore = HighScoreManager()
-=======
     def game_over(self):
         highscore_manager = HighScoreManager(high_score_file)
         highscore_manager.add_high_score((self.player1Name, self.player2Name, self.score))
-        highscore_manager.draw(screen)
->>>>>>> highscores
+        highscore_manager.draw(screen, self.player1Name, self.player2Name, self.difficulty_easy_select)
 
     def instructions_completed(self, add_score):
-        self.correct_sound.play()
+        if self.sound_on:
+            self.correct_sound.play()
         self.playerShip.fuel += fuel_amount
         self.score += add_score
         self.user_manager.instructions = []
@@ -126,7 +126,8 @@ class Gameplay():
                 self.explosion = Animations(size_of_explosion, size_of_explosion, "Resources/explosion.png",
                                             point, screen)
                 self.playerShip.damage(damage_and_point[0])
-                self.crash_sound.play()
+                if self.sound_on:
+                    self.crash_sound.play()
                 self.collision_ended = False
                 self.playerShip.fuel -= collision_fuel_punishment
                 # self.give_control = 0

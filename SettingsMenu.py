@@ -251,23 +251,34 @@ def show_Settings():
         #checks to see if the user quits
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-                tf = open("sound_and_cheat.txt",'w')
-                if onSelected==1:
-                    onSelected="On"
+                tf = open("sound_and_cheat.txt", 'w')
+                if onSelected == 1:
+                    onSelected = "On"
                 else:
-                    onSelected="Off"
+                    onSelected = "Off"
+                if cheat == "":
+                    cheat = "\n"
                 tf.write("%s\n%s" % (onSelected, cheat))
                 tf.close()
                 return
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_mouse_selection(backButtonRect,mpos):
+                    tf = open("sound_and_cheat.txt", 'w')
+                    if onSelected == 1:
+                        onSelected = "On"
+                    else:
+                        onSelected = "Off"
+                    if cheat == "":
+                        cheat = "\n"
+                    tf.write("%s\n%s" % (onSelected, cheat))
+                    tf.close()
                     return
                 if is_mouse_selection(textboxRect,mpos):
                     textboxSelected = 1
-                if onSelected==1 and is_mouse_selection(checkbox2Rect,mpos):
-                    onSelected=0
-                elif onSelected==0 and is_mouse_selection(checkboxRect,mpos):
-                    onSelected=1
+                if onSelected == 1 and is_mouse_selection(checkbox2Rect, mpos):
+                    onSelected = 0
+                elif onSelected == 0 and is_mouse_selection(checkboxRect,mpos):
+                    onSelected = 1
             
             if event.type == KEYDOWN:
                 if textboxSelected == 1:
