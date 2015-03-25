@@ -12,7 +12,11 @@ pygame.init()
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
- 
+
+tf = open("sound_and_cheat.txt",'w')
+tf.write("%s\n%s\n" % ("On",""))
+tf.close()
+
 class MenuItem(pygame.font.Font):
     def __init__(self, text, font=None, font_size=50,
                  font_color=WHITE, (pos_x, pos_y)=(0, 0)):
@@ -113,6 +117,7 @@ class GameMenu():
             text = self.items[self.cur_item].text
             pygame.mouse.set_visible(True)
             self.funcs[text]()
+            pygame.display.set_caption("Scurvy")
  
     def set_mouse_selection(self, item, mpos):
         """Marks the MenuItem the mouse cursor hovers on."""
@@ -125,6 +130,7 @@ class GameMenu():
  
     def run(self):
         mainloop = True
+        
         while mainloop:
             # Limit frame speed to 50 FPS
             self.clock.tick(50)
@@ -141,6 +147,7 @@ class GameMenu():
                     for item in self.items:
                         if item.is_mouse_selection(mpos):
                             self.funcs[item.text]()
+                            pygame.display.set_caption("Scurvy")
  
             if pygame.mouse.get_rel() != (0, 0):
                 self.mouse_is_visible = True
@@ -180,12 +187,7 @@ class GameMenu():
             pygame.display.flip()
  
 if __name__ == "__main__":
-    def hello_world():
-        print "Start!"
-    def hello_world2():
-        print "Settings!"
-    def hello_world3():
-        print "Credits!"
+   
     # Creating the screen
     pygame.display.set_caption("Scurvy")
     background_image = "Resources/Background.png" 

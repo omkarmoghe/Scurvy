@@ -2,6 +2,7 @@ import pygame, random, sys
 from pygame.locals import *
 
 from main import *
+from MainMenu import *
 
 pygame.init()
 
@@ -222,6 +223,18 @@ def show_Settings():
         textboxHighlightedRect.top = textboxHighlightedRect.centery-30
         textboxHighlightedRect.bottom = textboxHighlightedRect.centery+30
         
+        backButton_image = "Resources/backButton.png"
+        backButton = pygame.image.load(backButton_image)
+        backButton = pygame.transform.scale(backButton,(60,60))
+        backButtonRect = backButton.get_rect()
+        backButtonRect.centerx = 50
+        backButtonRect.centery = 50
+        backButtonRect.left = backButtonRect.centerx-30
+        backButtonRect.right = backButtonRect.centerx+30
+        backButtonRect.top = backButtonRect.centery-30
+        backButtonRect.bottom = backButtonRect.centery+30
+        screen.blit(backButton, backButtonRect)
+        
         
         if onSelected == 1:
             screen.blit(checkboxSelected, checkboxSelectedRect)
@@ -238,8 +251,17 @@ def show_Settings():
         #checks to see if the user quits
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+                tf = open("sound_and_cheat.txt",'w')
+                if onSelected==1:
+                    onSelected="On"
+                else:
+                    onSelected="Off"
+                tf.write("%s\n%s" % (onSelected, cheat))
+                tf.close()
                 return
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if is_mouse_selection(backButtonRect,mpos):
+                    return
                 if is_mouse_selection(textboxRect,mpos):
                     textboxSelected = 1
                 if onSelected==1 and is_mouse_selection(checkbox2Rect,mpos):
