@@ -22,7 +22,7 @@ back_overlap = 5  # Adjust this to change how much the two backgrounds overlap s
 # This class creates the game play for the actual game.
 class Gameplay():
 
-    def __init__(self, player_1_name, player_2_name, folder_name):
+    def __init__(self, player_1_name, player_2_name, folder_name,difficulty_easy,sound_on,cheat_code):
         pygame.init()
         global WIDTH, HEIGHT, screen
         pygame.display.set_caption("Scurvy")
@@ -65,7 +65,7 @@ class Gameplay():
             self.update()
             if self.playerShip.health <= 0:
                 running = False
-                self.game_over()
+                #self.game_over()
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                     self.playerShip.health = 0
@@ -80,8 +80,8 @@ class Gameplay():
                             self.speed += acceleration
                         self.obstacles.set_velocity(Point(self.speed, 0))
 
-    def game_over(self):
-        highscore = HighScoreManager()
+    #def game_over(self):
+        #highscore = HighScoreManager()
 
     def instructions_completed(self, add_score):
         self.correct_sound.play()

@@ -98,13 +98,11 @@ def show_Customization():
     quitStatus=0
     easySelected=1
     textboxSelected=0
-    player1name = ''
-    player2name = ''
+    player1name = 'PLAYER 1'
+    player2name = 'PLAYER 2'
     while quitStatus != 1:
         pygame.display.set_caption('Customization Menu')
         
-        
-                
         background_image = "Resources/Background.png" 
         background = pygame.image.load(background_image)
         backgroundRect = background.get_rect()
@@ -287,6 +285,18 @@ def show_Customization():
         playButtonRect.bottom = playButtonRect.centery+30
         screen.blit(playButton, playButtonRect)
         
+        backButton_image = "Resources/backButton.png"
+        backButton = pygame.image.load(backButton_image)
+        backButton = pygame.transform.scale(backButton,(60,60))
+        backButtonRect = backButton.get_rect()
+        backButtonRect.centerx = 50
+        backButtonRect.centery = 50
+        backButtonRect.left = backButtonRect.centerx-30
+        backButtonRect.right = backButtonRect.centerx+30
+        backButtonRect.top = backButtonRect.centery-30
+        backButtonRect.bottom = backButtonRect.centery+30
+        screen.blit(backButton, backButtonRect)
+        
         
         if easySelected == 1:
             screen.blit(checkboxSelected, checkboxSelectedRect)
@@ -311,14 +321,22 @@ def show_Customization():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 return
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if is_mouse_selection(backButtonRect,mpos):
+                    return
                 if is_mouse_selection(textboxRect,mpos):
+                    if player1name == "PLAYER 1":
+                        player1name = ""
                     textboxSelected = 1
                 elif is_mouse_selection(textbox2Rect,mpos):
+                    if player2name == "PLAYER 2":
+                        player2name = ""
                     textboxSelected = 2
                 
                     
                 if is_mouse_selection(playButtonRect,mpos):
-                    play_game(player1name,player2name)
+                    infile = open("sound_and_cheat.txt","r")
+                    array = infile.readlines()
+                    play_game(player1name,player2name,easySelected,array[0],array[1])
                     return
                 elif easySelected==1 and is_mouse_selection(checkbox2Rect,mpos):
                     easySelected=0
