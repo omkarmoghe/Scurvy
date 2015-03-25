@@ -43,7 +43,7 @@ class Gameplay():
         self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen)
         # self.give_control = 0  # Useful for moving the ship around
         self.difficulty_easy_select = difficulty_easy
-        self.sound_on = sound_on
+        self.sound_on = True if sound_on == "On" else False
         self.obstacles.set_velocity(Point(standard_velocity, 0))
         self.explosion = 0
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
