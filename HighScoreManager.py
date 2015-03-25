@@ -64,20 +64,28 @@ class HighScoreManager():
         background = pygame.image.load("Resources/MenuBackground.png")
         backgroundRect = background.get_rect()
         running = True
-        position_label = pygame.font.Font(font_file, 22).render('High Scores Table', True, (255, 255, 0))
+        position_label = pygame.font.Font(font_file, 25).render('High Scores Table', True, (255, 255, 255))
         position_label_rect = position_label.get_rect()
-        position_label_rect.centerx = screen.get_surface().get_width() / 2
-        ratio = screen.height / 12
-        position_label_rect.centery = int(ratio * 1.5)
+        center_x = screen.get_width() / 2
+        position_label_rect.centerx = center_x
+        ratio = screen.get_height() / 12
+        position_label_rect.centery = int(ratio)
         score_labels = []
         for (i, score) in enumerate(self.highscores):
-            print ""
+            score_label = pygame.font.Font(font_file, 20).render('{0:12s} {1:12s} scored {2:10d} points.'.format
+                                                                 (score[0], score[1], score[2]), True,
+                                                                 (255, 255, 255))
+            score_label_rect = score_label.get_rect()
+            score_label_rect.left = center_x * 0.3
+            score_label_rect.centery = int(ratio * (2 + i))
+            score_labels.append((score_label, score_label_rect))
 
         while running:
             screen.fill((0, 0, 0))
             screen.blit(background, backgroundRect)
             screen.blit(position_label, position_label_rect)
-            # screen.blit(score_labels)
+            for score_label_thingy in score_labels:
+                screen.blit(score_label_thingy[0], score_label_thingy[1])
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                     running = False
