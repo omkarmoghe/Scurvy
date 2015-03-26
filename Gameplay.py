@@ -12,8 +12,8 @@ max_velocity = -5.1  # Adjust to change the upper bound of the velocity. WARNING
 acceleration = -0.1  # Adjust this to change how much the velocity changes per instruction got correct.
 rock_damage = 40  # Adjust this to change the amount of damage a Rock does.
 font_file = "Resources/font.otf"
-fuel_amount = 100  # Adjust this to change how much time to give to the player after correctly performing an instruction
-# We are using -1 here so that we can test moving the boat. TODO: Change this value to 50 or there about.
+fuel_amount = 50  # Adjust this to change how much time to give to the player after correctly performing an instruction
+# We are using -1 here so that we can test moving the boat.
 collision_fuel_punishment = 20
 size_of_explosion = 128  # Adjust this to change the size of the explosion animation thingy.
 back_overlap = 5  # Adjust this to change how much the two backgrounds overlap so that there are no creases.
@@ -69,7 +69,7 @@ class Gameplay():
         global rock_damage
 
         if cheat_code == "EDWARD":
-            self.score_multiplier = 1.5
+            self.score_multiplier = 2
         elif cheat_code == "EVAN":
             rock_damage = 20
         elif cheat_code == "MANAV":
@@ -77,7 +77,7 @@ class Gameplay():
         elif cheat_code == "OMKAR":
             self.playerShip.fuel = 200
         elif cheat_code == "CHESNEY":
-            self.score_multiplier = 1.5
+            self.score_multiplier = 2
             self.playerShip.fuel = 200
             self.score = 200
             rock_damage = 20
