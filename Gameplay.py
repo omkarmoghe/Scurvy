@@ -23,9 +23,18 @@ high_score_file = "highscores.txt"
 class Gameplay():
 
     def __init__(self, player_1_name, player_2_name, folder_name, difficulty_easy, sound_on, cheat_code):
+        global standard_velocity
+
         pygame.init()
         global WIDTH, HEIGHT, screen
         pygame.display.set_caption("Scurvy")
+
+        self.set_cheats(cheat_code)
+
+        if difficulty_easy == 0:
+            standard_velocity = -2.5
+
+        self.score_multiplier = 1
         self.background = pygame.image.load(background_image)
         self.backgroundRect = self.background.get_rect()
         WIDTH = self.backgroundRect.width
@@ -54,6 +63,23 @@ class Gameplay():
         self.incorrect_sound = pygame.mixer.Sound('Resources/incorrect_press.wav')
         self.crash_sound = pygame.mixer.Sound('Resources/crash.wav')
         self.speed = standard_velocity
+
+    def set_cheats(self, cheat_code):
+        global rock_damage
+
+        if cheat_code == "EDWARD":
+            self.score_multiplier = 1.5
+        elif cheat_code == "EVAN":
+            rock_damage = 20
+        elif cheat_code == "MANAV":
+            self.score = 200
+        elif cheat_code == "OMKAR":
+            self.playerShip.fuel = 200
+        elif cheat_code == "CHESNEY":
+            self.score_multiplier = 1.5
+            self.playerShip.fuel = 200
+            self.score = 200
+            rock_damage = 20
 
     def run_game(self):
         running = True
@@ -93,7 +119,7 @@ class Gameplay():
         if self.sound_on:
             self.correct_sound.play()
         self.playerShip.fuel += fuel_amount
-        self.score += add_score
+        self.score += add_score * self.score_multiplier
         self.user_manager.instructions = []
         self.user_manager.populate_random_panel_instructions(4, self.score)
         self.user_manager.set_player_instructions()
