@@ -6,5 +6,5 @@ Noah:Will:500
 Harold:Kumar:420
 Harold:Kumar:420
 Bart:Lisa:300
-MANAV:OMKAR:148
-Bob:Joe:90
+PLAYER 1:PLAYER 2:200
+PLAYER 1:PLAYER 2:200

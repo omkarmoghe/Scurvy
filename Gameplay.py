@@ -29,10 +29,6 @@ class Gameplay():
         global WIDTH, HEIGHT, screen
         pygame.display.set_caption("Scurvy")
 
-        self.set_cheats(cheat_code)
-
-        if difficulty_easy == 0:
-            standard_velocity = -2.5
 
         self.score_multiplier = 1
         self.background = pygame.image.load(background_image)
@@ -49,11 +45,9 @@ class Gameplay():
                                           background_image, 0.5, Point(0, 0))
         player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
-        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen)
         # self.give_control = 0  # Useful for moving the ship around
         self.difficulty_easy_select = difficulty_easy
         self.sound_on = True if sound_on == "On" else False
-        self.obstacles.set_velocity(Point(standard_velocity, 0))
         self.explosion = 0
         self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
         self.score = 0
@@ -63,6 +57,13 @@ class Gameplay():
         self.incorrect_sound = pygame.mixer.Sound('Resources/incorrect_press.wav')
         self.crash_sound = pygame.mixer.Sound('Resources/crash.wav')
         self.speed = standard_velocity
+
+        self.set_cheats(cheat_code)
+        if difficulty_easy == 0:
+            standard_velocity = -2.5
+
+        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen)
+        self.obstacles.set_velocity(Point(standard_velocity, 0))
 
     def set_cheats(self, cheat_code):
         global rock_damage
@@ -155,7 +156,11 @@ class Gameplay():
                 if self.sound_on:
                     self.crash_sound.play()
                 self.collision_ended = False
-                self.playerShip.fuel -= collision_fuel_punishment
+                if self.playerShip.fuel >= 20:
+                    self.playerShip.fuel -= collision_fuel_punishment
+                else:
+                    self.playerShip.fuel = 0
+
                 # self.give_control = 0
             if self.explosion != 0:
                 self.explosion.updateAnimation(self.timer)
