@@ -109,6 +109,7 @@ class HighScoreManager():
                         infile = open("sound_and_cheat.txt", "r")
                         array = infile.readlines()
                         main.play_game(p1name, p2name, easy_selected, array[0], array[1])
+                        return
             pygame.display.update()
 
 # FOR TESTING ONLY
