@@ -4,20 +4,9 @@ from UserInputManager import *
 from Obstacle import *
 from Point import *
 import sys
+from Globals import *
 from Animations import *
 
-background_image = "Resources/Background.png"  # Adjust this to change the background image.
-standard_velocity = -1.0  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
-max_velocity = -5.1  # Adjust to change the upper bound of the velocity. WARNING: Must be less than standard_velocity
-acceleration = -0.1  # Adjust this to change how much the velocity changes per instruction got correct.
-rock_damage = 40  # Adjust this to change the amount of damage a Rock does.
-font_file = "Resources/font.otf"
-fuel_amount = 50  # Adjust this to change how much time to give to the player after correctly performing an instruction
-# We are using -1 here so that we can test moving the boat.
-collision_fuel_punishment = 20
-size_of_explosion = 128  # Adjust this to change the size of the explosion animation thingy.
-back_overlap = 5  # Adjust this to change how much the two backgrounds overlap so that there are no creases.
-high_score_file = "highscores.txt"
 
 # This class creates the game play for the actual game.
 class Gameplay():
@@ -28,7 +17,6 @@ class Gameplay():
         pygame.init()
         global WIDTH, HEIGHT, screen
         pygame.display.set_caption("Scurvy")
-
 
         self.score_multiplier = 1
         self.background = pygame.image.load(background_image)

@@ -2,8 +2,8 @@ import os.path
 from pygame import *
 import pygame
 import main
+from Globals import *
 
-font_file = "Resources/font.otf"
 
 # HIGH SCORES FORMAT IS AS FOLLOWS:
 #     Player1:Player2:score

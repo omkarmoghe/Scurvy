@@ -1,16 +1,8 @@
 from Ship import *
 from Point import *
 from pygame.locals import *
+from Globals import *
 import math
-
-ship_scale = 150  # Adjust this to change the size of the ship.
-angle_deviations = 22.5  # Adjust this value if we get more images.
-friction_ratio = 0.25  # Adjust this value to change the dynamic friction proportion
-max_y_vel = 2.5  # Adjust this value to change the fastest a boat can move.
-min_y_vel = -max_y_vel  # DO NOT adjust this value. It is determined dynamically based on the max velocity
-move_amount = 0.3  # Adjust this value to change the acceleration of the boat.
-reduce_fuel = 1  # Adjust this to change amount control time changes per round. Usually just change control_time
-max_fuel = 200  # Adjust this to change the maximum storage of fuel.
 
 
 # This is the player ship object in the Game World. It has a nice initializer to create the Ship.

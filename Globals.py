@@ -1,0 +1,42 @@
+import pygame
+
+application_name = "Scurvy"  # Adjust this to change the name of the Application
+background_image = "Resources/Background.png"  # Adjust this to change the background image.
+menu_background_image = "Resources/MenuBackground.png"
+standard_velocity = -1.0  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
+max_velocity = -5.1  # Adjust to change the upper bound of the velocity. WARNING: Must be less than standard_velocity
+acceleration = -0.1  # Adjust this to change how much the velocity changes per instruction got correct.
+rock_damage = 40  # Adjust this to change the amount of damage a Rock does.
+font_file = "Resources/font.otf"
+menu_item_font_size = 50
+fuel_amount = 50  # Adjust this to change how much time to give to the player after correctly performing an instruction
+# We are using -1 here so that we can test moving the boat.
+collision_fuel_punishment = 20
+size_of_explosion = 128  # Adjust this to change the size of the explosion animation thingy.
+back_overlap = 5  # Adjust this to change how much the two backgrounds overlap so that there are no creases.
+high_score_file = "highscores.txt"
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+BLACK = (0, 0, 0)
+classic_ship_location = "Resources/Classic/"
+settings_file = "sound_and_cheat.txt"
+ship_scale = 150  # Adjust this to change the size of the ship.
+angle_deviations = 22.5  # Adjust this value if we get more images.
+friction_ratio = 0.25  # Adjust this value to change the dynamic friction proportion
+max_y_vel = 2.5  # Adjust this value to change the fastest a boat can move.
+min_y_vel = -max_y_vel  # DO NOT adjust this value. It is determined dynamically based on the max velocity
+move_amount = 0.3  # Adjust this value to change the acceleration of the boat.
+reduce_fuel = 1  # Adjust this to change amount control time changes per round. Usually just change control_time
+max_fuel = 200  # Adjust this to change the maximum storage of fuel.
+checkbox_selected_image = "Resources/CheckedBox.png"
+checkbox_image = "Resources/UncheckedBox.png"
+checkbox_size = 40
+textbox_image = "Resources/textBox.png"
+textbox_highlighted_image = "Resources/textBoxHighlighted.png"
+play_button_image = "Resources/StartButton.png"
+back_button_image = "Resources/backButton.png"
+background = pygame.image.load(background_image)
+background_rect = background.get_rect()
+WIDTH = background_rect.width
+HEIGHT = 3 * background_rect.height / 2
+screen = pygame.display.set_mode([WIDTH, HEIGHT])

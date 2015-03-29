@@ -1,5 +1,6 @@
 import pygame
 from random import randint
+from Globals import *
 
 # list of left player keys
 left_keys = [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_q, pygame.K_w, pygame.K_e, pygame.K_r,
@@ -58,7 +59,7 @@ class DisplayInstruction(Instruction):
         if self.player_displayed == 1:
             x_coord = 3 * screen_size.x / 4
         y_coord = screen_size.y + 35
-        instruction_label = pygame.font.Font("Resources/font.otf", 20).render('{0}'.format(self.message),
+        instruction_label = pygame.font.Font(font_file, 20).render('{0}'.format(self.message),
                                                                               True, (255, 255, 255))
         instruction_label_rect = instruction_label.get_rect()
         instruction_label_rect.centerx = x_coord

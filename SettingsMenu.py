@@ -8,15 +8,16 @@ pygame.init()
 
 def is_mouse_selection(checkbox, (posx, posy)):
         if (posx >= checkbox.left and posx <= checkbox.right) and \
-            (posy >= checkbox.top and posy <= checkbox.bottom):
+           (posy >= checkbox.top and posy <= checkbox.bottom):
                 return True
         return False
 
-def check_keys(name,key):
+def check_keys(name, key):
     if len(name) > 0:
         if key == K_BACKSPACE:
             return name[:len(name)-1]
     if len(name) < 12:
+        return key.description
         if key == K_a:
             return name + "A"
         if key == K_b:
