@@ -2,56 +2,52 @@ from PlayerShip import *
 from HighScoreManager import *
 from UserInputManager import *
 from Obstacle import *
-from Point import *
 import sys
-from Globals import *
 from Animations import *
-
+from Globals import *
 
 # This class creates the game play for the actual game.
 class Gameplay():
 
     def __init__(self, player_1_name, player_2_name, folder_name, difficulty_easy, sound_on, cheat_code):
-        global standard_velocity
-
-        pygame.init()
-        global WIDTH, HEIGHT, screen
-        pygame.display.set_caption("Scurvy")
+        pygame.display.set_caption(application_name)
 
         self.score_multiplier = 1
-        self.background = pygame.image.load(background_image)
-        self.backgroundRect = self.background.get_rect()
-        WIDTH = self.backgroundRect.width
-        HEIGHT = 3 * self.backgroundRect.height / 2
-        screen = pygame.display.set_mode([WIDTH, HEIGHT])
+
         self.player1Name = player_1_name
         self.player2Name = player_2_name
-        self.visual_screen = Point(self.backgroundRect.width, self.backgroundRect.height)
-        self.moving_background = Object(Point(self.visual_screen.x / 2, self.visual_screen.y / 2),
-                                        background_image, 0.5, Point(0, 0))
-        self.moving_background_2 = Object(Point(self.visual_screen.x * 3 / 2, self.visual_screen.y / 2),
-                                          background_image, 0.5, Point(0, 0))
-        player_position = Point(self.visual_screen.x * 0.25, self.visual_screen.y / 2)
+        self.visual_screen = (background_rect.width, background_rect.height)
+
+        self.moving_background = Object((self.visual_screen[0] / 2, self.visual_screen[1] / 2),
+                                        background_image, 0.5, (0, 0))
+        self.moving_background_2 = Object((self.visual_screen[0] * 3 / 2, self.visual_screen[1] / 2),
+                                          background_image, 0.5, (0, 0))
+        player_position = (self.visual_screen[0] * 0.25, self.visual_screen[1] / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
         # self.give_control = 0  # Useful for moving the ship around
         self.difficulty_easy_select = difficulty_easy
         self.sound_on = True if sound_on == "On" else False
         self.explosion = 0
-        self.moving_background.velocity.x = self.moving_background_2.velocity.x = standard_velocity
+
         self.score = 0
         self.user_manager = UserInputManager()
         self.collision_ended = True
-        self.correct_sound = pygame.mixer.Sound('Resources/correct_press.wav')
-        self.incorrect_sound = pygame.mixer.Sound('Resources/incorrect_press.wav')
-        self.crash_sound = pygame.mixer.Sound('Resources/crash.wav')
+        self.correct_sound = pygame.mixer.Sound(correct_press_sound)
+        self.incorrect_sound = pygame.mixer.Sound(incorrect_press_sound)
+        self.crash_sound = pygame.mixer.Sound(crash_sound)
         self.speed = standard_velocity
-
+        self.rock_damage_multiplier = 1.0
         self.set_cheats(cheat_code)
-        if difficulty_easy == 0:
-            standard_velocity = -2.5
 
-        self.obstacles = Obstacle(WIDTH, "Resources/rock_single.png", rock_damage, self.visual_screen)
-        self.obstacles.set_velocity(Point(standard_velocity, 0))
+        if difficulty_easy == 1:
+            self.speed = standard_easy_velocity
+
+        self.moving_background.velocity = self.moving_background_2.velocity = (standard_velocity, 0)
+        self.obstacles = Obstacle(WIDTH, rock_image, rock_damage * self.rock_damage_multiplier,
+                                  self.visual_screen)
+        self.obstacles.set_velocity((self.speed, 0))
+        self.background_music = pygame.mixer.music
+        self.timer = pygame.time.get_ticks()
 
     def set_cheats(self, cheat_code):
         global rock_damage
@@ -59,7 +55,7 @@ class Gameplay():
         if cheat_code == "EDWARD":
             self.score_multiplier = 2
         elif cheat_code == "EVAN":
-            rock_damage = 20
+            self.rock_damage_multiplier = 0.5
         elif cheat_code == "MANAV":
             self.score = 200
         elif cheat_code == "OMKAR":
@@ -72,10 +68,10 @@ class Gameplay():
 
     def run_game(self):
         running = True
-        background_music = pygame.mixer.music
-        background_music.load('Resources/pirate_music.wav')
+        self.background_music = pygame.mixer.music
+        self.background_music.load(background_sound)
         if self.sound_on:
-            background_music.play(-1, 0.0)
+            self.background_music.play(-1, 0.0)
         self.user_manager.populate_random_panel_instructions(4, 0)  # Zero is default mean
         self.user_manager.set_player_instructions()
         while running:
@@ -97,9 +93,10 @@ class Gameplay():
                         self.instructions_completed(score_value)
                         if self.speed > max_velocity:
                             self.speed += acceleration
-                        self.obstacles.set_velocity(Point(self.speed, 0))
+                        self.obstacles.set_velocity((self.speed, 0))
 
     def game_over(self):
+        self.background_music.stop()
         highscore_manager = HighScoreManager(high_score_file)
         highscore_manager.add_high_score((self.player1Name, self.player2Name, self.score))
         highscore_manager.draw(screen, self.player1Name, self.player2Name, self.difficulty_easy_select)
@@ -127,29 +124,28 @@ class Gameplay():
         self.obstacles.move(WIDTH)
         self.moving_background_2.move()
         self.moving_background.move()
-        pygame.draw.line(screen, (255, 255, 255, 1.0), (WIDTH / 2, self.visual_screen.y + 1), (WIDTH / 2, HEIGHT), 5)
+        pygame.draw.line(screen, WHITE, (WIDTH / 2, self.visual_screen[1] + 1), (WIDTH / 2, HEIGHT), 5)
         self.draw_score_and_health()
         if self.playerShip.fuel > 0:
             keys = pygame.key.get_pressed()
             self.playerShip.input(keys)
-        self.playerShip.move(self.speed, self.visual_screen.y)
+        self.playerShip.move(self.speed, self.visual_screen[1])
         damage_and_point = self.obstacles.check_collision(self.playerShip)
         if damage_and_point[0]:
             if self.collision_ended:
                 point = damage_and_point[1][0] - size_of_explosion + 28, damage_and_point[1][1] - size_of_explosion
-                # 28 is the only hard coded variable we have x_x but we have no choice.
-                self.explosion = Animations(size_of_explosion, size_of_explosion, "Resources/explosion.png",
+                # 28 is the only hard coded variable we have x_x, but we have no choice.
+                self.explosion = Animations(size_of_explosion, size_of_explosion, explosion_image,
                                             point, screen)
                 self.playerShip.damage(damage_and_point[0])
                 if self.sound_on:
                     self.crash_sound.play()
                 self.collision_ended = False
-                if self.playerShip.fuel >= 20:
+                if self.playerShip.fuel >= collision_fuel_punishment:
                     self.playerShip.fuel -= collision_fuel_punishment
                 else:
                     self.playerShip.fuel = 0
 
-                # self.give_control = 0
             if self.explosion != 0:
                 self.explosion.updateAnimation(self.timer)
         else:
@@ -161,9 +157,9 @@ class Gameplay():
         for display_instruction in self.user_manager.current_instructions:
             display_instruction.draw(screen, self.visual_screen)
 
-        offset2 = 80 + self.visual_screen.y
-        control_label = pygame.font.Font(font_file, 20).render('Controls', True, (255, 255, 0))
-        control_label2 = pygame.font.Font(font_file, 20).render('Controls', True, (255, 255, 0))
+        offset2 = 80 + self.visual_screen[1]
+        control_label = pygame.font.Font(font_file, 20).render('Controls', True, YELLOW)
+        control_label2 = pygame.font.Font(font_file, 20).render('Controls', True, YELLOW)
         control_label_rect = control_label.get_rect()
         control_label_rect2 = control_label2.get_rect()
         control_label_rect.centery = offset2
@@ -173,7 +169,7 @@ class Gameplay():
         screen.blit(control_label, control_label_rect)
         screen.blit(control_label2, control_label_rect2)
 
-        offset = 112 + self.visual_screen.y
+        offset = 112 + self.visual_screen[1]
 
         for (i, instruction) in enumerate(self.user_manager.instructions):
             instruction_label = pygame.font.Font(font_file, 15).render('{0}'.format(instruction.get_message()),
@@ -192,28 +188,28 @@ class Gameplay():
 
     def draw_score_and_health(self):
         player_1_label = pygame.font.Font(font_file, 18).render('{0}'.format(self.player1Name),
-                                                                True, (0, 255, 0))
+                                                                True, GREEN)
         player_1_label_rect = player_1_label.get_rect()
         player_1_label_rect.centerx = WIDTH / 4
-        player_1_label_rect.top = self.visual_screen.y + 5
+        player_1_label_rect.top = self.visual_screen[1] + 5
         player_2_label = pygame.font.Font(font_file, 18).render('{0}'.format(self.player2Name),
-                                                                True, (0, 255, 0))
+                                                                True, GREEN)
         player_2_label_rect = player_2_label.get_rect()
         player_2_label_rect.centerx = 3 * WIDTH / 4
-        player_2_label_rect.top = self.visual_screen.y + 5
+        player_2_label_rect.top = self.visual_screen[1] + 5
         screen.blit(player_1_label, player_1_label_rect)
         screen.blit(player_2_label, player_2_label_rect)
 
         score_label = pygame.font.Font(font_file, 15).render('{0}'.format("SCORE: " + str(self.score)) + "             "
                                                                                                          "FUEL: "
-                                                             + str(self.playerShip.fuel), True, (255, 255, 255))
+                                                             + str(self.playerShip.fuel), True, WHITE)
         score_label_rect = score_label.get_rect()
         score_label_rect.centerx = WIDTH / 4
         score_label_rect.top = HEIGHT - 20
         screen.blit(score_label, score_label_rect)
 
-        red_bar = pygame.image.load("Resources/healthbar.png")
-        green_bar = pygame.image.load("Resources/health.png")
+        red_bar = pygame.image.load(healthbar_image)
+        green_bar = pygame.image.load(health_image)
         health_value = self.playerShip.health
 
         screen.blit(red_bar, (WIDTH * 5 / 8, HEIGHT - 20))

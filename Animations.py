@@ -1,7 +1,6 @@
 import pygame,os,random,time
 from pygame.locals import *
 from Object import *
-from Point import *
 from Gameplay import *
 
 

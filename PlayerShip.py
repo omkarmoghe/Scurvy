@@ -1,5 +1,4 @@
 from Ship import *
-from Point import *
 from pygame.locals import *
 from Globals import *
 import math
@@ -15,22 +14,22 @@ class PlayerShip(Ship):
         self.folder_name = folder_name
         self.fuel = 0
         player_folder = str(folder_name) + "/PlayerShip" + str(self.angle) + ".png"
-        Ship.__init__(self, position, player_folder, Point(ship_scale, ship_scale))
+        Ship.__init__(self, position, player_folder, (ship_scale, ship_scale))
 
     # Overrides the Object's move so that rotating the ship is possible.
     def move(self, x_vel, screen_height):
         self.fuel = min(max_fuel, self.fuel)
         # Water Friction! - Idk what else to call it!
-        friction = -self.velocity.y * friction_ratio
-        self.velocity.y += friction
-        if abs(self.velocity.y) < 0.01:
-            self.velocity.y = 0
+        friction = -self.velocity[1] * friction_ratio
+        self.velocity = (self.velocity[0], self.velocity[1] + friction)
+        if abs(self.velocity[1]) < 0.01:
+            self.velocity = (self.velocity[0], 0)
         if self.rect.top <= 0:
             self.rect.top = 0
-            self.velocity.y = max(0, self.velocity.y)
+            self.velocity = (self.velocity[0], max(0, self.velocity[1]))
         if self.rect.bottom >= screen_height:
             self.rect.bottom = screen_height
-            self.velocity.y = min(0, self.velocity.y)
+            self.velocity = (self.velocity[0], min(0, self.velocity[1]))
         # Calculate angle using some good ol' Pythagorean Theorem
         # print "Velocity : (" + str(x_vel / self.ratio) + ", " + str(-self.velocity.y) + ")"
         # self.image = pygame.transform.rotate(self.image, actual_angle)
@@ -49,12 +48,12 @@ class PlayerShip(Ship):
         if new_angle == -0.0:
             new_angle = 0.0 '''
         new_angle = 0.0
-        if self.velocity.y != 0:
+        if self.velocity[1] != 0:
             number_of_images_used = (90 / angle_deviations) - 1  # This is calculated based on how many images we use.
-            angle_proportion = math.ceil(abs(self.velocity.y) / max_y_vel * number_of_images_used)
+            angle_proportion = math.ceil(abs(self.velocity[1]) / max_y_vel * number_of_images_used)
             new_angle = angle_proportion * angle_deviations  # Calculate the right angle based on image names
         # print "New angle is " + str(new_angle) + " and the old angle is " + str(self.angle)
-        if self.velocity.y > 0 and new_angle != 0:  # Since we only checked for angles in the range [0, 90]
+        if self.velocity[1] > 0 and new_angle != 0:  # Since we only checked for angles in the range [0, 90]
             new_angle = 360 - new_angle
         # if angle has changed than what it was before switch out the image and set some properties
         if self.angle != new_angle:
@@ -76,11 +75,11 @@ class PlayerShip(Ship):
     def input(self, keys):
         if keys[K_UP]:
             self.fuel -= reduce_fuel
-            self.velocity.y -= move_amount
+            self.velocity = (self.velocity[0], self.velocity[1] - move_amount)
         if keys[K_DOWN]:
             self.fuel -= reduce_fuel
-            self.velocity.y += move_amount
-        self.velocity.y = min(max(min_y_vel, self.velocity.y), max_y_vel)
+            self.velocity = (self.velocity[0], self.velocity[1] + move_amount)
+        self.velocity = (self.velocity[0], min(max(min_y_vel, self.velocity[1]), max_y_vel))
 
 
 def normalize_angle(x):

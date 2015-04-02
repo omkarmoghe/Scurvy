@@ -55,12 +55,11 @@ class DisplayInstruction(Instruction):
         # TODO: Some awesome algorithm to calculate the score
 
     def draw(self, screen, screen_size):
-        x_coord = screen_size.x / 4
+        x_coord = screen_size[0] / 4
         if self.player_displayed == 1:
-            x_coord = 3 * screen_size.x / 4
-        y_coord = screen_size.y + 35
-        instruction_label = pygame.font.Font(font_file, 20).render('{0}'.format(self.message),
-                                                                              True, (255, 255, 255))
+            x_coord = 3 * screen_size[0] / 4
+        y_coord = screen_size[1] + 35
+        instruction_label = pygame.font.Font(font_file, 20).render('{0}'.format(self.message), True, WHITE)
         instruction_label_rect = instruction_label.get_rect()
         instruction_label_rect.centerx = x_coord
         instruction_label_rect.top = y_coord
