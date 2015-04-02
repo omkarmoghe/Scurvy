@@ -1,8 +1,7 @@
 import pygame
-from main import *
+from Globals import *
 from CreditsMenu import *
 from SettingsMenu import *
-from Globals import *
 from CustomizationMenu import *
 
 tf = open(settings_file, 'w')
@@ -94,7 +93,7 @@ class GameMenu():
             pygame.display.set_caption(application_name)
         # If escape, quit.
         if key == pygame.K_ESCAPE:
-            sys.exit()
+            quit()
 
     def run(self):
         mainloop = True

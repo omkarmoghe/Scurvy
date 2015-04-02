@@ -1,72 +1,47 @@
-import pygame, random, sys
-from pygame.locals import *
+from Globals import *
+from ControlBox import *
 
-from main import *
+def show_credits():
+    quit_status = 0
+    pygame.display.set_caption('Credits')
 
-pygame.init()
+    menu_background = pygame.image.load(menu_background_image)
+    menu_background_rect = menu_background.get_rect()
 
-def is_mouse_selection(checkbox, (posx, posy)):
-        if (posx >= checkbox.left and posx <= checkbox.right) and \
-            (posy >= checkbox.top and posy <= checkbox.bottom):
-                return True
-        return False
+    title_label = pygame.font.Font(font_file, 70).render('{0}'.format('Credits'), True, WHITE)
+    title_rect = title_label.get_rect()
+    title_rect.centerx = WIDTH * 1 / 2
+    title_rect.centery = HEIGHT * 1 / 5
 
-def show_Credits():
-    quitStatus=0
-    while quitStatus != 1:
-    
-        pygame.display.set_caption('Credits')
-        
-                
-        background_image = "Resources/Background.png" 
-        background = pygame.image.load(background_image)
-        backgroundRect = background.get_rect()
-        WIDTH = backgroundRect.width
-        HEIGHT = 3 * backgroundRect.height / 2
-        screen = pygame.display.set_mode([WIDTH, HEIGHT])
-        background_image = "Resources/MenuBackground.png" 
-        background = pygame.image.load(background_image)
-        screen.blit(background,backgroundRect)
-        
-        title_label = pygame.font.Font(font_file, 70).render('{0}'.format('Credits'),
-                                                                       True, (255, 255, 255))
-        title_rect = title_label.get_rect()
-        title_rect.centerx = WIDTH * 1 / 2
-        title_rect.centery = HEIGHT* 1 / 5
+    infile = open(credits_file, "r")
+    array = infile.readlines()
+    credit_labels = []
+    for (i, credit) in enumerate(array):
+        credit = credit[:len(credit)-1]
+        credit_label = pygame.font.Font(font_file, 15).render('{0}'.format(credit), True, WHITE)
+        credit_label_rect = credit_label.get_rect()
+        credit_label_rect.left = WIDTH * 1/10
+        credit_label_rect.centery = HEIGHT * 2/5 + i * 20
+        credit_labels.append((credit_label, credit_label_rect))
+
+    back_button = ControlBox(back_button_image, None, (50, 50), (button_size, button_size))
+
+    while quit_status != 1:
+        screen.blit(menu_background, menu_background_rect)
+
         screen.blit(title_label, title_rect)
         
-        infile = open("copyright.txt","r")
-        array = infile.readlines()
+        for credit in credit_labels:
+            screen.blit(credit[0], credit[1])
+
+        screen.blit(back_button.image, back_button.rect)
         
-        for (i, credit) in enumerate(array):
-            credit = credit[:len(credit)-1]
-            credit_label = pygame.font.Font(font_file, 15).render('{0}'.format(credit),
-                                                                       True, (255,255,255))
-            credit_label_rect = credit_label.get_rect()
-            credit_label_rect.left = WIDTH*1/10
-            credit_label_rect.centery = HEIGHT * 2/5 + i*20
-            screen.blit(credit_label, credit_label_rect)
-            
-        
-        backButton_image = "Resources/backButton.png"
-        backButton = pygame.image.load(backButton_image)
-        backButton = pygame.transform.scale(backButton,(60,60))
-        backButtonRect = backButton.get_rect()
-        backButtonRect.centerx = 50
-        backButtonRect.centery = 50
-        backButtonRect.left = backButtonRect.centerx-30
-        backButtonRect.right = backButtonRect.centerx+30
-        backButtonRect.top = backButtonRect.centery-30
-        backButtonRect.bottom = backButtonRect.centery+30
-        screen.blit(backButton, backButtonRect)
-        
-        mpos = pygame.mouse.get_pos()
-         #checks to see if the user quits
+        m_pos = pygame.mouse.get_pos()
+        # checks to see if the user quits
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 return
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if is_mouse_selection(backButtonRect,mpos):
+                if back_button.is_mouse_selection(m_pos):
                     return
-            
         pygame.display.flip()
