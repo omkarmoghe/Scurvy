@@ -204,7 +204,7 @@ def show_customization():
                     if player2name == "":
                         player2name = "PLAYER 2"
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 if back_button.is_mouse_selection(m_pos):
                     return
                 if textbox.is_mouse_selection(m_pos):

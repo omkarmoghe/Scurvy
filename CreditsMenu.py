@@ -41,7 +41,7 @@ def show_credits():
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 return
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 if back_button.is_mouse_selection(m_pos):
                     return
         pygame.display.flip()

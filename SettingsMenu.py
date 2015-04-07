@@ -90,7 +90,7 @@ def show_settings():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 quit_settings(on_selected, cheat)
                 quit_status = 1
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 if back_button.is_mouse_selection(m_pos):
                     quit_settings(on_selected, cheat)
                     quit_status = 1

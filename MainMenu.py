@@ -1,6 +1,7 @@
 import pygame
 from Globals import *
 from CreditsMenu import *
+from pygame.locals import *
 from SettingsMenu import *
 from CustomizationMenu import *
 
@@ -124,7 +125,7 @@ class GameMenu():
                 if event.type == pygame.KEYDOWN:
                     self.mouse_is_visible = False
                     self.set_keyboard_selection(event.key)
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                     for item in self.items:
                         if item.is_mouse_selection(m_pos):
                             item.func()

@@ -53,3 +53,4 @@ explosion_image = "Resources/explosion.png"
 healthbar_image = "Resources/healthbar.png"
 health_image = "Resources/health.png"
 rock_image = "Resources/rock_single.png"
+LEFT = 1

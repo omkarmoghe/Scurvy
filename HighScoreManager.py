@@ -101,7 +101,7 @@ class HighScoreManager():
             for event in pygame.event.get():
                 if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                     running = False
-                if event.type == MOUSEBUTTONUP:
+                if event.type == MOUSEBUTTONUP and event.button == LEFT:
                     pos = pygame.mouse.get_pos()
                     if home_button_rect.collidepoint(pos):
                         running = False
