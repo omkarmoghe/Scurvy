@@ -89,7 +89,7 @@ class GameMenu():
         if key == pygame.K_SPACE or key == pygame.K_RETURN:
             text = self.items[self.cur_item].text
             pygame.mouse.set_visible(True)
-            self.funcs[text]()
+            self.items[self.cur_item].func()
             pygame.display.set_caption(application_name)
         # If escape, quit.
         if key == pygame.K_ESCAPE:
