@@ -7,7 +7,7 @@ standard_velocity = -1.0  # Adjust this to change the starting velocity. WARNING
 max_velocity = -5.1  # Adjust to change the upper bound of the velocity. WARNING: Must be less than standard_velocity
 acceleration = -0.1  # Adjust this to change how much the velocity changes per instruction got correct.
 rock_damage = 40  # Adjust this to change the amount of damage a Rock does.
-font_file = "Resources/font.otf"
+font_file = "Resources/font2.otf"
 menu_item_font_size = 50
 fuel_amount = 50  # Adjust this to change how much time to give to the player after correctly performing an instruction
 # We are using -1 here so that we can test moving the boat.
@@ -50,7 +50,7 @@ standard_easy_velocity = -0.5
 correct_press_sound = 'Resources/correct_press.wav'
 incorrect_press_sound = 'Resources/incorrect_press.wav'
 crash_sound = 'Resources/crash.wav'
-background_sound = 'Resources/pirate_music.wav'
+background_sound = 'Resources/background_music1.wav'
 explosion_image = "Resources/explosion.png"
 healthbar_image = "Resources/healthbar.png"
 health_image = "Resources/health.png"
