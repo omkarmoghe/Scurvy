@@ -15,7 +15,7 @@ class MenuItem(pygame.font.Font):
 
     def __init__(self, text, index, count, func):
  
-        pygame.font.Font.__init__(self, font_file, menu_item_font_size)
+        pygame.font.Font.__init__(self, menu_font, menu_item_font_size)
         self.text = text
         self.font_size = menu_item_font_size
         self.font_color = WHITE
@@ -101,7 +101,7 @@ class GameMenu():
         menu_background = pygame.image.load(menu_background_image)
         menu_background_rect = menu_background.get_rect()
 
-        title_label = pygame.font.Font(font_file, 100).render('{0}'.format(application_name), True, WHITE)
+        title_label = pygame.font.Font(menu_font, 100).render('{0}'.format(application_name), True, WHITE)
         title_rect = title_label.get_rect()
         title_rect.centerx = WIDTH * 1 / 2
         title_rect.centery = HEIGHT * 1 / 5

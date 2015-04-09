@@ -18,43 +18,43 @@ def show_customization():
     menu_background = pygame.image.load(menu_background_image)
     menu_background_rect = menu_background.get_rect()
 
-    title_label = pygame.font.Font(font_file, 70).render('{0}'.format('Customization'), True, WHITE)
+    title_label = pygame.font.Font(menu_font, 70).render('{0}'.format('Customization'), True, WHITE)
     title_rect = title_label.get_rect()
     title_rect.centerx = WIDTH * 1 / 2
     title_rect.centery = HEIGHT * 1 / 5
 
     # creates the difficulty label
-    difficulty_label = pygame.font.Font(font_file, 50).render('{0}'.format('Difficulty'), True, WHITE)
+    difficulty_label = pygame.font.Font(menu_font, 50).render('{0}'.format('Difficulty'), True, WHITE)
     difficulty_rect = difficulty_label.get_rect()
     difficulty_rect.centerx = WIDTH * 1 / 4
     difficulty_rect.centery = HEIGHT * 2 / 5
 
     # creates the sound on label
-    easy_label = pygame.font.Font(font_file, 30).render('{0}'.format('Easy'), True, WHITE)
+    easy_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Easy'), True, WHITE)
     easy_rect = easy_label.get_rect()
     easy_rect.centerx = WIDTH * 1 / 5
     easy_rect.centery = HEIGHT * 3 / 5
 
     # creates the sound off label
-    hard_label = pygame.font.Font(font_file, 30).render('{0}'.format('Hard'), True, WHITE)
+    hard_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Hard'), True, WHITE)
     hard_rect = hard_label.get_rect()
     hard_rect.centerx = WIDTH * 1 / 5
     hard_rect.centery = HEIGHT * 5 / 7
 
     # creates the names label
-    names_label = pygame.font.Font(font_file, 50).render('{0}'.format('Names'), True, WHITE)
+    names_label = pygame.font.Font(menu_font, 50).render('{0}'.format('Names'), True, WHITE)
     names_rect = names_label.get_rect()
     names_rect.centerx = WIDTH * 3 / 4
     names_rect.centery = HEIGHT * 2 / 5
 
     # creates the player 1 label
-    player1_label = pygame.font.Font(font_file, 30).render('{0}'.format('Player 1'), True, WHITE)
+    player1_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Player 1'), True, WHITE)
     player1_rect = player1_label.get_rect()
     player1_rect.centerx = WIDTH * 3 / 5
     player1_rect.centery = HEIGHT * 3 / 5
 
     # creates the player 2 label
-    player2_label = pygame.font.Font(font_file, 30).render('{0}'.format('Player 2'), True, WHITE)
+    player2_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Player 2'), True, WHITE)
     player2_rect = player2_label.get_rect()
     player2_rect.centerx = WIDTH * 3 / 5
     player2_rect.centery = HEIGHT * 5 / 7
@@ -170,7 +170,7 @@ def show_customization():
     textbox2 = ControlBox(textbox_image, textbox_highlighted_image, (WIDTH * 6 / 7, HEIGHT * 5 / 7), None)
 
     # creates the play label
-    play_label = pygame.font.Font(font_file, 50).render('{0}'.format('Play!'), True, WHITE)
+    play_label = pygame.font.Font(menu_font, 50).render('{0}'.format('Play!'), True, WHITE)
     play_rect = play_label.get_rect()
     play_rect.centerx = WIDTH * 1 / 2
     play_rect.centery = HEIGHT * 5 / 6
@@ -263,13 +263,13 @@ def show_customization():
         screen.blit(textbox2.get_image(), textbox2.rect)
 
         # creates the player 1 name label
-        player1name_label = pygame.font.Font(font_file, 25).render('{0}'.format(player1name), True, BLACK)
+        player1name_label = pygame.font.Font(menu_font, 25).render('{0}'.format(player1name), True, BLACK)
         player1name_rect = player1name_label.get_rect()
         player1name_rect.left = WIDTH * 5 / 7 + 10
         player1name_rect.centery = HEIGHT * 3 / 5
 
         # creates the player 2 name label
-        player2name_label = pygame.font.Font(font_file, 25).render('{0}'.format(player2name), True, BLACK)
+        player2name_label = pygame.font.Font(menu_font, 25).render('{0}'.format(player2name), True, BLACK)
         player2name_rect = player2name_label.get_rect()
         player2name_rect.left = WIDTH * 5 / 7 + 10
         player2name_rect.centery = HEIGHT * 5 / 7

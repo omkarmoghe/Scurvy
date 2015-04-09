@@ -64,7 +64,7 @@ class HighScoreManager():
         background = pygame.image.load("Resources/MenuBackground.png")
         backgroundRect = background.get_rect()
         running = True
-        position_label = pygame.font.Font(font_file, 25).render('High Scores Table', True, (255, 255, 255))
+        position_label = pygame.font.Font(menu_font, 25).render('High Scores Table', True, (255, 255, 255))
         position_label_rect = position_label.get_rect()
         center_x = screen.get_width() / 2
         position_label_rect.centerx = center_x
@@ -72,7 +72,7 @@ class HighScoreManager():
         position_label_rect.centery = int(ratio)
         score_labels = []
         for (i, score) in enumerate(self.highscores):
-            score_label = pygame.font.Font(font_file, 20).render('{0:12s} {1:12s} scored {2:10d} points.'.format
+            score_label = pygame.font.Font(menu_font, 20).render('{0:12s} {1:12s} scored {2:10d} points.'.format
                                                                  (score[0], score[1], score[2]), True,
                                                                  (255, 255, 255))
             score_label_rect = score_label.get_rect()

@@ -23,31 +23,31 @@ def show_settings():
     menu_background_rect = menu_background.get_rect()
 
     # creates the label at the top
-    title_label = pygame.font.Font(font_file, 70).render('{0}'.format('Settings'), True, WHITE)
+    title_label = pygame.font.Font(menu_font, 70).render('{0}'.format('Settings'), True, WHITE)
     title_rect = title_label.get_rect()
     title_rect.centerx = WIDTH * 1 / 2
     title_rect.centery = HEIGHT * 1 / 5
 
     # creates the sound label
-    sound_label = pygame.font.Font(font_file, 50).render('{0}'.format('Sound'), True, WHITE)
+    sound_label = pygame.font.Font(menu_font, 50).render('{0}'.format('Sound'), True, WHITE)
     sound_rect = sound_label.get_rect()
     sound_rect.centerx = WIDTH * 1 / 4
     sound_rect.centery = HEIGHT * 2 / 5
 
     # creates the sound on label
-    sound_on_label = pygame.font.Font(font_file, 30).render('{0}'.format('On'), True, WHITE)
+    sound_on_label = pygame.font.Font(menu_font, 30).render('{0}'.format('On'), True, WHITE)
     sound_on_rect = sound_on_label.get_rect()
     sound_on_rect.centerx = WIDTH * 1 / 4
     sound_on_rect.centery = HEIGHT * 3 / 5
 
     # creates the sound off label
-    sound_off_label = pygame.font.Font(font_file, 30).render('{0}'.format('Off'), True, WHITE)
+    sound_off_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Off'), True, WHITE)
     sound_off_rect = sound_off_label.get_rect()
     sound_off_rect.centerx = WIDTH * 1 / 4
     sound_off_rect.centery = HEIGHT * 5 / 7
 
     # creates the cheats label
-    cheats_label = pygame.font.Font(font_file, 50).render('{0}'.format('Cheats'), True, WHITE)
+    cheats_label = pygame.font.Font(menu_font, 50).render('{0}'.format('Cheats'), True, WHITE)
     cheats_rect = cheats_label.get_rect()
     cheats_rect.centerx = WIDTH * 3 / 4
     cheats_rect.centery = HEIGHT * 2 / 5
@@ -73,7 +73,7 @@ def show_settings():
         screen.blit(sound_off_label, sound_off_rect)
         screen.blit(cheats_label, cheats_rect)
         
-        cheats_name_label = pygame.font.Font(font_file, 25).render('{0}'.format(cheat), True, BLACK)
+        cheats_name_label = pygame.font.Font(menu_font, 25).render('{0}'.format(cheat), True, BLACK)
         cheats_name_rect = cheats_name_label.get_rect()
         cheats_name_rect.left = WIDTH * 3 / 5 + 15
         cheats_name_rect.centery = HEIGHT * 3 / 5

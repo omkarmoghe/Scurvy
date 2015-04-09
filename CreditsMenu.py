@@ -8,7 +8,7 @@ def show_credits():
     menu_background = pygame.image.load(menu_background_image)
     menu_background_rect = menu_background.get_rect()
 
-    title_label = pygame.font.Font(font_file, 70).render('{0}'.format('Credits'), True, WHITE)
+    title_label = pygame.font.Font(menu_font, 70).render('{0}'.format('Credits'), True, WHITE)
     title_rect = title_label.get_rect()
     title_rect.centerx = WIDTH * 1 / 2
     title_rect.centery = HEIGHT * 1 / 5
@@ -18,7 +18,7 @@ def show_credits():
     credit_labels = []
     for (i, credit) in enumerate(array):
         credit = credit[:len(credit)-1]
-        credit_label = pygame.font.Font(font_file, 15).render('{0}'.format(credit), True, WHITE)
+        credit_label = pygame.font.Font(menu_font, 15).render('{0}'.format(credit), True, WHITE)
         credit_label_rect = credit_label.get_rect()
         credit_label_rect.left = WIDTH * 1/10
         credit_label_rect.centery = HEIGHT * 2/5 + i * 20
