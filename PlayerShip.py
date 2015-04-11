@@ -9,7 +9,7 @@ import math
 class PlayerShip(Ship):
 
     def __init__(self, position, folder_name):
-        self.health = 200
+        self.health = initial_health
         self.angle = 0.0
         self.folder_name = folder_name
         self.fuel = 0

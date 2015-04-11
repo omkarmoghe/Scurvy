@@ -2,9 +2,9 @@ from PlayerShip import *
 from HighScoreManager import *
 from UserInputManager import *
 from Obstacle import *
-import sys
 from Animations import *
 from Globals import *
+
 
 # This class creates the game play for the actual game.
 class Gameplay():
@@ -24,7 +24,7 @@ class Gameplay():
                                           background_image, 0.5, (0, 0))
         player_position = (self.visual_screen[0] * 0.25, self.visual_screen[1] / 2)
         self.playerShip = PlayerShip(player_position, folder_name)
-        # self.give_control = 0  # Useful for moving the ship around
+
         self.difficulty_easy_select = difficulty_easy
         self.sound_on = True if sound_on == "On" else False
         self.explosion = 0
@@ -50,25 +50,21 @@ class Gameplay():
         self.timer = pygame.time.get_ticks()
 
     def set_cheats(self, cheat_code):
-        global rock_damage
-
         if cheat_code == "EDWARD":
-            self.score_multiplier = 2
+            self.score_multiplier = score_cheat_multiplier
         elif cheat_code == "EVAN":
-            self.rock_damage_multiplier = 0.5
+            self.rock_damage_multiplier = rock_damage_cheat_multiplier
         elif cheat_code == "MANAV":
-            self.score = 200
+            self.score = initial_cheat_score
         elif cheat_code == "OMKAR":
-            self.playerShip.fuel = 200
+            self.playerShip.fuel = initial_cheat_fuel
         elif cheat_code == "CHESNEY":
-            self.score_multiplier = 2
-            self.playerShip.fuel = 200
-            self.score = 200
-            rock_damage = 20
+            self.score_multiplier = score_cheat_multiplier
+            self.rock_damage_multiplier = rock_damage_cheat_multiplier
+            self.score = initial_cheat_score
+            self.playerShip.fuel = initial_cheat_fuel
 
     def run_game(self):
-        # Limit frame speed to 50 FPS
-        clock.tick(fps)
         running = True
         self.background_music = pygame.mixer.music
         self.background_music.load(background_sound)
@@ -90,7 +86,7 @@ class Gameplay():
                     if score_value == -1:
                         if self.sound_on:
                             self.incorrect_sound.play()
-                        self.playerShip.damage(10)
+                        self.playerShip.damage(bad_instruction_damage)
                     elif score_value:
                         self.instructions_completed(score_value)
                         if self.speed > max_velocity:
@@ -114,7 +110,7 @@ class Gameplay():
         self.user_manager.set_player_instructions()
 
     def update(self):
-        screen.fill((0, 0, 0))
+        screen.fill(BLACK)
         screen.blit(self.moving_background.image, self.moving_background.rect)
         screen.blit(self.moving_background_2.image, self.moving_background_2.rect)
         self.obstacles.draw(screen)
@@ -138,8 +134,8 @@ class Gameplay():
             if self.collision_ended:
                 point = damage_and_point[1][0] - size_of_explosion + 28, damage_and_point[1][1] - size_of_explosion
                 # 28 is the only hard coded variable we have x_x, but we have no choice.
-                self.explosion = Animations(size_of_explosion, size_of_explosion, explosion_image,
-                                            point, screen)
+                self.explosion = Animations((size_of_explosion, size_of_explosion), explosion_image,
+                                            point)
                 self.playerShip.damage(damage_and_point[0])
                 if self.sound_on:
                     self.crash_sound.play()
@@ -150,7 +146,7 @@ class Gameplay():
                     self.playerShip.fuel = 0
 
             if self.explosion != 0:
-                self.explosion.updateAnimation(self.timer)
+                self.explosion.update_animation(self.timer)
         else:
             self.collision_ended = True
         # TODO: Add stuff inside loop for game.

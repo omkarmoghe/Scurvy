@@ -1,9 +1,4 @@
-import pygame
 from Globals import *
-from CreditsMenu import *
-from pygame.locals import *
-from SettingsMenu import *
-from CustomizationMenu import *
 
 tf = open(settings_file, 'w')
 tf.write("%s\n%s\n" % ("On", ""))  # TODO: Fix resetting preferences every single time.

@@ -1,8 +1,12 @@
 # Include everything here.
-from Globals import *
 import Gameplay
+import CustomizationMenu
+import SettingsMenu
+import CreditsMenu
 import sys
-from MainMenu import *
+from Globals import application_name
+import pygame
+import MainMenu
 
 
 def play_game(player1name, player2name, difficulty_easy, sound_on, cheat_code, ship_location):
@@ -15,11 +19,10 @@ if __name__ == "__main__":
     # Creating the screen
     pygame.init()
     pygame.display.set_caption(application_name)
-    funcs = {'Start': show_customization,
+    funcs = {'Start': CustomizationMenu.show_customization,
              'Quit': sys.exit,
-             'Settings': show_settings,
-             'Credits': show_credits
-             }
+             'Settings': SettingsMenu.show_settings,
+             'Credits': CreditsMenu.show_credits}
 
-    gm = GameMenu(funcs)
+    gm = MainMenu.GameMenu(funcs)
     gm.run()

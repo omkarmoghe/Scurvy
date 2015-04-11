@@ -29,7 +29,7 @@ class ControlBox(pygame.sprite.Sprite):
 
     def is_mouse_selection(self, (pos_x, pos_y)):
         if self.rect.collidepoint(pos_x, pos_y):
-            self.selected = not self.selected
+            self.selected = True
             return True
         return False
 
