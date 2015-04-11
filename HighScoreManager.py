@@ -63,18 +63,18 @@ class HighScoreManager():
 
     def draw(self, p1name, p2name, easy_selected, ship_location):
         running = True
-
+		
         menu_background = pygame.image.load(menu_background_image)
         menu_background_rect = menu_background.get_rect()
 
-        position_label = pygame.font.Font(font_file, 25).render('High Scores Table', True, (255, 255, 255))
+        position_label = pygame.font.Font(menu_font, 25).render('High Scores Table', True, (255, 255, 255))
         position_label_rect = position_label.get_rect()
         position_label_rect.centerx = WIDTH / 2
         ratio = HEIGHT / 12
         position_label_rect.centery = int(ratio)
         score_labels = []
         for (i, score) in enumerate(self.highscores):
-            score_label = pygame.font.Font(font_file, 20).render('{0:12s} {1:12s} scored {2:10d} points.'.format
+            score_label = pygame.font.Font(menu_font, 20).render('{0:12s} {1:12s} scored {2:10d} points.'.format
                                                                  (score[0], score[1], score[2]), True,
                                                                  (255, 255, 255))
             score_label_rect = score_label.get_rect()
