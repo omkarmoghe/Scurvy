@@ -67,6 +67,8 @@ class Gameplay():
             rock_damage = 20
 
     def run_game(self):
+        # Limit frame speed to 50 FPS
+        clock.tick(fps)
         running = True
         self.background_music = pygame.mixer.music
         self.background_music.load(background_sound)
@@ -99,7 +101,8 @@ class Gameplay():
         self.background_music.stop()
         highscore_manager = HighScoreManager(high_score_file)
         highscore_manager.add_high_score((self.player1Name, self.player2Name, self.score))
-        highscore_manager.draw(screen, self.player1Name, self.player2Name, self.difficulty_easy_select)
+        highscore_manager.draw(self.player1Name, self.player2Name, self.difficulty_easy_select,
+                               self.playerShip.folder_name)
 
     def instructions_completed(self, add_score):
         if self.sound_on:
@@ -155,7 +158,7 @@ class Gameplay():
 
     def draw_instruction_panel(self):
         for display_instruction in self.user_manager.current_instructions:
-            display_instruction.draw(screen, self.visual_screen)
+            display_instruction.draw(self.visual_screen[1])
 
         offset2 = 80 + self.visual_screen[1]
         control_label = pygame.font.Font(font_file, 20).render('Controls', True, YELLOW)

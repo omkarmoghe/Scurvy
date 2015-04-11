@@ -1,5 +1,6 @@
 import pygame
 
+clock = pygame.time.Clock
 application_name = "Scurvy"  # Adjust this to change the name of the Application
 background_image = "Resources/Background.png"  # Adjust this to change the background image.
 menu_background_image = "Resources/MenuBackground.png"
@@ -56,3 +57,6 @@ healthbar_image = "Resources/healthbar.png"
 health_image = "Resources/health.png"
 rock_image = "Resources/rock_single.png"
 LEFT = 1
+restart_button_image = "Resources/Restart.png"
+home_button_image = "Resources/Home.png"
+fps = 60

@@ -64,106 +64,6 @@ def show_customization():
                           (checkbox_size, checkbox_size), True)
     checkbox2 = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 3, HEIGHT * 5 / 7),
                            (checkbox_size, checkbox_size))
-    '''checkbox = pygame.image.load(checkbox_image)
-    checkbox = pygame.transform.scale(checkbox, (checkbox_size, checkbox_size))
-    checkbox_rect = checkbox.get_rect()
-    checkbox_rect.centerx = WIDTH * 1 / 3
-    checkbox_rect.centery = HEIGHT * 3 / 5
-    checkbox_rect.left = checkbox_rect.centerx - (checkbox_size / 2)
-    checkbox_rect.right = checkbox_rect.centerx + (checkbox_size / 2)
-    checkbox_rect.top = checkbox_rect.centery - (checkbox_size / 2)
-    checkbox_rect.bottom = checkbox_rect.centery + (checkbox_size / 2)
-
-    # creates the unchecked off box, image from iconfinder.com from visual pharm
-    checkbox2 = pygame.image.load(checkbox_image)
-    checkbox2 = pygame.transform.scale(checkbox2, (checkbox_size, checkbox_size))
-    checkbox2rect = checkbox2.get_rect()
-    checkbox2rect.centerx = WIDTH * 1 / 3
-    checkbox2rect.centery = HEIGHT * 5 / 7
-    checkbox2rect.left = checkbox2rect.centerx - (checkbox_size / 2)
-    checkbox2rect.right = checkbox2rect.centerx + (checkbox_size / 2)
-    checkbox2rect.top = checkbox2rect.centery - (checkbox_size / 2)
-    checkbox2rect.bottom = checkbox2rect.centery + (checkbox_size / 2)
-
-    # creates the checked on box, image from iconfinder.com from visual pharm, icons8.com
-    checkbox_selected = pygame.image.load(checkbox_selected_image)
-    checkbox_selected = pygame.transform.scale(checkbox_selected, (checkbox_size, checkbox_size))
-    checkbox_selected_rect = checkbox_selected.get_rect()
-    checkbox_selected_rect.centerx = WIDTH * 1 / 3
-    checkbox_selected_rect.centery = HEIGHT * 3 / 5
-    checkbox_selected_rect.left = checkbox_selected_rect.centerx - (checkbox_size / 2)
-    checkbox_selected_rect.right = checkbox_selected_rect.centerx + (checkbox_size / 2)
-    checkbox_selected_rect.top = checkbox_selected_rect.centery - (checkbox_size / 2)
-    checkbox_selected_rect.bottom = checkbox_selected_rect.centery + (checkbox_size / 2)
-
-    # creates the checked off box, image from iconfinder.com from visual pharm
-    checkbox_selected2 = pygame.image.load(checkbox_selected_image)
-    checkbox_selected2 = pygame.transform.scale(checkbox_selected2, (checkbox_size, checkbox_size))
-    checkbox_selected2rect = checkbox_selected2.get_rect()
-    checkbox_selected2rect.centerx = WIDTH * 1 / 3
-    checkbox_selected2rect.centery = HEIGHT * 5 / 7
-    checkbox_selected2rect.left = checkbox_selected2rect.centerx - (checkbox_size / 2)
-    checkbox_selected2rect.right = checkbox_selected2rect.centerx + (checkbox_size / 2)
-    checkbox_selected2rect.top = checkbox_selected2rect.centery - (checkbox_size / 2)
-    checkbox_selected2rect.bottom = checkbox_selected2rect.centery + (checkbox_size / 2)'''
-    '''textbox = pygame.image.load(textbox_image)
-    textbox_rect = textbox.get_rect()
-    textbox_rect.centerx = WIDTH * 6 / 7
-    textbox_rect.centery = HEIGHT * 3 / 5
-    # textbox_rect.left = textbox_rect.centerx - 110
-    # textbox_rect.right = textbox_rect.centerx + 110
-    # textbox_rect.top = textbox_rect.centery - 30
-    # textbox_rect.bottom = textbox_rect.centery + 30
-
-    # creates the player 2 box
-    textbox2 = pygame.image.load(textbox_image)
-    textbox2rect = textbox2.get_rect()
-    textbox2rect.centerx = WIDTH * 6 / 7
-    textbox2rect.centery = HEIGHT * 5 / 7
-    # textbox2rect.left = textbox2rect.centerx - 110
-    # textbox2rect.right = textbox2rect.centerx + 110
-    # textbox2rect.top = textbox2rect.centery - 30
-    # textbox2rect.bottom = textbox2rect.centery + 30
-
-    # creates the player 1 highlighted box
-    textbox_highlighted = pygame.image.load(textbox_highlighted_image)
-    textbox_highlighted_rect = textbox_highlighted.get_rect()
-    textbox_highlighted_rect.centerx = WIDTH * 6 / 7
-    textbox_highlighted_rect.centery = HEIGHT * 3 / 5
-    # textbox_highlighted_rect.left = textbox_highlighted_rect.centerx - 110
-    # textbox_highlighted_rect.right = textbox_highlighted_rect.centerx + 110
-    # textbox_highlighted_rect.top = textbox_highlighted_rect.centery - 30
-    # textbox_highlighted_rect.bottom = textbox_highlighted_rect.centery + 30
-
-    # creates the player 2 highlighted box
-    textbox_highlighted2 = pygame.image.load(textbox_highlighted_image)
-    textbox_highlighted2rect = textbox_highlighted2.get_rect()
-    textbox_highlighted2rect.centerx = WIDTH * 6 / 7
-    textbox_highlighted2rect.centery = HEIGHT * 5 / 7
-    # textbox_highlighted2rect.left = textbox_highlighted2rect.centerx - 110
-    # textbox_highlighted2rect.right = textbox_highlighted2rect.centerx + 110
-    # textbox_highlighted2rect.top = textbox_highlighted2rect.centery - 30
-    # textbox_highlighted2rect.bottom = textbox_highlighted2rect.centery + 30'''
-
-    '''play_button = pygame.image.load(play_button_image)
-    play_button = pygame.transform.scale(play_button, (60, 60))
-    play_button_rect = play_button.get_rect()
-    play_button_rect.centerx = WIDTH * 1 / 2
-    play_button_rect.centery = HEIGHT * 14 / 15
-    # play_button_rect.left = play_button_rect.centerx - 30
-    # play_button_rect.right = play_button_rect.centerx + 30
-    # play_button_rect.top = play_button_rect.centery - 30
-    # play_button_rect.bottom = play_button_rect.centery + 30
-
-    back_button = pygame.image.load(back_button_image)
-    back_button = pygame.transform.scale(back_button, (60, 60))
-    back_button_rect = back_button.get_rect()
-    back_button_rect.centerx = 50
-    back_button_rect.centery = 50
-    # back_button_rect.left = back_button_rect.centerx - 30
-    # back_button_rect.right = back_button_rect.centerx + 30
-    # back_button_rect.top = back_button_rect.centery - 30
-    # back_button_rect.bottom = back_button_rect.centery + 30'''
 
     # creates the player 1 box
     textbox = ControlBox(textbox_image, textbox_highlighted_image, (WIDTH * 6 / 7, HEIGHT * 3 / 5), None)
@@ -230,7 +130,8 @@ def show_customization():
                         player1name = "PLAYER 1"
                     if player2name == "":
                         player2name = "PLAYER 2"
-                    main.play_game(player1name, player2name, easy_selected, array[0], array[1])
+                        # TODO : Update the ship location to selection
+                    main.play_game(player1name, player2name, easy_selected, array[0], array[1], classic_ship_location)
                     return
                 elif easy_selected == 1 and checkbox2.is_mouse_selection(m_pos):
                     easy_selected = 0

@@ -10,7 +10,7 @@ tf.write("%s\n%s\n" % ("On", ""))  # TODO: Fix resetting preferences every singl
 tf.close()
 
 
-# This represents
+# This represents a selectable item in the menu.
 class MenuItem(pygame.font.Font):
 
     def __init__(self, text, index, count, func):
@@ -33,10 +33,8 @@ class MenuItem(pygame.font.Font):
     def set_selected(self, selected):
         if selected:
             self.font_color = BLACK
-            # self.set_italic(True)
         else:
             self.font_color = WHITE
-            # self.set_italic(False)
         self.label = self.render(self.text, True, self.font_color)
 
 
@@ -60,9 +58,6 @@ class GameMenu():
             pygame.mouse.set_visible(False)
  
     def set_keyboard_selection(self, key):
-        """
-        Marks the MenuItem chosen via up and down keys.
-        """
         for item in self.items:
             # Return all to neutral
             item.set_selected(False)
@@ -88,7 +83,6 @@ class GameMenu():
  
         # Finally check if Enter or Space is pressed
         if key == pygame.K_SPACE or key == pygame.K_RETURN:
-            text = self.items[self.cur_item].text
             pygame.mouse.set_visible(True)
             self.items[self.cur_item].func()
             pygame.display.set_caption(application_name)
@@ -114,9 +108,7 @@ class GameMenu():
         boat_rect.centery = HEIGHT * 2 / 5
 
         while mainloop:
-            # Limit frame speed to 50 FPS
-            self.clock.tick(50)
- 
+
             m_pos = pygame.mouse.get_pos()
  
             for event in pygame.event.get():
