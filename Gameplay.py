@@ -50,15 +50,15 @@ class Gameplay():
         self.timer = pygame.time.get_ticks()
 
     def set_cheats(self, cheat_code):
-        if cheat_code == "EDWARD":
+        if cheat_code == score_multiplier_code:
             self.score_multiplier = score_cheat_multiplier
-        elif cheat_code == "EVAN":
+        elif cheat_code == rock_multiplier_code:
             self.rock_damage_multiplier = rock_damage_cheat_multiplier
-        elif cheat_code == "MANAV":
+        elif cheat_code == initial_score_code:
             self.score = initial_cheat_score
-        elif cheat_code == "OMKAR":
+        elif cheat_code == initial_fuel_code:
             self.playerShip.fuel = initial_cheat_fuel
-        elif cheat_code == "CHESNEY":
+        elif cheat_code == all_code:
             self.score_multiplier = score_cheat_multiplier
             self.rock_damage_multiplier = rock_damage_cheat_multiplier
             self.score = initial_cheat_score

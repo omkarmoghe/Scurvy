@@ -3,6 +3,8 @@ import pygame
 # Constants
 application_name = "Scurvy"  # Adjust this to change the name of the Application
 LEFT = 1  # This is the value for the mouse left button press
+sound_on_string = "On"
+sound_off_string = "Off"
 
 # Colors
 WHITE = (255, 255, 255)
@@ -95,3 +97,10 @@ score_cheat_multiplier = 2
 rock_damage_cheat_multiplier = 0.5
 initial_cheat_score = 200
 initial_cheat_fuel = 200
+
+score_multiplier_code = "EDWARD"
+rock_multiplier_code = "EVAN"
+initial_score_code = "MANAV"
+initial_fuel_code = "OMKAR"
+all_code = "CHESNEY"
+all_codes = [score_multiplier_code, rock_multiplier_code, initial_score_code, initial_fuel_code, all_code]
