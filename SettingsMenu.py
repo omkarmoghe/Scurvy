@@ -63,7 +63,7 @@ def show_settings():
     back_button = ControlBox(back_button_image, None, (50, 50), (button_size, button_size))
     settings_file_io = open(settings_file, "r")
     preferences = settings_file_io.read().split("\n")
-    if len(preferences) > 1:
+    if len(preferences) > 0:
         if preferences[0] == sound_off_string:
             on_selected = 1
             sound_off_checkbox.selected = True
@@ -74,7 +74,7 @@ def show_settings():
             sound_on_checkbox.selected = True
         else:
             print "Fatal error: Sound preferences could not be read."
-    if len(preferences) > 2:
+    if len(preferences) > 1:
         if all_codes.__contains__(preferences[1]):
             cheat = preferences[1]
 
