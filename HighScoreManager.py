@@ -60,7 +60,7 @@ class HighScoreManager():
         else:
             assert False  # should never be the case
 
-    def draw(self, screen, p1name, p2name, easy_selected):
+    def draw(self, screen, p1name, p2name, easy_selected,folder_name):
         background = pygame.image.load("Resources/MenuBackground.png")
         backgroundRect = background.get_rect()
         running = True
@@ -108,7 +108,7 @@ class HighScoreManager():
                     if restart_button_rect.collidepoint(pos):
                         infile = open("sound_and_cheat.txt", "r")
                         array = infile.readlines()
-                        main.play_game(p1name, p2name, easy_selected, array[0], array[1])
+                        main.play_game(p1name, p2name, easy_selected, array[0], array[1],folder_name)
                         return
             pygame.display.update()
 

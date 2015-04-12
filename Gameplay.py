@@ -28,7 +28,7 @@ class Gameplay():
         self.difficulty_easy_select = difficulty_easy
         self.sound_on = True if sound_on == "On" else False
         self.explosion = 0
-
+        self.folder_name = folder_name
         self.score = 0
         self.user_manager = UserInputManager()
         self.collision_ended = True
@@ -99,7 +99,7 @@ class Gameplay():
         self.background_music.stop()
         highscore_manager = HighScoreManager(high_score_file)
         highscore_manager.add_high_score((self.player1Name, self.player2Name, self.score))
-        highscore_manager.draw(screen, self.player1Name, self.player2Name, self.difficulty_easy_select)
+        highscore_manager.draw(screen, self.player1Name, self.player2Name, self.difficulty_easy_select,self.folder_name)
 
     def instructions_completed(self, add_score):
         if self.sound_on:
