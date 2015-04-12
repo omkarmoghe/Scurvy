@@ -97,7 +97,7 @@ class GameMenu():
 
         boat_image = classic_ship_location + "PlayerShip337.5.png"  # TODO: Make boat animation
         boat = pygame.image.load(boat_image)
-        boat = pygame.transform.scale(boat, (ship_scale, ship_scale))
+        boat = pygame.transform.scale(boat, (menu_ship_scale, menu_ship_scale))
         boat_rect = boat.get_rect()
         boat_rect.centerx = WIDTH * 4 / 5
         boat_rect.centery = HEIGHT * 2 / 5

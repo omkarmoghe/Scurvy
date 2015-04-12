@@ -28,7 +28,6 @@ class Gameplay():
         self.difficulty_easy_select = difficulty_easy
         self.sound_on = True if sound_on == "On" else False
         self.explosion = 0
-
         self.score = 0
         self.user_manager = UserInputManager()
         self.collision_ended = True

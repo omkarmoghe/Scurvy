@@ -9,6 +9,7 @@ def show_customization():
 
     quit_status = 0
     easy_selected = 1
+    ship_location = classic_ship_location
 
     textbox_selected = 0
 
@@ -21,52 +22,90 @@ def show_customization():
     title_label = pygame.font.Font(menu_font, 70).render('{0}'.format('Customization'), True, WHITE)
     title_rect = title_label.get_rect()
     title_rect.centerx = WIDTH * 1 / 2
-    title_rect.centery = HEIGHT * 1 / 5
+    title_rect.centery = HEIGHT * 1 / 6
 
     # creates the difficulty label
-    difficulty_label = pygame.font.Font(menu_font, 50).render('{0}'.format('Difficulty'), True, WHITE)
+    difficulty_label = pygame.font.Font(menu_font, 40).render('{0}'.format('Difficulty'), True, WHITE)
     difficulty_rect = difficulty_label.get_rect()
-    difficulty_rect.centerx = WIDTH * 1 / 4
-    difficulty_rect.centery = HEIGHT * 2 / 5
+    difficulty_rect.centerx = WIDTH * 1 / 6
+    difficulty_rect.centery = HEIGHT * 1 / 3
 
     # creates the sound on label
     easy_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Easy'), True, WHITE)
     easy_rect = easy_label.get_rect()
-    easy_rect.centerx = WIDTH * 1 / 5
-    easy_rect.centery = HEIGHT * 3 / 5
+    easy_rect.centerx = WIDTH * 1 / 10
+    easy_rect.centery = HEIGHT * 5 / 9
 
     # creates the sound off label
     hard_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Hard'), True, WHITE)
     hard_rect = hard_label.get_rect()
-    hard_rect.centerx = WIDTH * 1 / 5
+    hard_rect.centerx = WIDTH * 1 / 10
     hard_rect.centery = HEIGHT * 5 / 7
+    
+    # creates the ship label
+    ship_label = pygame.font.Font(menu_font, 40).render('{0}'.format('Ship'), True, WHITE)
+    ship_rect = ship_label.get_rect()
+    ship_rect.centerx = WIDTH * 1 / 2
+    ship_rect.centery = HEIGHT * 1 / 3
+
+    angle_for_ship = "/PlayerShip0.0.png"
+
+    classic_boat_image = classic_ship_location + angle_for_ship
+    classic_boat = pygame.image.load(classic_boat_image)
+    classic_boat = pygame.transform.scale(classic_boat, (menu_ship_scale, menu_ship_scale))
+    classic_boat_rect = classic_boat.get_rect()
+    classic_boat_rect.centerx = WIDTH * 1/2
+    classic_boat_rect.centery = HEIGHT * 4 / 9 + 10
+    
+    michigan_boat_image = maize_and_blue_ship_location + angle_for_ship
+    michigan_boat = pygame.image.load(michigan_boat_image)
+    michigan_boat = pygame.transform.scale(michigan_boat, (menu_ship_scale, menu_ship_scale))
+    michigan_boat_rect = michigan_boat.get_rect()
+    michigan_boat_rect.centerx = WIDTH * 1 / 2
+    michigan_boat_rect.centery = HEIGHT * 5 / 9 + 10
+    
+    neon_boat_image = neon_ship_location + angle_for_ship
+    neon_boat = pygame.image.load(neon_boat_image)
+    neon_boat = pygame.transform.scale(neon_boat, (menu_ship_scale, menu_ship_scale))
+    neon_boat_rect = neon_boat.get_rect()
+    neon_boat_rect.centerx = WIDTH * 1 / 2
+    neon_boat_rect.centery = HEIGHT * 2 / 3 + 10
+    
+    ship_checkbox1 = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH * 13 / 20, HEIGHT * 4 / 9 + 10),
+                                (checkbox_size, checkbox_size), True)
+    ship_checkbox2 = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH * 13 / 20, HEIGHT * 5 / 9 + 10),
+                                (checkbox_size, checkbox_size))
+    ship_checkbox3 = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH * 13 / 20, HEIGHT * 6 / 9 + 10),
+                                (checkbox_size, checkbox_size))
 
     # creates the names label
-    names_label = pygame.font.Font(menu_font, 50).render('{0}'.format('Names'), True, WHITE)
+    names_label = pygame.font.Font(menu_font, 40).render('{0}'.format('Names'), True, WHITE)
     names_rect = names_label.get_rect()
-    names_rect.centerx = WIDTH * 3 / 4
-    names_rect.centery = HEIGHT * 2 / 5
+    names_rect.centerx = WIDTH * 6 / 7
+    names_rect.centery = HEIGHT * 1 / 3
 
     # creates the player 1 label
-    player1_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Player 1'), True, WHITE)
+    player1_label = pygame.font.Font(menu_font, 20).render('{0}'.format('Player 1'), True, WHITE)
     player1_rect = player1_label.get_rect()
-    player1_rect.centerx = WIDTH * 3 / 5
-    player1_rect.centery = HEIGHT * 3 / 5
+    player1_rect.centerx = WIDTH * 12 / 14
+    player1_rect.centery = HEIGHT * 1 / 2
 
     # creates the player 2 label
-    player2_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Player 2'), True, WHITE)
+    player2_label = pygame.font.Font(menu_font, 20).render('{0}'.format('Player 2'), True, WHITE)
     player2_rect = player2_label.get_rect()
-    player2_rect.centerx = WIDTH * 3 / 5
-    player2_rect.centery = HEIGHT * 5 / 7
+    player2_rect.centerx = WIDTH * 12 / 14
+    player2_rect.centery = HEIGHT * 9 / 14 + 10
 
-    checkbox = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 3, HEIGHT * 3 / 5),
+    checkbox = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 4, HEIGHT * 5 / 9),
                           (checkbox_size, checkbox_size), True)
-    checkbox2 = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 3, HEIGHT * 5 / 7),
+    checkbox2 = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 4, HEIGHT * 5 / 7),
                            (checkbox_size, checkbox_size))
 
     # creates the player 1 box
-    textbox = ControlBox(textbox_image, textbox_highlighted_image, (WIDTH * 6 / 7, HEIGHT * 3 / 5), None)
-    textbox2 = ControlBox(textbox_image, textbox_highlighted_image, (WIDTH * 6 / 7, HEIGHT * 5 / 7), None)
+    textbox = ControlBox(textbox_image, textbox_highlighted_image, (WIDTH * 12 / 14, HEIGHT * 5 / 9),
+                         (textbox_width, textbox_height))
+    textbox2 = ControlBox(textbox_image, textbox_highlighted_image, (WIDTH * 12 / 14, HEIGHT * 5 / 7),
+                          (textbox_width, textbox_height))
 
     # creates the play label
     play_label = pygame.font.Font(menu_font, 50).render('{0}'.format('Play!'), True, WHITE)
@@ -129,8 +168,7 @@ def show_customization():
                         player1name = "PLAYER 1"
                     if player2name == "":
                         player2name = "PLAYER 2"
-                        # TODO : Update the ship location to selection
-                    main.play_game(player1name, player2name, easy_selected, array[0], array[1], classic_ship_location)
+                    main.play_game(player1name, player2name, easy_selected, array[0], array[1], ship_location)
                     return
                 elif easy_selected == 1 and checkbox2.is_mouse_selection(m_pos):
                     easy_selected = 0
@@ -138,6 +176,21 @@ def show_customization():
                 elif easy_selected == 0 and checkbox.is_mouse_selection(m_pos):
                     easy_selected = 1
                     checkbox2.selected = False
+                elif ship_checkbox1.is_mouse_selection(m_pos):
+                    ship_checkbox1.selected = True
+                    ship_checkbox2.selected = False
+                    ship_checkbox3.selected = False
+                    ship_location = classic_ship_location
+                elif ship_checkbox2.is_mouse_selection(m_pos):
+                    ship_checkbox2.selected = True
+                    ship_checkbox1.selected = False
+                    ship_checkbox3.selected = False
+                    ship_location = maize_and_blue_ship_location
+                elif ship_checkbox3.is_mouse_selection(m_pos):
+                    ship_checkbox3.selected = True
+                    ship_checkbox2.selected = False
+                    ship_checkbox1.selected = False
+                    ship_location = neon_ship_location
             if event.type == KEYDOWN:
                 if textbox_selected == 1:
                     player1name = check_keys(player1name, event.key)
@@ -148,6 +201,14 @@ def show_customization():
         screen.blit(difficulty_label, difficulty_rect)
         screen.blit(easy_label, easy_rect)
         screen.blit(hard_label, hard_rect)
+        
+        screen.blit(ship_label, ship_rect)
+        screen.blit(classic_boat, classic_boat_rect)
+        screen.blit(michigan_boat, michigan_boat_rect)
+        screen.blit(neon_boat, neon_boat_rect)
+        screen.blit(ship_checkbox1.get_image(), ship_checkbox1.rect)
+        screen.blit(ship_checkbox2.get_image(), ship_checkbox2.rect)
+        screen.blit(ship_checkbox3.get_image(), ship_checkbox3.rect)
 
         screen.blit(names_label, names_rect)
         screen.blit(player1_label, player1_rect)
@@ -163,15 +224,15 @@ def show_customization():
         screen.blit(textbox2.get_image(), textbox2.rect)
 
         # creates the player 1 name label
-        player1name_label = pygame.font.Font(menu_font, 25).render('{0}'.format(player1name), True, BLACK)
+        player1name_label = pygame.font.Font(menu_font, 18).render('{0}'.format(player1name), True, BLACK)
         player1name_rect = player1name_label.get_rect()
-        player1name_rect.left = WIDTH * 5 / 7 + 10
-        player1name_rect.centery = HEIGHT * 3 / 5
+        player1name_rect.left = WIDTH * 10/13 + 5
+        player1name_rect.centery = HEIGHT * 5 / 9
 
         # creates the player 2 name label
-        player2name_label = pygame.font.Font(menu_font, 25).render('{0}'.format(player2name), True, BLACK)
+        player2name_label = pygame.font.Font(menu_font, 18).render('{0}'.format(player2name), True, BLACK)
         player2name_rect = player2name_label.get_rect()
-        player2name_rect.left = WIDTH * 5 / 7 + 10
+        player2name_rect.left = WIDTH * 10/13 + 5
         player2name_rect.centery = HEIGHT * 5 / 7
 
         screen.blit(player1name_label, player1name_rect)

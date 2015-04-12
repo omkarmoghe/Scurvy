@@ -24,7 +24,8 @@ class HighScoreManager():
         f_in = open(self.filename, 'r')
         for line in f_in:
             score_set = line.split(':')  # split the line at the colon
-            high_scores.append((score_set[0], score_set[1], int(score_set[2])))  # first part is name, second is score
+            if len(score_set) > 2:
+                high_scores.append((score_set[0], score_set[1], int(score_set[2])))  # score_set = [name, name, score]
 
         f_in.close()
 

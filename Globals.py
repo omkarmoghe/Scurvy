@@ -39,6 +39,8 @@ home_button_image = "Resources/Home.png"
 # Text boxes
 textbox_image = "Resources/textBox.png"
 textbox_highlighted_image = "Resources/textBoxHighlighted.png"
+textbox_width = 147
+textbox_height = 40
 
 # Check boxes
 checkbox_image = "Resources/UncheckedBox.png"
@@ -67,6 +69,7 @@ classic_ship_location = "Resources/Classic/"
 maize_and_blue_ship_location = "Resources/Michigan"
 neon_ship_location = "Resources/Neon"
 ship_scale = 150  # Adjust this to change the size of the ship.
+menu_ship_scale = 150  # Adjust this to change the size of the ships as they appear in menus.
 
 # Gameplay Motion Customization
 standard_velocity = -1.0  # Adjust this to change the starting velocity. WARNING: Must be negative for rightwards motion
