@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Include everything here.
 import Gameplay
 import CustomizationMenu
