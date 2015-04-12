@@ -9,7 +9,7 @@ import math
 class PlayerShip(Ship):
 
     def __init__(self, position, folder_name):
-        self.health = 200
+        self.health = initial_health
         self.angle = 0.0
         self.folder_name = folder_name
         self.fuel = 0
@@ -31,28 +31,11 @@ class PlayerShip(Ship):
             self.rect.bottom = screen_height
             self.velocity = (self.velocity[0], min(0, self.velocity[1]))
         # Calculate angle using some good ol' Pythagorean Theorem
-        # print "Velocity : (" + str(x_vel / self.ratio) + ", " + str(-self.velocity.y) + ")"
-        # self.image = pygame.transform.rotate(self.image, actual_angle)
-        # self.rect = self.image.get_rect()
-        # self.rect.center = center_point
-        # FIXME: This needs to be fixed to fix the random spasms of the boat.
-        '''actual_angle = normalize_angle(math.tan(-self.velocity.y / (x_vel / self.ratio)))
-        new_angle = actual_angle / angle_deviations
-        # Find closest value to angle_deviations so that everything works
-        # print "Raw new angle is " + str(new_angle)
-        if new_angle - math.floor(new_angle) >= 0.5:
-            new_angle = math.ceil(new_angle)
-        else:
-            new_angle = math.floor(new_angle)
-        new_angle *= angle_deviations
-        if new_angle == -0.0:
-            new_angle = 0.0 '''
         new_angle = 0.0
         if self.velocity[1] != 0:
             number_of_images_used = (90 / angle_deviations) - 1  # This is calculated based on how many images we use.
             angle_proportion = math.ceil(abs(self.velocity[1]) / max_y_vel * number_of_images_used)
             new_angle = angle_proportion * angle_deviations  # Calculate the right angle based on image names
-        # print "New angle is " + str(new_angle) + " and the old angle is " + str(self.angle)
         if self.velocity[1] > 0 and new_angle != 0:  # Since we only checked for angles in the range [0, 90]
             new_angle = 360 - new_angle
         # if angle has changed than what it was before switch out the image and set some properties

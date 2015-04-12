@@ -1,16 +1,11 @@
-import pygame
 from Globals import *
-from CreditsMenu import *
-from pygame.locals import *
-from SettingsMenu import *
-from CustomizationMenu import *
 
 tf = open(settings_file, 'w')
 tf.write("%s\n%s\n" % ("On", ""))  # TODO: Fix resetting preferences every single time.
 tf.close()
 
 
-# This represents
+# This represents a selectable item in the menu.
 class MenuItem(pygame.font.Font):
 
     def __init__(self, text, index, count, func):
@@ -27,16 +22,14 @@ class MenuItem(pygame.font.Font):
         self.rect.y = pos_y
         self.func = func
  
-    def is_mouse_selection(self, (posx, posy)):
-        return self.rect.collidepoint(posx, posy)
+    def is_mouse_selection(self, (pos_x, pos_y)):
+        return self.rect.collidepoint(pos_x, pos_y)
  
     def set_selected(self, selected):
         if selected:
             self.font_color = BLACK
-            # self.set_italic(True)
         else:
             self.font_color = WHITE
-            # self.set_italic(False)
         self.label = self.render(self.text, True, self.font_color)
 
 
@@ -60,9 +53,6 @@ class GameMenu():
             pygame.mouse.set_visible(False)
  
     def set_keyboard_selection(self, key):
-        """
-        Marks the MenuItem chosen via up and down keys.
-        """
         for item in self.items:
             # Return all to neutral
             item.set_selected(False)
@@ -88,7 +78,6 @@ class GameMenu():
  
         # Finally check if Enter or Space is pressed
         if key == pygame.K_SPACE or key == pygame.K_RETURN:
-            text = self.items[self.cur_item].text
             pygame.mouse.set_visible(True)
             self.items[self.cur_item].func()
             pygame.display.set_caption(application_name)
@@ -108,15 +97,13 @@ class GameMenu():
 
         boat_image = classic_ship_location + "PlayerShip337.5.png"  # TODO: Make boat animation
         boat = pygame.image.load(boat_image)
-        boat = pygame.transform.scale(boat, (ship_scale, ship_scale))
+        boat = pygame.transform.scale(boat, (menu_ship_scale, menu_ship_scale))
         boat_rect = boat.get_rect()
         boat_rect.centerx = WIDTH * 4 / 5
         boat_rect.centery = HEIGHT * 2 / 5
 
         while mainloop:
-            # Limit frame speed to 50 FPS
-            self.clock.tick(50)
- 
+
             m_pos = pygame.mouse.get_pos()
  
             for event in pygame.event.get():

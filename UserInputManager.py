@@ -9,7 +9,6 @@ class UserInputManager:
         self.instructions = []
         self.current_instructions = []
         self.total_score = 0
-        # TODO: Add a random instruction
 
     def populate_random_panel_instructions(self, number_of_instructions, score):
         player_to_assign_to = 0
@@ -17,7 +16,6 @@ class UserInputManager:
         min_complexity = 0
         mean_complexity = (max_complexity / 3) * math.log10(score + 1)
         for i in range(number_of_instructions):
-            # TODO : Calculate complexity based on a normal distribution or something fancy
             unique = False
             while not unique:
                 complexity = random.gauss(mean_complexity, 0.3 * (1 + mean_complexity))

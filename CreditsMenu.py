@@ -1,6 +1,7 @@
 from Globals import *
 from ControlBox import *
 
+
 def show_credits():
     quit_status = 0
     pygame.display.set_caption('Credits')
