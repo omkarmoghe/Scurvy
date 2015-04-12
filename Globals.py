@@ -95,6 +95,3 @@ score_cheat_multiplier = 2
 rock_damage_cheat_multiplier = 0.5
 initial_cheat_score = 200
 initial_cheat_fuel = 200
-
-
-

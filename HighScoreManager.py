@@ -1,6 +1,4 @@
-import os.path
-from pygame import *
-import pygame
+import os
 from ControlBox import *
 import main
 from Globals import *
@@ -13,7 +11,7 @@ class HighScoreManager():
 
     def __init__(self, filename):
         self.filename = filename
-        self.highscores = self.load_high_scores()
+        self.high_scores = self.load_high_scores()
         self.sort_high_scores()
 
     def load_high_scores(self):
@@ -25,8 +23,8 @@ class HighScoreManager():
 
         f_in = open(self.filename, 'r')
         for line in f_in:
-            set = line.split(':')  # split the line at the colon
-            high_scores.append((set[0], set[1], int(set[2])))  # first half is name, second half is score
+            score_set = line.split(':')  # split the line at the colon
+            high_scores.append((score_set[0], score_set[1], int(score_set[2])))  # first part is name, second is score
 
         f_in.close()
 
@@ -37,26 +35,26 @@ class HighScoreManager():
 
         f_out = open(self.filename, 'w')
 
-        for pair in self.highscores:
+        for pair in self.high_scores:
             f_out.write(pair[0] + ':' + pair[1] + ':' + str(pair[2]) + '\n')
 
         f_out.close()
 
     def sort_high_scores(self):
-        self.highscores.sort(key=lambda tup: tup[2])
-        self.highscores.reverse()
+        self.high_scores.sort(key=lambda tup: tup[2])
+        self.high_scores.reverse()
 
     # set is a tuple (Player1, Player2, score)
-    def add_high_score(self, set):
-        if len(self.highscores) < 10:
+    def add_high_score(self, score_set):
+        if len(self.high_scores) < 10:
             self.sort_high_scores()
-            self.highscores.append(set)
+            self.high_scores.append(score_set)
             self.sort_high_scores()
             self.save_high_scores()
-        elif len(self.highscores) == 10:
-            self.highscores.append(set)
+        elif len(self.high_scores) == 10:
+            self.high_scores.append(score_set)
             self.sort_high_scores()
-            del self.highscores[-1]
+            del self.high_scores[-1]
             self.save_high_scores()
         else:
             assert False  # should never be the case
@@ -74,7 +72,7 @@ class HighScoreManager():
         ratio = HEIGHT / 12
         position_label_rect.centery = int(ratio)
         score_labels = []
-        for (i, score) in enumerate(self.highscores):
+        for (i, score) in enumerate(self.high_scores):
             score_label = pygame.font.Font(menu_font, 20).render('{0:12s} {1:12s} scored {2:10d} points.'.format
                                                                  (score[0], score[1], score[2]), True,
                                                                  (255, 255, 255))

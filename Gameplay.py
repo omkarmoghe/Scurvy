@@ -95,10 +95,10 @@ class Gameplay():
 
     def game_over(self):
         self.background_music.stop()
-        highscore_manager = HighScoreManager(high_score_file)
-        highscore_manager.add_high_score((self.player1Name, self.player2Name, self.score))
-        highscore_manager.draw(self.player1Name, self.player2Name, self.difficulty_easy_select,
-                               self.playerShip.folder_name)
+        high_score_manager = HighScoreManager(high_score_file)
+        high_score_manager.add_high_score((self.player1Name, self.player2Name, self.score))
+        high_score_manager.draw(self.player1Name, self.player2Name, self.difficulty_easy_select,
+                                self.playerShip.folder_name)
 
     def instructions_completed(self, add_score):
         if self.sound_on:
@@ -149,7 +149,6 @@ class Gameplay():
                 self.explosion.update_animation(self.timer)
         else:
             self.collision_ended = True
-        # TODO: Add stuff inside loop for game.
         pygame.display.update()
 
     def draw_instruction_panel(self):

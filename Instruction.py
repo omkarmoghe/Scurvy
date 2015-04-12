@@ -1,4 +1,3 @@
-import pygame
 from random import randint
 from Globals import *
 
@@ -41,8 +40,7 @@ class Instruction ():
 
 class DisplayInstruction(Instruction):
     def __init__(self, instruction, player_displayed):
-        self.message = instruction.message
-        self.complexity = instruction.complexity
+        Instruction.__init__(self, instruction.message, instruction.complexity)
         self.key_stroke = instruction.key_stroke
         self.player_number = instruction.player_number
         self.player_displayed = player_displayed
@@ -52,7 +50,6 @@ class DisplayInstruction(Instruction):
         if self.player_displayed != self.player_number:
             score += 1
         return score
-        # TODO: Some awesome algorithm to calculate the score
 
     def draw(self, height):
         x_coord = WIDTH / 4

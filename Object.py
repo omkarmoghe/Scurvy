@@ -2,7 +2,7 @@ import pygame
 
 
 # This is a generic object in the Game World. It has a nice initializer to create the Sprite.
-# It inherits from the pygame.sprite.Sprite class thus allowing all objects to be Sprites.
+# It inherits from the Sprite class thus allowing all objects to be Sprites.
 class Object(pygame.sprite.Sprite):
 
     def __init__(self, position, file_name, velocity_ratio, image_size):

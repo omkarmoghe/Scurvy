@@ -22,8 +22,8 @@ class MenuItem(pygame.font.Font):
         self.rect.y = pos_y
         self.func = func
  
-    def is_mouse_selection(self, (posx, posy)):
-        return self.rect.collidepoint(posx, posy)
+    def is_mouse_selection(self, (pos_x, pos_y)):
+        return self.rect.collidepoint(pos_x, pos_y)
  
     def set_selected(self, selected):
         if selected:

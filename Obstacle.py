@@ -42,6 +42,7 @@ class Obstacle():
             obj.velocity = velocity
 
     def check_collision(self, ship):
+        point = None
         for obj in self.obstacle_objects:
             point = pygame.sprite.collide_mask(obj, ship)
             if point:

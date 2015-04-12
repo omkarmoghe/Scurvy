@@ -59,7 +59,6 @@ def show_customization():
     player2_rect.centerx = WIDTH * 3 / 5
     player2_rect.centery = HEIGHT * 5 / 7
 
-    # creates the unchecked on box, image from iconfinder.com from visual pharm
     checkbox = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 3, HEIGHT * 3 / 5),
                           (checkbox_size, checkbox_size), True)
     checkbox2 = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 3, HEIGHT * 5 / 7),
