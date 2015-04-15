@@ -57,7 +57,7 @@ Look through the Telescope:6
 Calculate Canon Trajectory:6
 Plunder the Treasure Chest:6
 Check the Gunpowder Storage:7
-Sail Through the Carribbean:7
+Sail Through the Caribbean:7
 Dock the Ship in the Harbor:7
 Adjust the Flag to Half Mast:7
 Scan the Ocean for Obstacles:7
