@@ -1,9 +1,5 @@
 from Globals import *
 
-tf = open(settings_file, 'w')
-tf.write("%s\n%s\n" % ("On", ""))  # TODO: Fix resetting preferences every single time.
-tf.close()
-
 
 # This represents a selectable item in the menu.
 class MenuItem(pygame.font.Font):
