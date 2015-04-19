@@ -162,7 +162,7 @@ def show_customization():
                     textbox_selected = 2
 
                 if play_button.is_mouse_selection(m_pos):
-                    infile = open("sound_and_cheat.txt", "r")
+                    infile = open(settings_file, "r")
                     array = infile.readlines()
                     if player1name == "":
                         player1name = "PLAYER 1"
