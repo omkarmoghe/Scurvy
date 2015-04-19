@@ -14,7 +14,10 @@ class PlayerShip(Ship):
         self.folder_name = folder_name
         self.fuel = 0
         player_folder = str(folder_name) + "/PlayerShip" + str(self.angle) + ".png"
-        Ship.__init__(self, position, player_folder, (ship_scale, ship_scale))
+        Ship.__init__(self, position, classic_ship_location + "/PlayerShip" + str(self.angle) + ".png", (ship_scale, ship_scale))
+        self.image = pygame.image.load(str(self.folder_name) + "/PlayerShip" + str(self.angle) + ".png")
+        self.image = pygame.transform.scale(self.image, (ship_scale, ship_scale))  # Scale image
+        self.image.set_colorkey((0, 0, 0, 0))
 
     # Overrides the Object's move so that rotating the ship is possible.
     def move(self, x_vel, screen_height):
@@ -58,8 +61,12 @@ class PlayerShip(Ship):
     def input(self, keys):
         if keys[K_UP]:
             self.fuel -= reduce_fuel
+            if self.fuel < 0:
+                self.fuel = 0
             self.velocity = (self.velocity[0], self.velocity[1] - move_amount)
         if keys[K_DOWN]:
+            if self.fuel < 0:
+                self.fuel = 0
             self.fuel -= reduce_fuel
             self.velocity = (self.velocity[0], self.velocity[1] + move_amount)
         self.velocity = (self.velocity[0], min(max(min_y_vel, self.velocity[1]), max_y_vel))
