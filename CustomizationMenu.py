@@ -168,7 +168,7 @@ def show_customization():
                         player1name = "PLAYER 1"
                     if player2name == "":
                         player2name = "PLAYER 2"
-                    main.play_game(player1name, player2name, easy_selected, array[0], array[1], ship_location)
+                    main.play_game(player1name, player2name, easy_selected, array[0], array[1], array[2], ship_location)
                     return
                 elif easy_selected == 1 and checkbox2.is_mouse_selection(m_pos):
                     easy_selected = 0

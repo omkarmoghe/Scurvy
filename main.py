@@ -10,9 +10,10 @@ import pygame
 import MainMenu
 
 
-def play_game(player1name, player2name, difficulty_easy, sound_on, cheat_code, ship_location):
-    sound_on = sound_on[:len(sound_on)-1]
-    game = Gameplay.Gameplay(player1name, player2name, ship_location, difficulty_easy, sound_on, cheat_code)
+def play_game(player1name, player2name, difficulty_easy, music_on, sfx_on, cheat_code, ship_location):
+    music_on = music_on[:len(music_on)-1]
+    sfx_on = sfx_on[:len(sfx_on)-1]
+    game = Gameplay.Gameplay(player1name, player2name, ship_location, difficulty_easy, music_on, sfx_on, cheat_code)
     game.run_game()
 
 if __name__ == "__main__":

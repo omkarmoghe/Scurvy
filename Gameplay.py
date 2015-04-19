@@ -9,7 +9,7 @@ from Globals import *
 # This class creates the game play for the actual game.
 class Gameplay():
 
-    def __init__(self, player_1_name, player_2_name, folder_name, difficulty_easy, sound_on, cheat_code):
+    def __init__(self, player_1_name, player_2_name, folder_name, difficulty_easy, music_on, sfx_on, cheat_code):
         pygame.display.set_caption(application_name)
 
         self.score_multiplier = 1
@@ -26,7 +26,8 @@ class Gameplay():
         self.playerShip = PlayerShip(player_position, folder_name)
 
         self.difficulty_easy_select = difficulty_easy
-        self.sound_on = True if sound_on == "On" else False
+        self.music_on = True if music_on == sound_on_string else False
+        self.sfx_on = True if sfx_on == sound_on_string else False
         self.explosion = 0
         self.score = 0
         self.user_manager = UserInputManager()
@@ -67,7 +68,7 @@ class Gameplay():
         running = True
         self.background_music = pygame.mixer.music
         self.background_music.load(background_sound)
-        if self.sound_on:
+        if self.music_on:
             self.background_music.play(-1, 0.0)
         self.user_manager.populate_random_panel_instructions(4, 0)  # Zero is default mean
         self.user_manager.set_player_instructions()
@@ -83,7 +84,7 @@ class Gameplay():
                 if event.type == KEYDOWN:
                     score_value = self.user_manager.check_inputs(event.key)
                     if score_value == -1:
-                        if self.sound_on:
+                        if self.sfx_on:
                             self.incorrect_sound.play()
                         self.playerShip.damage(bad_instruction_damage)
                     elif score_value:
@@ -100,7 +101,7 @@ class Gameplay():
                                 self.playerShip.folder_name)
 
     def instructions_completed(self, add_score):
-        if self.sound_on:
+        if self.sfx_on:
             self.correct_sound.play()
         self.playerShip.fuel += fuel_amount
         self.score += add_score * self.score_multiplier
@@ -136,7 +137,7 @@ class Gameplay():
                 self.explosion = Animations((size_of_explosion, size_of_explosion), explosion_image,
                                             point)
                 self.playerShip.damage(damage_and_point[0])
-                if self.sound_on:
+                if self.sfx_on:
                     self.crash_sound.play()
                 self.collision_ended = False
                 if self.playerShip.fuel >= collision_fuel_punishment:

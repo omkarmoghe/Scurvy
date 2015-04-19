@@ -3,21 +3,24 @@ from Globals import *
 from pygame.locals import *
 
 
-def quit_settings(on_selected, cheat):
+def quit_settings(background_music_selected, sfx, cheat):
     settings_file_io = open(settings_file, 'w')
-    if on_selected == 0:
-        on_selected = sound_on_string
+    if background_music_selected:
+        background_selected = sound_on_string
     else:
-        on_selected = sound_off_string
+        background_selected = sound_off_string
+    if sfx:
+        sfx_selected = sound_on_string
+    else:
+        sfx_selected = sound_off_string
     if cheat == "" or not all_codes.__contains__(cheat):
         cheat = "\n"
-    settings_file_io.write("%s\n%s" % (on_selected, cheat))
+    settings_file_io.write("%s\n%s\n%s" % (background_selected, sfx_selected, cheat))
     settings_file_io.close()
 
 
 def show_settings():
     quit_status = 0
-    on_selected = 0
     textbox_selected = 0
     cheat = ''
     menu_background = pygame.image.load(menu_background_image)
@@ -36,13 +39,13 @@ def show_settings():
     sound_rect.centery = HEIGHT * 2 / 5
 
     # creates the sound on label
-    sound_on_label = pygame.font.Font(menu_font, 30).render('{0}'.format('On'), True, WHITE)
+    sound_on_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Music  '), True, WHITE)
     sound_on_rect = sound_on_label.get_rect()
     sound_on_rect.centerx = WIDTH * 1 / 4
     sound_on_rect.centery = HEIGHT * 3 / 5
 
     # creates the sound off label
-    sound_off_label = pygame.font.Font(menu_font, 30).render('{0}'.format('Off'), True, WHITE)
+    sound_off_label = pygame.font.Font(menu_font, 30).render('{0}'.format('SFX'), True, WHITE)
     sound_off_rect = sound_off_label.get_rect()
     sound_off_rect.centerx = WIDTH * 1 / 4
     sound_off_rect.centery = HEIGHT * 5 / 7
@@ -53,10 +56,10 @@ def show_settings():
     cheats_rect.centerx = WIDTH * 3 / 4
     cheats_rect.centery = HEIGHT * 2 / 5
 
-    sound_on_checkbox = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 3, HEIGHT * 3 / 5),
-                                   (checkbox_size, checkbox_size), True)
-    sound_off_checkbox = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 3, HEIGHT * 5 / 7),
-                                    (checkbox_size, checkbox_size))
+    background_music_checkbox = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 3, HEIGHT * 3 / 5),
+                                           (checkbox_size, checkbox_size), True)
+    sfx_sound_checkbox = ControlBox(checkbox_image, checkbox_selected_image, (WIDTH / 3, HEIGHT * 5 / 7),
+                                    (checkbox_size, checkbox_size), True)
 
     textbox = ControlBox(textbox_image, textbox_highlighted_image, (WIDTH * 3 / 4, HEIGHT * 3 / 5), None)
 
@@ -65,16 +68,11 @@ def show_settings():
     preferences = settings_file_io.read().split("\n")
     if len(preferences) > 0:
         if preferences[0] == sound_off_string:
-            on_selected = 1
-            sound_off_checkbox.selected = True
-            sound_on_checkbox.selected = False
-        elif preferences[0] == sound_on_string:
-            on_selected = 0
-            sound_off_checkbox.selected = False
-            sound_on_checkbox.selected = True
-        else:
-            print "Fatal error: Sound preferences could not be read."
+            background_music_checkbox.selected = False
     if len(preferences) > 1:
+        if preferences[1] == sound_off_string:
+            sfx_sound_checkbox.selected = False
+    if len(preferences) > 2:
         if all_codes.__contains__(preferences[1]):
             cheat = preferences[1]
 
@@ -97,29 +95,29 @@ def show_settings():
 
         screen.blit(back_button.image, back_button.rect)
 
-        screen.blit(sound_on_checkbox.get_image(), sound_on_checkbox.rect)
-        screen.blit(sound_off_checkbox.get_image(), sound_off_checkbox.rect)
+        screen.blit(background_music_checkbox.get_image(), background_music_checkbox.rect)
+        screen.blit(sfx_sound_checkbox.get_image(), sfx_sound_checkbox.rect)
         screen.blit(textbox.get_image(), textbox.rect)
 
         m_pos = pygame.mouse.get_pos()
         # checks to see if the user quits
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-                quit_settings(on_selected, cheat)
+                quit_settings(background_music_checkbox.selected, sfx_sound_checkbox.selected, cheat)
                 quit_status = 1
             if event.type == pygame.MOUSEBUTTONUP and event.button == LEFT:
                 if back_button.is_mouse_selection(m_pos):
-                    quit_settings(on_selected, cheat)
+                    quit_settings(background_music_checkbox.selected, sfx_sound_checkbox.selected, cheat)
                     quit_status = 1
                 if textbox.is_mouse_selection(m_pos):
                     textbox_selected = 1
-                if on_selected == 1 and sound_on_checkbox.is_mouse_selection(m_pos):
-                    on_selected = 0
-                    sound_off_checkbox.selected = False
-                elif on_selected == 0 and sound_off_checkbox.is_mouse_selection(m_pos):
-                    on_selected = 1
-                    sound_on_checkbox.selected = False
-            
+                background_select = background_music_checkbox.selected
+                if background_music_checkbox.is_mouse_selection(m_pos) and background_select:
+                    background_music_checkbox.selected = False
+                sfx_select = sfx_sound_checkbox.selected
+                if sfx_sound_checkbox.is_mouse_selection(m_pos) and sfx_select:
+                    sfx_sound_checkbox.selected = False
+
             if event.type == KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     if not all_codes.__contains__(cheat):

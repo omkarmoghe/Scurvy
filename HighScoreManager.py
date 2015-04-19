@@ -107,6 +107,6 @@ class HighScoreManager():
                     if restart_button.is_mouse_selection(pos):
                         infile = open(settings_file, "r")
                         array = infile.readlines()
-                        main.play_game(p1name, p2name, easy_selected, array[0], array[1], ship_location)
+                        main.play_game(p1name, p2name, easy_selected, array[0], array[1], array[2], ship_location)
                         return
             pygame.display.update()
