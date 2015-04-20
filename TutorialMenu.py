@@ -3,17 +3,28 @@
 # from pygame.locals import *
 # from pygame import movie
 from Globals import *
-from subprocess import Popen
-from os import getcwd
-from os import name
+# from subprocess import Popen
+# from os import getcwd
+# from os import name
+import os
+import subprocess
+import sys
+
 
 def show_tutorial():
-    if name == "posix":
-        Popen(['open', getcwd() + '/' + tutorial_movie_file_name])
-    elif name == 'nt':
-        Popen(["\"" + getcwd() + '/' + tutorial_movie_file_name + "\""])
+    if sys.platform.startswith('darwin'):
+        subprocess.call(('open', os.getcwd() + tutorial_movie_file_name))
+    elif os.name == 'nt':
+        os.startfile(os.getcwd() + tutorial_movie_file_name)
+    elif os.name == 'posix':
+        subprocess.call(('xdg-open', os.getcwd() + tutorial_movie_file_name))
+
+    # if name == "posix":
+    #     Popen(['open', getcwd() + '/' + tutorial_movie_file_name])
+    # elif name == 'nt':
+    #     Popen(["\"" + getcwd() + '/' + tutorial_movie_file_name + "\""])
     else:
-        print "The operating system type " + name + " that you are using is not supported to display videos."
+        print "The operating system type " + os.name + " that you are using is not supported to display videos."
         assert(False)
 
     # pygame.display.set_caption('Tutorial')
