@@ -13,4 +13,4 @@ def show_tutorial():
         subprocess.call(('xdg-open', os.getcwd() + tutorial_movie_file_name))
     else:
         print "The operating system type " + os.name + " that you are using is not supported to display videos."
-        assert(False)
+        assert False
