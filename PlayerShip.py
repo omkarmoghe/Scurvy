@@ -65,9 +65,9 @@ class PlayerShip(Ship):
                 self.fuel = 0
             self.velocity = (self.velocity[0], self.velocity[1] - move_amount)
         if keys[K_DOWN]:
+            self.fuel -= reduce_fuel
             if self.fuel < 0:
                 self.fuel = 0
-            self.fuel -= reduce_fuel
             self.velocity = (self.velocity[0], self.velocity[1] + move_amount)
         self.velocity = (self.velocity[0], min(max(min_y_vel, self.velocity[1]), max_y_vel))
 

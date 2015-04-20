@@ -5,6 +5,7 @@ import CustomizationMenu
 import SettingsMenu
 import CreditsMenu
 import sys
+import TutorialMenu
 from Globals import application_name
 import pygame
 import MainMenu
@@ -24,6 +25,7 @@ if __name__ == "__main__":
     funcs = {'Start': CustomizationMenu.show_customization,
              'Quit': sys.exit,
              'Settings': SettingsMenu.show_settings,
+             'Tutorial': TutorialMenu.show_tutorial,
              'Credits': CreditsMenu.show_credits}
 
     gm = MainMenu.GameMenu(funcs)
