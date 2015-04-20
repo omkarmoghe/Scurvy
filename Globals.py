@@ -28,7 +28,7 @@ correct_press_sound = 'Resources/correct_press.wav'
 incorrect_press_sound = 'Resources/incorrect_press.wav'
 crash_sound = 'Resources/crash.wav'
 background_sound = 'Resources/background_music1.wav'
-tutorial_movie_file_name = "Resources/Tutorial Video.mpg"
+tutorial_movie_file_name = "Resources/scurvy-tutorial.mp4"
 
 # Menu buttons
 button_size = 60
