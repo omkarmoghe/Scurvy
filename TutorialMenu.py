@@ -8,7 +8,6 @@ from os import getcwd
 from os import name
 
 def show_tutorial():
-    print name
     if name == "posix":
         Popen(['open', getcwd() + '/' + tutorial_movie_file_name])
     elif name == 'nt':
