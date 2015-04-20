@@ -5,11 +5,18 @@
 from Globals import *
 from subprocess import Popen
 from os import getcwd
+from os import name
 
 def show_tutorial():
-    return_code = Popen(['open', getcwd() + '/' + tutorial_movie_file_name])
-    if not return_code == 0:
+    print name
+    if name == "posix":
+        Popen(['open', getcwd() + '/' + tutorial_movie_file_name])
+    elif name == 'nt':
         Popen([getcwd() + '/' + tutorial_movie_file_name])
+    else:
+        print "The operating system type " + name + " that you are using is not supported to display videos."
+        assert(False)
+
     # pygame.display.set_caption('Tutorial')
     #
     # movie_running = 1
