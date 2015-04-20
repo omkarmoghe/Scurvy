@@ -11,7 +11,7 @@ def show_tutorial():
     if name == "posix":
         Popen(['open', getcwd() + '/' + tutorial_movie_file_name])
     elif name == 'nt':
-        Popen([getcwd() + '/' + tutorial_movie_file_name])
+        Popen(["\"" + getcwd() + '/' + tutorial_movie_file_name + "\""])
     else:
         print "The operating system type " + name + " that you are using is not supported to display videos."
         assert(False)
