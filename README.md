@@ -1,8 +1,10 @@
-# Scurvy - ENGR 100-650 W15 Project
+# Scurvy (ENGR 100-650 W15)
 
 Scurvy is a 2 player game designed to try to improve communication in children suffering from Autism Spectrum Disorders.
 
-For more info, check out:
+This game was originally developed at the University of Michigan as part of Engineering 100 Section 650 during the Winter 2015 semester.
+
+For details on the project, motivation, and in depth user manual, check out:
 
 - [The project proposal](docs/scurvy_proposal.pdf?raw=true)
 - [The user manual](docs/scurvy_manual.pdf?raw=true)
